@@ -4,9 +4,6 @@ var cookieParser = require( "cookie-parser" );
 var logger = require( "morgan" );
 var sassMiddleware = require( "node-sass-middleware" );
 
-var indexRouter = require( "./routes/index" );
-var usersRouter = require( "./routes/users" );
-
 var app = express();
 
 app.use( logger( "dev" ) );
@@ -20,9 +17,6 @@ app.use( sassMiddleware( {
     sourceMap: true
 } ) );
 app.use( express.static( path.join( __dirname, "public" ) ) );
-
-app.use( "/", indexRouter );
-app.use( "/users", usersRouter );
 
 app.listen( 8000, () => {
     console.log( "We are up and running" );
