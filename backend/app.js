@@ -1,10 +1,10 @@
-var express = require( "express" );
-var path = require( "path" );
-var cookieParser = require( "cookie-parser" );
-var logger = require( "morgan" );
-var sassMiddleware = require( "node-sass-middleware" );
+const express = require( "express" );
+const path = require( "path" );
+const cookieParser = require( "cookie-parser" );
+const logger = require( "morgan" );
+const sassMiddleware = require( "node-sass-middleware" );
 
-var app = express();
+const app = express();
 
 app.use( logger( "dev" ) );
 app.use( express.json() );
