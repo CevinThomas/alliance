@@ -13,7 +13,7 @@ exports.addUser = async ( req, res, next ) => {
     bcrypt.hash( password, 10, function ( err, hash ) {
         const user = new User( name, email, hash );
         User.addTokenToUser( email, token );
-        user.saveUser();
+        //user.saveUser();
     } );
 
 
