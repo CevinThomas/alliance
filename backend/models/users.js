@@ -1,6 +1,9 @@
 const client = require( "../database/index" );
 
 class User {
+
+    tokens = [];
+
     constructor( name, email, password ) {
         this.name = name;
         this.email = email;
@@ -8,17 +11,22 @@ class User {
     }
 
     static isUserUnique( email ) {
-        let unique = 2;
         return client.connect( () => {
-            return client.db( "alliance" ).collection( "users" ).findOne( { email } ).then( ( user ) => {
+            return client.db( process.env.DATABASENAME ).collection( "users" ).findOne( { email } ).then( ( user ) => {
                 return user;
             } );
         } );
     }
 
+    static addTokenToUser( email, token ) {
+        client.connect( () => {
+            client.db( process.env.DATABASENAME ).collection( "users" ).updateOne( { email }, { $push: { tokens: token } } );
+        } );
+    }
+
     saveUser() {
         client.connect( () => {
-            const db = client.db( "alliance" );
+            const db = client.db( process.env.DATABASENAME );
             db.collection( "users" ).insertOne( {
                 name: this.name,
                 email: this.email,

@@ -4,6 +4,7 @@ const cookieParser = require( "cookie-parser" );
 const logger = require( "morgan" );
 const sassMiddleware = require( "node-sass-middleware" );
 const userController = require( "./controllers/users" );
+require( "dotenv" ).config();
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use( sassMiddleware( {
 app.use( express.static( path.join( __dirname, "public" ) ) );
 
 app.post( "/api/add-user", userController.addUser );
-    
+
 app.listen( 8000, () => {
     console.log( "We are up and running" );
 } );
