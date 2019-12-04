@@ -25,6 +25,8 @@ app.post( "/api/add-user", userController.addUser );
 app.post( "/api/login-user", userController.login );
 app.post( "/api/logout-user", userController.logout );
 
+app.get( "/api/sandbox", userController.sandbox );
+
 mongoConnect( () => {
     app.listen( 8000 );
 } );

@@ -48,5 +48,17 @@ exports.login = async ( req, res, next ) => {
 };
 
 exports.logout = async ( req, res, next ) => {
-    
+    if ( req.headers["authorization"] ) {
+        const token = req.headers["authorization"].split( "Bearer " )[1];
+        res.status( 200 ).send( "You have been logged out" );
+    } else {
+        res.status( 200 ).send( "Failed" );
+    }
+};
+
+exports.sandbox = async ( req, res, next ) => {
+    User.findUserInDatabase( "email", req.body.email, ( user ) => {
+        console.log( user );
+    } );
+    res.status( 200 ).send( "Sandbox" );
 };
