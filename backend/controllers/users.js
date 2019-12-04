@@ -7,7 +7,7 @@ exports.addUser = async ( req, res, next ) => {
 
     try {
 
-        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
+        await User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
             if ( validated.validated === false ) {
                 return res.status( 200 ).send( validated.errorMessage );
             } else {
@@ -21,7 +21,7 @@ exports.addUser = async ( req, res, next ) => {
                             const user = new User( req.body.name, email, hash );
                             //user.saveUser();
                             User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
-                                res.status( 200 ).send( "User succesfully created" );
+                                res.status( 200 ).send( "User successfully created" );
                             } );
                         } );
                     }
@@ -36,7 +36,7 @@ exports.addUser = async ( req, res, next ) => {
 
 exports.login = async ( req, res, next ) => {
     try {
-        User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
+        await User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
             if ( validated.validated !== false ) {
                 const email = req.body.email;
                 User.findUserInDatabase( "email", email, ( user ) => {
