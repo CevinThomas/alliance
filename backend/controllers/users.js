@@ -6,8 +6,7 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
 
     try {
-
-        await User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
+        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
             if ( validated.validated === false ) {
                 return res.status( 200 ).send( validated.errorMessage );
             } else {
@@ -36,7 +35,7 @@ exports.addUser = async ( req, res, next ) => {
 
 exports.login = async ( req, res, next ) => {
     try {
-        await User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
+        User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
             if ( validated.validated !== false ) {
                 const email = req.body.email;
                 User.findUserInDatabase( "email", email, ( user ) => {

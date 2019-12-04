@@ -10,7 +10,7 @@ class User {
         this.password = password;
     }
 
-    static validateInput = async ( options, callback ) => {
+    static validateInput = ( options, callback ) => {
         Object.entries( options ).map( ( option ) => {
             if ( option[1].trim().length === 0 ) {
                 callback( { validated: false, errorMessage: "Fields cannot be empty" } );
