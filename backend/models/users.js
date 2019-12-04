@@ -20,24 +20,14 @@ class User {
         }
     };
 
-    static findUserByToken( token ) {
+    static removeTokenFromUser( token ) {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token } ).then( r => r ).catch( e => e );
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { tokens: token }, { $set: { tokens: [] } } ).then().catch();
     }
 
-    static findUserByEmail( email ) {
+    static addTokenToUser( email, token ) {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { email } ).then( r => r ).catch( e => e );
-    }
-
-    static removeTokenFromUser( email ) {
-        const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateOne( { email }, { $set: { tokens: [] } } ).then().catch();
-    }
-
-    addTokenToUser( token ) {
-        const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateOne( { email: this.email }, { $push: { tokens: token } } ).then().catch( e => console.log( e ) );
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { email }, { $push: { tokens: token } } ).then().catch( e => console.log( e ) );
     }
 
     saveUser() {
