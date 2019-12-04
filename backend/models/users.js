@@ -13,7 +13,6 @@ class User {
 
     static validateInput = async ( options, callback ) => {
         let errorArray = [];
-        console.log( options );
         Object.entries( options ).map( ( option ) => {
             if ( option[1].trim().length === 0 ) {
                 callback( { validated: false, errorMessage: "Fields cannot be empty" } );
