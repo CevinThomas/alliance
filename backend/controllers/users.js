@@ -6,14 +6,13 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
 
     try {
-        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
+        await User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
+            console.log( validated );
             if ( validated.validated === false ) {
-                return res.status( 200 ).send( validated.errorMessage );
+                res.status( 200 ).send( validated.errorMessage );
             } else {
-                User.findUserInDatabase( "email", email, ( user ) => {
-                    if ( user !== null ) {
-                        res.status( 200 ).send( "This email already exists" );
-                    } else {
+                User.findUserInDatabase( "email", req.body.email, ( user ) => {
+                    if ( user === null ) {
                         const token = jwt.sign( { email }, process.env.JWTSECRET );
 
                         bcrypt.hash( req.body.password, 10, function ( err, hash ) {
@@ -23,6 +22,8 @@ exports.addUser = async ( req, res, next ) => {
                                 res.status( 200 ).send( "User successfully created" );
                             } );
                         } );
+                    } else {
+                        res.status( 200 ).send( "This email already exists" );
                     }
                 } );
             }

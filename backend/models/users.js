@@ -10,21 +10,24 @@ class User {
         this.password = password;
     }
 
-    static validateInput = ( options, callback ) => {
+    static validateInput = async ( options, callback ) => {
+        let errorObject = {};
         Object.entries( options ).map( ( option ) => {
             if ( option[1].trim().length === 0 ) {
-                callback( { validated: false, errorMessage: "Fields cannot be empty" } );
+                errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
             } else if ( option[0] === "password" ) {
                 if ( option[1].trim().length <= 6 ) {
-                    callback( { validated: false, errorMessage: "Password must be longer than 6 characters" } );
+                    errorObject = { validated: false, errorMessage: "Password must be longer than 6 characters" };
                 }
             } else {
-                callback( { validated: true } );
+                errorObject = { validated: true };
             }
+            return errorObject;
         } );
+        callback( errorObject );
     };
 
-    static findUserInDatabase = ( method, searchParam, callback ) => {
+    static findUserInDatabase = async ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {
             db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
