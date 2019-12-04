@@ -6,8 +6,7 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
 
     try {
-        await User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
-            console.log( validated );
+        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
             if ( validated.validated === false ) {
                 res.status( 200 ).send( validated.errorMessage );
             } else {

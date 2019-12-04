@@ -10,7 +10,7 @@ class User {
         this.password = password;
     }
 
-    static validateInput = async ( options, callback ) => {
+    static validateInput = ( options, callback ) => {
         let errorObject = {};
         Object.entries( options ).map( ( option ) => {
             if ( option[1].trim().length === 0 ) {
@@ -27,7 +27,7 @@ class User {
         callback( errorObject );
     };
 
-    static findUserInDatabase = async ( method, searchParam, callback ) => {
+    static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {
             db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
