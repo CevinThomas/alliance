@@ -11,24 +11,27 @@ class User {
         this.password = password;
     }
 
-    static isUserUnique( email ) {
+    static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
-        return db.collection( "users" ).findOne( { email } ).then( r => r ).catch( e => e );
-    }
+        if ( method === "email" ) {
+            db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        } else {
+            db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        }
+    };
 
-    addTokenToUser( token ) {
+    static editUsersToken = ( options, callback ) => {
         const db = getDb();
-        db.collection( "users" ).updateOne( { email: this.email }, { $push: { tokens: token } } ).then().catch( e => console.log( e ) );
-    }
-
-    static removeTokenFromUser( email ) {
-        const db = getDb();
-        db.collection( "users" ).updateOne( { email }, { $set: { tokens: [] } } ).then().catch();
-    }
+        if ( options.method === "add" ) {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: options.email }, { $push: { tokens: options.token } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        } else {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { tokens: options.token }, { $set: { tokens: [] } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        }
+    };
 
     saveUser() {
         const db = getDb();
-        db.collection( "users" ).insertOne( this ).then().catch( e => console.log( e ) );
+        db.collection( process.env.USERSCOLLECTION ).insertOne( this ).then().catch( e => console.log( e ) );
     };
 
 
