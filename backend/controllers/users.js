@@ -8,17 +8,21 @@ exports.addUser = async ( req, res, next ) => {
     const password = req.body.password;
 
     const unique = await User.isUserUnique( email );
-    console.log( unique );
-    const token = jwt.sign( { name }, process.env.JWTSECRET );
 
-    bcrypt.hash( password, 10, function ( err, hash ) {
-        const user = new User( name, email, hash );
-        User.addTokenToUser( email, token );
-        //user.saveUser();
-    } );
+    if ( !unique === null ) {
+        res.status( 200 ).send( "This email already exists" );
+    } else {
+        const token = jwt.sign( { name }, process.env.JWTSECRET );
+
+        bcrypt.hash( password, 10, function ( err, hash ) {
+            const user = new User( name, email, hash );
+            User.addTokenToUser( email, token );
+            //user.saveUser();
+        } );
 
 
-    res.send( req.body );
+        res.status( 200 ).send( "User succesfully created" );
+    }
 };
 
 exports.login = async ( req, res, next ) => {

@@ -1,4 +1,5 @@
 const client = require( "../database/index" );
+const getDb = require( "../database/index" ).getDb;
 
 class User {
 
@@ -11,30 +12,31 @@ class User {
     }
 
     static isUserUnique( email ) {
-        this.findUserByEmail( this.test() );
+        const db = getDb();
+        return db.collection( "users" ).findOne( { email } ).then( r => r ).catch( e => e );
     }
 
     static addTokenToUser( email, token ) {
-        client.connect( () => {
+        /*client.connect( () => {
             client.db( process.env.DATABASENAME ).collection( "users" ).updateOne( { email }, { $push: { tokens: token } } );
-        } );
+        } );*/
     }
 
     static removeTokenFromUser( email ) {
-        client.connect( () => {
-            client.db( process.env.DATABASENAME ).collection( "users" ).updateOne( { email }, { $set: { tokens: [] } } );
-        } );
+        /* client.connect( () => {
+             client.db( process.env.DATABASENAME ).collection( "users" ).updateOne( { email }, { $set: { tokens: [] } } );
+         } );*/
     }
 
     saveUser() {
-        client.connect( () => {
+        /*client.connect( () => {
             const db = client.db( process.env.DATABASENAME );
             db.collection( "users" ).insertOne( {
                 name: this.name,
                 email: this.email,
                 password: this.password
             } ).then().catch( e => console.log( e ) );
-        } );
+        } );*/
     };
 
 
