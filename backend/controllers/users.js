@@ -18,7 +18,7 @@ exports.addUser = async ( req, res, next ) => {
 
                         bcrypt.hash( req.body.password, 10, function ( err, hash ) {
                             const user = new User( req.body.name, email, hash );
-                            //user.saveUser();
+                            user.saveUser();
                             User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
                                 res.status( 200 ).send( "User successfully created" );
                             } );
