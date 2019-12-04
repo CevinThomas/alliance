@@ -20,15 +20,14 @@ class User {
         }
     };
 
-    static removeTokenFromUser( token ) {
+    static editUsersToken = ( options, callback ) => {
         const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateOne( { tokens: token }, { $set: { tokens: [] } } ).then().catch();
-    }
-
-    static addTokenToUser( email, token ) {
-        const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateOne( { email }, { $push: { tokens: token } } ).then().catch( e => console.log( e ) );
-    }
+        if ( options.method === "add" ) {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: options.email }, { $push: { tokens: options.token } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        } else {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { tokens: options.token }, { $set: { tokens: [] } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        }
+    };
 
     saveUser() {
         const db = getDb();

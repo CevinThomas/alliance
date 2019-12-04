@@ -15,7 +15,9 @@ exports.addUser = async ( req, res, next ) => {
                 bcrypt.hash( req.body.password, 10, function ( err, hash ) {
                     const user = new User( req.body.name, email, hash );
                     user.saveUser();
-                    User.addTokenToUser( user.email, token );
+                    User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
+
+                    } );
                 } );
 
 
@@ -44,8 +46,9 @@ exports.login = async ( req, res, next ) => {
                         res.status( 200 ).send( "You are already logged in" );
                     } else {
                         const token = jwt.sign( { email }, process.env.JWTSECRET );
-                        User.addTokenToUser( user.email, token );
-                        res.status( 200 ).send( "You are now logged in" );
+                        User.editUsersToken( { method: "add", email: email, token: token }, ( user ) => {
+                            res.status( 200 ).send( "You are now logged in" );
+                        } );
                     }
                 } );
             }
@@ -61,8 +64,14 @@ exports.logout = async ( req, res, next ) => {
         if ( req.headers["authorization"] ) {
             const token = req.headers["authorization"].split( "Bearer " )[1];
             User.findUserInDatabase( "tokens", token, ( user ) => {
-                User.removeTokenFromUser( token );
-                res.status( 200 ).send( "You have been logged out" );
+                if ( user !== null ) {
+                    User.editUsersToken( { method: "remove", token: token }, ( user ) => {
+                        res.status( 200 ).send( "You have been logged out" );
+                    } );
+                } else {
+                    res.status( 200 ).send( "You are not logged in" );
+                }
+
             } );
         } else {
             res.status( 200 ).send( "You are not logged in" );
