@@ -17,9 +17,8 @@ class User {
     }
 
     static addTokenToUser( email, token ) {
-        /*client.connect( () => {
-            client.db( process.env.DATABASENAME ).collection( "users" ).updateOne( { email }, { $push: { tokens: token } } );
-        } );*/
+        const db = getDb();
+        db.collection( "users" ).updateOne( { email }, { $push: { tokens: token } } );
     }
 
     static removeTokenFromUser( email ) {
