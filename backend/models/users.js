@@ -11,11 +11,7 @@ class User {
     }
 
     static isUserUnique( email ) {
-        return client.connect( () => {
-            return client.db( process.env.DATABASENAME ).collection( "users" ).findOne( { email } ).then( ( user ) => {
-                return user;
-            } );
-        } );
+        this.findUserByEmail( this.test() );
     }
 
     static addTokenToUser( email, token ) {

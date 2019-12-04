@@ -4,7 +4,9 @@ const cookieParser = require( "cookie-parser" );
 const logger = require( "morgan" );
 const sassMiddleware = require( "node-sass-middleware" );
 const userController = require( "./controllers/users" );
+const mongoConnect = require( "./database/index" ).mongoConnect;
 require( "dotenv" ).config();
+
 
 const app = express();
 
@@ -19,11 +21,11 @@ app.use( sassMiddleware( {
     sourceMap: true
 } ) );
 app.use( express.static( path.join( __dirname, "public" ) ) );
-
 app.post( "/api/add-user", userController.addUser );
+app.post( "/api/login-user", userController.login );
 
-app.listen( 8000, () => {
-    console.log( "We are up and running" );
+mongoConnect( () => {
+    app.listen( 8000 );
 } );
 
 module.exports = app;

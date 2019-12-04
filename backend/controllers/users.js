@@ -8,6 +8,7 @@ exports.addUser = async ( req, res, next ) => {
     const password = req.body.password;
 
     const unique = await User.isUserUnique( email );
+    console.log( unique );
     const token = jwt.sign( { name }, process.env.JWTSECRET );
 
     bcrypt.hash( password, 10, function ( err, hash ) {
@@ -18,4 +19,8 @@ exports.addUser = async ( req, res, next ) => {
 
 
     res.send( req.body );
+};
+
+exports.login = async ( req, res, next ) => {
+    res.send( "Loggin in user" );
 };
