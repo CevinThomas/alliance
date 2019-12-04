@@ -27,14 +27,8 @@ class User {
     }
 
     saveUser() {
-        /*client.connect( () => {
-            const db = client.db( process.env.DATABASENAME );
-            db.collection( "users" ).insertOne( {
-                name: this.name,
-                email: this.email,
-                password: this.password
-            } ).then().catch( e => console.log( e ) );
-        } );*/
+        const db = getDb();
+        db.collection( "users" ).insertOne( this ).then().catch( e => console.log( e ) );
     };
 
 
