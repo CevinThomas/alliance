@@ -7,12 +7,10 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    const unique = await User.isUserUnique( email );
-
-    if ( unique !== null ) {
+    if ( User.isUserUnique( email ) !== null ) {
         res.status( 200 ).send( "This email already exists" );
     } else {
-        const token = jwt.sign( { name }, process.env.JWTSECRET );
+        const token = jwt.sign( { email }, process.env.JWTSECRET );
 
         bcrypt.hash( password, 10, function ( err, hash ) {
             const user = new User( name, email, hash );
