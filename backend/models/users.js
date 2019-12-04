@@ -11,6 +11,22 @@ class User {
         this.password = password;
     }
 
+    static validateInput = async ( options, callback ) => {
+        let errorArray = [];
+        console.log( options );
+        Object.entries( options ).map( ( option ) => {
+            if ( option[1].trim().length === 0 ) {
+                callback( { validated: false, errorMessage: "Fields cannot be empty" } );
+            } else if ( option[0] === "password" ) {
+                if ( option[1].trim().length <= 6 ) {
+                    callback( { validated: false, errorMessage: "Password must be longer than 6 characters" } );
+                }
+            } else {
+                callback( { validated: true } );
+            }
+        } );
+    };
+
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {
