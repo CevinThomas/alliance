@@ -11,7 +11,7 @@ class User {
         this.password = password;
     }
 
-    static isUserUnique( email ) {
+    static findUserByEmail( email ) {
         const db = getDb();
         return db.collection( "users" ).findOne( { email } ).then( r => r ).catch( e => e );
     }
