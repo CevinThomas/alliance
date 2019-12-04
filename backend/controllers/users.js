@@ -8,8 +8,9 @@ exports.addUser = async ( req, res, next ) => {
     const password = req.body.password;
 
     const unique = await User.isUserUnique( email );
+    console.log( unique );
 
-    if ( !unique === null ) {
+    if ( unique !== null ) {
         res.status( 200 ).send( "This email already exists" );
     } else {
         const token = jwt.sign( { name }, process.env.JWTSECRET );
@@ -17,7 +18,7 @@ exports.addUser = async ( req, res, next ) => {
         bcrypt.hash( password, 10, function ( err, hash ) {
             const user = new User( name, email, hash );
             User.addTokenToUser( email, token );
-            //user.saveUser();
+            user.saveUser();
         } );
 
 
