@@ -16,14 +16,14 @@ class User {
         return db.collection( "users" ).findOne( { email } ).then( r => r ).catch( e => e );
     }
 
-    static addTokenToUser( email, token ) {
+    addTokenToUser( token ) {
         const db = getDb();
-        db.collection( "users" ).updateOne( { email }, { $push: { tokens: token } } );
+        db.collection( "users" ).updateOne( { email: this.email }, { $push: { tokens: token } } ).then().catch( e => console.log( e ) );
     }
 
     static removeTokenFromUser( email ) {
         const db = getDb();
-        db.collection( "users" ).updateOne( { email }, { $set: { tokens: [] } } );
+        db.collection( "users" ).updateOne( { email }, { $set: { tokens: [] } } ).then().catch();
     }
 
     saveUser() {
