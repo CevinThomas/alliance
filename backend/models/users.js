@@ -1,4 +1,3 @@
-const client = require( "../database/index" );
 const getDb = require( "../database/index" ).getDb;
 
 class User {
@@ -10,6 +9,23 @@ class User {
         this.email = email;
         this.password = password;
     }
+
+    static validateInput = ( options, callback ) => {
+        let errorObject = {};
+        Object.entries( options ).map( ( option ) => {
+            if ( option[1].trim().length === 0 ) {
+                errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
+            } else if ( option[0] === "password" ) {
+                if ( option[1].trim().length <= 6 ) {
+                    errorObject = { validated: false, errorMessage: "Password must be longer than 6 characters" };
+                }
+            } else {
+                errorObject = { validated: true };
+            }
+            return errorObject;
+        } );
+        callback( errorObject );
+    };
 
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
