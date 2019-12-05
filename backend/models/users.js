@@ -27,12 +27,19 @@ class User {
         callback( errorObject );
     };
 
+    static findMultipleUsersInDatabase = ( method, searchParam, callback ) => {
+        const db = getDb();
+        searchParam.map( ( email ) => {
+            db.collection( process.env.USERSCOLLECTION ).findOne( { email } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        } );
+    };
+
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam.trim() } ).then( r => callback( r ) ).catch( e => callback( e ) );
         } else {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: searchParam } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: searchParam.trim() } ).then( r => callback( r ) ).catch( e => callback( e ) );
         }
     };
 

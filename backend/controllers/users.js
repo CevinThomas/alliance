@@ -69,6 +69,7 @@ exports.login = async ( req, res, next ) => {
 
 exports.logout = async ( req, res, next ) => {
     try {
+        //TODO: Refractor auth with new helper function
         if ( req.headers["authorization"] ) {
             const token = req.headers["authorization"].split( "Bearer " )[1];
             User.findUserInDatabase( "tokens", token, ( user ) => {
