@@ -14,6 +14,7 @@ class Challenge {
     }
 
     //TODO: Validate so that member is an email
+    //If you change this, change the test function as well
     addMembersToChallenge( members ) {
         members.map( ( member ) => {
             this.membersToInvite.push( member );

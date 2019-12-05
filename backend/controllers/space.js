@@ -24,7 +24,7 @@ exports.addUsersToSpace = async ( req, res, next ) => {
 
         } );
     } );
-    if ( token === false ) {
+    if ( !token ) {
         res.status( 200 ).send( "Please login first" );
     } else {
         res.status( 200 ).send( "Adding users" );

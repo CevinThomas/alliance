@@ -10,7 +10,6 @@ const auth = require( "./middleware/authentication" );
 const mongoConnect = require( "./database/index" ).mongoConnect;
 require( "dotenv" ).config();
 
-
 const app = express();
 
 app.use( logger( "dev" ) );

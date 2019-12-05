@@ -3,7 +3,7 @@ const Challenge = require( "../models/challenge" );
 exports.addChallenge = ( req, res, next ) => {
 
     const user = req.user;
-    const challenge = new Challenge( "Gym Workout", "Checklist", req.user._id, "This is a challenge to make sure we all workout x amount of times a month", "Workout 15 times a month" );
+    const challenge = new Challenge( req.body.name, req.body.type, req.user._id, req.body.description, req.body.goal );
 
     const membersToChallenge = [ "cevin.thomas.ny@gmail.com", "jimmy.bjornhard@anegy.se" ];
 
