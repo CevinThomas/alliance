@@ -10,9 +10,9 @@ const RightColumn = ( props ) => {
             <div id={"registration-inner"}>
                 <div>
                     <Heading class={"registration-heading"} title={"Create Account"}/>
-                    <Heading class={"registration-heading"} title={"We need some things from you"}/>
+                    <Heading type={"h3"} class={"registration-heading"} title={"We need some things from you"}/>
                 </div>
-                <div id={"registration-box"}>
+                <div id={"registration-input-box"}>
                     <Input type={"text"} placeholder={"Enter your name"} name={"name"}/>
                     <Input type={"email"} placeholder={"Enter your email"} name={"email"}/>
                     <Input type={"password"} placeholder={"Enter your password"} name={"password"}/>
