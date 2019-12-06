@@ -24,10 +24,10 @@ const RightColumn = ( props ) => {
             props.dispatch( { type: registrationConstants.NAME_REGISTRATION, payload: e.target.value } );
         }
         if ( e.target.name === "email" ) {
-
+            props.dispatch( { type: registrationConstants.EMAIL_REGISTRATION, payload: e.target.value } );
         }
         if ( e.target.name === "password" ) {
-
+            props.dispatch( { type: registrationConstants.PASSWORD_REGISTRATION, payload: e.target.value } );
         }
     };
 

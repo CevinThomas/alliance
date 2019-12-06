@@ -13,7 +13,26 @@ function rootReducer( state = initialState, action ) {
         return {
             ...state,
             userLoginCredentials: {
+                ...state.userLoginCredentials,
                 name: action.payload
+            }
+        };
+    }
+    if ( action.type === registrationConstants.EMAIL_REGISTRATION ) {
+        return {
+            ...state,
+            userLoginCredentials: {
+                ...state.userLoginCredentials,
+                email: action.payload
+            }
+        };
+    }
+    if ( action.type === registrationConstants.PASSWORD_REGISTRATION ) {
+        return {
+            ...state,
+            userLoginCredentials: {
+                ...state.userLoginCredentials,
+                password: action.payload
             }
         };
     }
