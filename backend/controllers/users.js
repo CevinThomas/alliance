@@ -6,7 +6,7 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
 
     try {
-        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
+        User.validateInput( req.body.name, email, req.body.password, ( validated ) => {
             if ( validated.validated === false ) {
                 res.status( 200 ).send( validated.errorMessage );
             } else {
@@ -16,7 +16,7 @@ exports.addUser = async ( req, res, next ) => {
 
                         bcrypt.hash( req.body.password, 10, function ( err, hash ) {
                             const user = new User( req.body.name, email, hash );
-                            user.saveUser();
+                            //user.saveUser();
                             User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
                                 res.status( 200 ).send( "User successfully created" );
                             } );
@@ -69,6 +69,7 @@ exports.login = async ( req, res, next ) => {
 
 exports.logout = async ( req, res, next ) => {
     try {
+        //TODO: Refactor auth with new helper function
         if ( req.headers["authorization"] ) {
             const token = req.headers["authorization"].split( "Bearer " )[1];
             User.findUserInDatabase( "tokens", token, ( user ) => {
