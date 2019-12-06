@@ -6,8 +6,10 @@ import RightColumn from "../Containers/registration/rightColumn";
 const Registration = () => {
     return (
         <div id={"registration"}>
-            <LeftColumn/>
-            <RightColumn/>
+            <div id={"registration-box"}>
+                <LeftColumn id={"left-column"}/>
+                <RightColumn id={"right-column"}/>
+            </div>
         </div>
     );
 };

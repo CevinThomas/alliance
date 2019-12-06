@@ -21,7 +21,7 @@ const Heading = ( props ) => {
     }
 
     return (
-        <div>
+        <div className={props.class}>
             {heading}
         </div>
     );
