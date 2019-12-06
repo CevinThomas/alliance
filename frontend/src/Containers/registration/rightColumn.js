@@ -1,13 +1,13 @@
-import React, {useEffect} from "react";
+import React from "react";
+import {connect} from "react-redux";
 import Heading from "../../Components/textElements/heading";
 import Input from "../../Components/forms/input";
 import Button from "../../Components/general/button";
-import Axios from "axios";
-import * as urls from "../../constants/urls";
+import * as registrationConstants from "../../constants/registration";
 
 const RightColumn = ( props ) => {
 
-    useEffect( () => {
+    /*useEffect( () => {
         Axios( {
             method: "POST",
             url: urls.ADD_USER_URL,
@@ -17,7 +17,19 @@ const RightColumn = ( props ) => {
                 password: "Nygiants1"
             }
         } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
-    }, [] );
+    }, [] );*/
+
+    const handleInputChange = ( e ) => {
+        if ( e.target.name === "name" ) {
+            props.dispatch( { type: registrationConstants.NAME_REGISTRATION, payload: e.target.value } );
+        }
+        if ( e.target.name === "email" ) {
+
+        }
+        if ( e.target.name === "password" ) {
+
+        }
+    };
 
     //TODO: Maybe remake this with a HOC so that the container div is not JSX inside of this container
     return (
@@ -28,9 +40,10 @@ const RightColumn = ( props ) => {
                     <Heading type={"h3"} class={"registration-heading"} title={"We need some things from you"}/>
                 </div>
                 <div id={"registration-input-box"}>
-                    <Input type={"text"} placeholder={"Enter your name"} name={"name"}/>
-                    <Input type={"email"} placeholder={"Enter your email"} name={"email"}/>
-                    <Input type={"password"} placeholder={"Enter your password"} name={"password"}/>
+                    <Input onchange={handleInputChange} type={"text"} placeholder={"Enter your name"} name={"name"}/>
+                    <Input onchange={handleInputChange} type={"email"} placeholder={"Enter your email"} name={"email"}/>
+                    <Input onchange={handleInputChange} type={"password"} placeholder={"Enter your password"}
+                           name={"password"}/>
                     <Button title={"Sign up"}/>
                 </div>
             </div>
@@ -38,4 +51,4 @@ const RightColumn = ( props ) => {
     );
 };
 
-export default RightColumn;
+export default connect()( RightColumn );
