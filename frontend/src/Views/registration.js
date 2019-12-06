@@ -1,9 +1,13 @@
 import React from "react";
+import LeftColumn from "../Containers/registration/leftColumn";
+import RightColumn from "../Containers/registration/leftColumn";
+
 
 const Registration = () => {
     return (
-        <div>
-            <h1>Hello</h1>
+        <div id={"registration"}>
+            <LeftColumn/>
+            <RightColumn/>
         </div>
     );
 };
