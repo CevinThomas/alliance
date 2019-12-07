@@ -3,6 +3,7 @@ const bcrypt = require( "bcrypt" );
 const jwt = require( "jsonwebtoken" );
 
 exports.addUser = async ( req, res, next ) => {
+    console.log( req.body );
     const email = req.body.email;
 
     try {

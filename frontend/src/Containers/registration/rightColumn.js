@@ -4,20 +4,29 @@ import Heading from "../../Components/textElements/heading";
 import Input from "../../Components/forms/input";
 import Button from "../../Components/general/button";
 import * as registrationConstants from "../../constants/registration";
+import * as urls from "../../constants/urls";
+import Axios from "axios";
+
+const mapStateToProps = state => {
+    return { userCredentials: state.userLoginCredentials };
+};
 
 const RightColumn = ( props ) => {
 
-    /*useEffect( () => {
+    console.log( props );
+    const postRegistrationCredentials = () => {
+        console.log( props );
         Axios( {
             method: "POST",
             url: urls.ADD_USER_URL,
             data: {
-                name: "Cevin",
-                email: "cevin.thomas.ny@gmail.com",
-                password: "Nygiants1"
+                name: props.userCredentials.name,
+                email: props.userCredentials.email,
+                password: props.userCredentials.email
             }
         } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
-    }, [] );*/
+    };
+
 
     const handleInputChange = ( e ) => {
         if ( e.target.name === "name" ) {
@@ -44,11 +53,11 @@ const RightColumn = ( props ) => {
                     <Input onchange={handleInputChange} type={"email"} placeholder={"Enter your email"} name={"email"}/>
                     <Input onchange={handleInputChange} type={"password"} placeholder={"Enter your password"}
                            name={"password"}/>
-                    <Button title={"Sign up"}/>
+                    <Button onclick={postRegistrationCredentials} title={"Sign up"}/>
                 </div>
             </div>
         </div>
     );
 };
 
-export default connect()( RightColumn );
+export default connect( mapStateToProps )( RightColumn );
