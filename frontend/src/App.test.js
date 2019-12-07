@@ -6,8 +6,10 @@ import App from "./App";
 
 Enzyme.configure( { adapter: new EnzymeAdapter() } );
 
+//READ => state, setState.
+
 /**
- * Factory function to create a ShallowWrapper for the App component.
+ * Factory function to create a ShallowWrapper for the leftColumn component.
  * @function setup
  * @param {object} props - Component props specific to this setup.
  * @param state
@@ -18,6 +20,15 @@ const setup = ( props = {}, state = null ) => {
     return shallow( <LeftColumn {...props}/> );
 };
 
+/**
+ * Return ShallowWrapper containing Nodes with the given data-test value.
+ * @param wrapper - Enzyme shallow wrapper to search within.
+ * @param val - Value of data-test attribute for search
+ */
+const findByTestAttr = ( wrapper, val ) => {
+    return wrapper.find( `[data-test="${val}"]` );
+};
+
 test( "Renders without crashing", () => {
     const wrapper = shallow( <App/> );
     expect( wrapper ).toBeTruthy();
@@ -25,7 +36,7 @@ test( "Renders without crashing", () => {
 
 test( "Render leftColumn Container without issues", () => {
     const wrapper = setup();
-    const appComponent = wrapper.find( "[data-test='component-leftcolumn']" );
+    const appComponent = findByTestAttr( wrapper, "component-leftcolumn" );
     expect( appComponent.length ).toBe( 1 );
 } );
 
