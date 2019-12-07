@@ -140,6 +140,21 @@
     ]
   },
   "babel": {
+    "env": {
+      "production": {
+        "plugins": [
+          [
+            "react-remove-properties",
+            {
+              "properties": [
+                "data-test",
+                "data-foo"
+              ]
+            }
+          ]
+        ]
+      }
+    },
     "presets": [
       "react-app"
     ]
