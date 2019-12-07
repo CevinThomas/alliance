@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import Heading from "../../Components/textElements/heading";
-import Input from "../../Components/forms/input";
-import Button from "../../Components/general/button";
+import Heading from "../../components/textElements/heading";
+import Input from "../../components/forms/input";
+import Button from "../../components/general/button";
 import * as registrationConstants from "../../constants/registration";
 import * as urls from "../../constants/urls";
 import Axios from "axios";

@@ -1,10 +1,10 @@
 import React from "react";
-import Heading from "../../Components/textElements/heading";
-import Button from "../../Components/general/button";
+import Heading from "../../components/textElements/heading";
+import Button from "../../components/general/button";
 
 const LeftColumn = ( props ) => {
     return (
-        <div id={props.id}>
+        <div data-test={"component-leftcolumn"} id={props.id}>
             <div id={"left-box-inner"}>
                 <Heading class={"registration-heading"} type={"h2"} title={"Welcome Back!"}/>
                 <Heading class={"registration-heading"} type={"h3"}

@@ -1,9 +1,30 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Enzyme, {shallow} from "enzyme";
+import EnzymeAdapter from "enzyme-adapter-react-16";
 import App from "./App";
+import LeftColumn from "./containers/registration/leftColumn";
 
-test( "renders without crashing", () => {
-    const div = document.createElement( "div" );
-    ReactDOM.render( <App/>, div );
-    ReactDOM.unmountComponentAtNode( div );
+Enzyme.configure( { adapter: new EnzymeAdapter() } );
+
+test( "Renders without crashing", () => {
+    const wrapper = shallow( <App/> );
+    expect( wrapper ).toBeTruthy();
+} );
+
+test( "Render leftColumn Container without issues", () => {
+    const wrapper = shallow( <LeftColumn/> );
+    const appComponent = wrapper.find( "[data-test='component-leftcolumn']" );
+    expect( appComponent.length ).toBe( 1 );
+} );
+
+test( "Runs Axios registration function", () => {
+
+} );
+
+test( "Sends user input to redux", () => {
+
+} );
+
+test( "Takes user to the login page", () => {
+
 } );
