@@ -22,14 +22,14 @@ const Heading = ( props ) => {
     }
 
     return (
-        <div className={props.class}>
+        <div data-test={"component-heading-container"} className={props.class}>
             {heading}
         </div>
     );
 };
 
 Heading.propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     class: PropTypes.string
 };
 
