@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 import Heading from "./heading";
-import {findByTestAttr} from "../../../test/testUtils";
+import {checkProps, findByTestAttr} from "../../../test/testUtils";
 
 Enzyme.configure( { adapter: new EnzymeAdapter() } );
 
@@ -28,4 +28,9 @@ test( "Displays correct title from props", () => {
     const wrapper = setup( { title: "Test title", type: "h2" } );
     const component = findByTestAttr( wrapper, "component-heading" );
     expect( component.text() ).toEqual( "Test title" );
+} );
+
+test( "Does not throw a warning with expected props", () => {
+    const expectedProps = { title: false, type: false };
+    checkProps( Heading, expectedProps );
 } );
