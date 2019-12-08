@@ -6,7 +6,7 @@ const LeftColumn = ( props ) => {
     return (
         <div data-test={"component-leftcolumn"} id={props.id}>
             <div id={"left-box-inner"}>
-                <Heading data-test={"component-leftcolumn-heading"} class={"registration-heading"} type={"h2"}
+                <Heading data-test={"component-heading"} class={"registration-heading"} type={"h2"}
                          title={"Welcome Back!"}/>
                 <Heading class={"registration-heading"} type={"h3"}
                          title={"Have you already created an account? Please go to our login page to continue"}/>

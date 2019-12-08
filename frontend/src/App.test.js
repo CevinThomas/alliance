@@ -6,8 +6,6 @@ import App from "./App";
 
 Enzyme.configure( { adapter: new EnzymeAdapter() } );
 
-//READ => simulate, .find(),
-
 /**
  * Factory function to create a ShallowWrapper for the leftColumn component.
  * @function setup
