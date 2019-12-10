@@ -1,9 +1,10 @@
 import React from "react";
+import LoginBox from "../containers/login/loginBox";
 
 const Login = () => {
     return (
-        <div>
-            
+        <div id={"login"}>
+            <LoginBox id={"login-box"}/>
         </div>
     );
 };
