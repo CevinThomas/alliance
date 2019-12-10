@@ -127,10 +127,12 @@ a:hover {
 .navbar #avatar_icon {
   color: #00cca3;
   font-size: 30px;
+  margin-bottom: -5px;
 }
 .navbar #avatar_not_logged_in {
-  color: red;
+  color: #740e17;
   font-size: 30px;
+  margin-bottom: -5px;
 }
 .navbar .link-item {
   display: inline-block;
