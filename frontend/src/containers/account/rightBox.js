@@ -5,7 +5,7 @@ import Paragraph from "../../components/textElements/paragraph";
 
 const RightBox = () => {
     return (
-        <div>
+        <div className={"account-box"}>
             <Heading type={"h3"} title={"Right Box"}/>
             <Paragraph title={"Lorem Ipsum"}/>
             <Button title={"Right Box CTA"}/>

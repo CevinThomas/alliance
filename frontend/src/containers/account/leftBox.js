@@ -5,7 +5,7 @@ import Paragraph from "../../components/textElements/paragraph";
 
 const LeftBox = () => {
     return (
-        <div>
+        <div className={"account-box"}>
             <Heading type={"h3"} title={"Left Box"}/>
             <Paragraph title={"Lorem Ipsum"}/>
             <Button title={"Left Box CTA"}/>

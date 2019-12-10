@@ -4,9 +4,11 @@ import RightBox from "../containers/account/rightBox";
 
 const Account = () => {
     return (
-        <div>
-            <LeftBox/>
-            <RightBox/>
+        <div id={"account"}>
+            <div id={"double-box-container"}>
+                <LeftBox/>
+                <RightBox/>
+            </div>
         </div>
     );
 };

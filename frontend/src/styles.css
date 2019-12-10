@@ -112,6 +112,15 @@ a:hover {
   z-index: 999;
 }
 
+#account .account-box {
+  display: inline-block;
+  width: 45%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 3px 0 #00cca3;
+}
+
 #registration #right-column button, #login #loginForm button, button {
   width: 50%;
   margin: 50px auto 0 auto;
@@ -166,6 +175,11 @@ a:hover {
   transition: 0.2s ease-in-out;
 }
 
+#account #double-box-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
 #login {
   height: 100vh;
   width: 100vw;

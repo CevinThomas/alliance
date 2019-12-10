@@ -102,6 +102,14 @@ a:hover
   padding: 20px 0
   z-index: 999
 
+%boxStyling
+  display: inline-block
+  width: 45%
+  box-sizing: border-box
+  padding: 20px
+  text-align: center
+  box-shadow: 0 0 3px 0 #00cca3
+
 %buttonStyling
   width: 50%
   margin: 50px auto 0 auto
@@ -153,6 +161,16 @@ a:hover
         -moz-transition: $transition
         -o-transition: $transition
         transition: $transition
+
+#account
+
+  #double-box-container
+    display: flex
+    justify-content: space-evenly
+    margin-top: 50px
+
+  .account-box
+    @extend %boxStyling
 
 #login
   height: 100vh
