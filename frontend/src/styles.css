@@ -43,6 +43,31 @@ h3 {
   }
 }
 
+input::placeholder {
+  color: #00cca3;
+}
+
+:focus {
+  outline: none;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+a:hover {
+  color: #00cca3;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
 #registration #right-column, #registration #left-column {
   display: flex;
   float: left;
@@ -65,6 +90,13 @@ h3 {
   font-size: 16px;
 }
 
+.navbar {
+  background-color: transparent;
+  text-align: center;
+  padding: 20px 0;
+  z-index: 999;
+}
+
 #registration #right-column button, #login #loginForm button, button {
   width: 50%;
   margin: 50px auto 0 auto;
@@ -78,8 +110,21 @@ h3 {
   font-size: 16px;
 }
 
-input::placeholder {
+.navbar .link-item {
+  display: inline-block;
+  padding: 0 20px;
+}
+.navbar .link-item a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.navbar .link-item a:hover {
   color: #00cca3;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 #login {
@@ -107,7 +152,7 @@ input::placeholder {
   padding: 20px;
   border-radius: 40px;
   border: none;
-  margin-top: 40px;
+  margin-top: 30px;
   font-size: 16px;
 }
 #login #loginForm button {

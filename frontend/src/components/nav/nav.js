@@ -4,7 +4,9 @@ import {Link} from "react-router-dom";
 const Navbar = () => {
     return (
         <div className={"navbar"}>
-            <Link to={"/registration"}>Registration</Link>
+            <li className={"link-item"}>
+                <Link to={"/registration"}>Registration</Link>
+            </li>
         </div>
     );
 };
