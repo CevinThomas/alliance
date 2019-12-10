@@ -13,9 +13,7 @@ const mapStateToProps = state => {
 
 const RightColumn = ( props ) => {
 
-    console.log( props );
     const postRegistrationCredentials = () => {
-        console.log( props );
         Axios( {
             method: "POST",
             url: urls.ADD_USER_URL,
