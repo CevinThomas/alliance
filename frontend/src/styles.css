@@ -147,9 +147,19 @@ a:hover {
   margin: 0 auto;
   margin-top: 20px;
 }
+@media (max-width: 980px) {
+  #login #not-login {
+    margin-top: 12px;
+  }
+}
 #login .error-div {
   width: 50%;
   text-align: center;
+}
+@media (max-width: 980px) {
+  #login .error-div {
+    width: 100%;
+  }
 }
 #login .error-div p {
   color: #00cca3;
@@ -182,7 +192,11 @@ a:hover {
 #login #loginForm #form-inner {
   height: 100%;
   width: 50%;
-  padding-top: 10px;
+}
+@media (max-width: 980px) {
+  #login #loginForm #form-inner {
+    width: 100%;
+  }
 }
 #login:before {
   content: "";
@@ -209,6 +223,11 @@ a:hover {
   margin-top: 20px;
   color: #fff;
   text-transform: uppercase;
+}
+@media (max-width: 980px) {
+  #login #login-box .login-header h1 {
+    margin: 40px auto 40px auto;
+  }
 }
 #login #login-box #avatar_icon {
   width: 100%;

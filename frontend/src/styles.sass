@@ -143,10 +143,14 @@ a:hover
     text-align: center
     margin: 0 auto
     margin-top: 20px
+    @media (max-width: $ipadSize)
+      margin-top: 12px
 
   .error-div
     width: 50%
     text-align: center
+    @media (max-width: $ipadSize)
+      width: 100%
 
     p
       color: $mainColor
@@ -181,7 +185,8 @@ a:hover
     #form-inner
       height: 100%
       width: 50%
-      padding-top: 10px
+      @media (max-width: $ipadSize)
+        width: 100%
 
   &:before
     content: ""
@@ -209,6 +214,8 @@ a:hover
         margin-top: 20px
         color: $whiteColor
         text-transform: uppercase
+        @media (max-width: $ipadSize)
+          margin: 40px auto 40px auto
 
     #avatar_icon
       width: 100%
