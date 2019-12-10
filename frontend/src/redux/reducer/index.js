@@ -25,8 +25,10 @@ const initialState = {
 function rootReducer( state = initialState, action ) {
     if ( action.type === registrationConstants.REGISTRATION_RESPONSE ) {
         //TODO: See if there is a better location to store the token
-        if ( action.payload.token !== "" ) {
-            localStorage.setItem( "TOKEN", action.payload.token );
+        if ( action.payload.token ) {
+            if ( action.payload.token !== "" || action.payload.token !== undefined ) {
+                localStorage.setItem( "TOKEN", action.payload.token );
+            }
         }
         return {
             ...state,
@@ -41,11 +43,21 @@ function rootReducer( state = initialState, action ) {
         };
     }
     if ( action.type === loginConstants.RESPONSE_LOGIN ) {
+        if ( action.payload.token ) {
+            if ( action.payload.token !== "" || action.payload.token !== undefined ) {
+                localStorage.setItem( "TOKEN", action.payload.token );
+            }
+        }
+
         return {
             ...state,
             userLoginInformation: {
                 ...state.userLoginInformation,
-                responseMessage: action.payload
+                response: {
+                    ...state.userLoginInformation.response,
+                    message: action.payload.message,
+                    token: action.payload.token
+                }
             }
         };
     }
