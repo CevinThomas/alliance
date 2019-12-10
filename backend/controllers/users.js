@@ -35,6 +35,7 @@ exports.addUser = async ( req, res, next ) => {
 };
 
 exports.login = async ( req, res, next ) => {
+    //TODO: Validate user input
     try {
         User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
             if ( validated.validated !== false ) {

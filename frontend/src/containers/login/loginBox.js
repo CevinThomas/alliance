@@ -9,6 +9,7 @@ import NotMember from "../../components/misc/notMember";
 import ErrorMessage from "../../components/misc/errorMessage";
 import Axios from "axios";
 import * as loginConstants from "../../constants/login";
+import * as urlConstants from "../../constants/urls";
 
 const mapStateToProps = state => {
     return { loginCredentials: state.userLoginInformation };
@@ -19,8 +20,12 @@ const LoginBox = ( props ) => {
     const sendLoginRequest = () => {
         Axios( {
             method: "POST",
-            url: ""
-        } );
+            url: urlConstants.LOGIN_USER_URL,
+            data: {
+                email: props.loginCredentials.email,
+                password: props.loginCredentials.password
+            }
+        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
     };
 
     const handleInputChange = ( e ) => {
@@ -43,7 +48,7 @@ const LoginBox = ( props ) => {
                 <div id={"form-inner"}>
                     <Input onchange={handleInputChange} placeholder={"Email"} type={"email"} name={"email"}/>
                     <Input onchange={handleInputChange} placeholder={"Password"} type={"password"} name={"password"}/>
-                    <Button title={"Login"}/>
+                    <Button onclick={sendLoginRequest} title={"Login"}/>
                     <NotMember link={"/registration"} message={"Not a member?"} id={"not-login"}/>
                 </div>
             </div>
