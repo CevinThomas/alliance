@@ -48,6 +48,7 @@ function rootReducer( state = initialState, action ) {
                 localStorage.setItem( "TOKEN", action.payload.token );
             }
         }
+
         return {
             ...state,
             userLoginInformation: {

@@ -47,14 +47,24 @@ exports.login = async ( req, res, next ) => {
                             throw err;
                         }
 
-                        if ( user.tokens.length !== 0 ) {
-                            res.status( 200 ).send( { message: "You are already logged in" } );
+                        if ( response !== false ) {
+                            if ( user.tokens.length !== 0 ) {
+                                res.status( 200 ).send( { message: "You are already logged in" } );
+                            } else {
+                                const token = jwt.sign( { email }, process.env.JWTSECRET );
+                                User.editUsersToken( {
+                                    method: "add",
+                                    email: req.body.email,
+                                    token: token
+                                }, ( user ) => {
+                                    res.status( 200 ).send( { message: "You are now logged in", token: token } );
+                                } );
+                            }
                         } else {
-                            const token = jwt.sign( { email }, process.env.JWTSECRET );
-                            User.editUsersToken( { method: "add", email: req.body.email, token: token }, ( user ) => {
-                                res.status( 200 ).send( { message: "You are now logged in", token: token } );
-                            } );
+                            res.status( 200 ).send( { message: "We could not find a user with these credentials" } );
                         }
+
+
                     } );
                 }
             } );
