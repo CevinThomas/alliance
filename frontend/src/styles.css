@@ -141,6 +141,20 @@ a:hover {
   justify-content: center;
   z-index: -1;
 }
+#login #not-login {
+  width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+#login .error-div {
+  width: 50%;
+  text-align: center;
+}
+#login .error-div p {
+  color: #00cca3;
+  margin: 0;
+}
 #login #loginForm {
   width: 100%;
   height: 50%;
