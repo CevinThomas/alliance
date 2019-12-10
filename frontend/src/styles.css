@@ -51,6 +51,21 @@ input::placeholder {
   outline: none;
 }
 
+p {
+  font-size: 16px;
+  color: #00cca3;
+}
+@media (max-width: 980px) {
+  p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 476px) {
+  p {
+    font-size: 12px;
+  }
+}
+
 a {
   color: #fff;
   text-decoration: none;
