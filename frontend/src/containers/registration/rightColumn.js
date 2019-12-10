@@ -8,6 +8,7 @@ import * as registrationConstants from "../../constants/registration";
 import * as urls from "../../constants/urls";
 import Axios from "axios";
 import ResponseMessage from "../../components/misc/responseMessage";
+import LOGGED_IN from "../../constants/token";
 
 const mapStateToProps = state => {
     return { userCredentials: state.userLoginCredentials };
@@ -30,6 +31,7 @@ const RightColumn = ( props ) => {
                 payload: response.data
             } );
             if ( response.data.message === "User was successfully created!" ) {
+                props.dispatch( { type: LOGGED_IN, payload: true } );
                 setTimeout( () => {
                     props.history.push( "/" );
                 }, 1000 );

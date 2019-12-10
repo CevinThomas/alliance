@@ -1,7 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import LOGGED_IN from "../../constants/token";
 
-const Navbar = () => {
+const mapStateToProps = state => {
+    return { isOnline: state.userIsOnline };
+};
+
+const Navbar = ( props ) => {
+
+    useEffect( () => {
+        if ( localStorage.getItem( "TOKEN" ) ) {
+            props.dispatch( { type: LOGGED_IN, payload: true } );
+        } else {
+            props.dispatch( { type: LOGGED_IN, payload: false } );
+        }
+    }, [] );
+
+
     return (
         <div className={"navbar"}>
             <li className={"link-item"}>
@@ -17,4 +33,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default connect( mapStateToProps )( Navbar );

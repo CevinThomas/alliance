@@ -1,5 +1,6 @@
 import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
+import LOGGED_IN from "../../constants/token";
 
 const initialState = {
     //TODO: Refactor state
@@ -20,9 +21,17 @@ const initialState = {
             token: ""
         }
     },
+    userIsOnline: false
 };
 
 function rootReducer( state = initialState, action ) {
+    if ( action.type === LOGGED_IN ) {
+        return {
+            ...state,
+            userIsOnline: action.payload
+        };
+    }
+
     if ( action.type === registrationConstants.REGISTRATION_RESPONSE ) {
         //TODO: See if there is a better location to store the token
         if ( action.payload.token ) {

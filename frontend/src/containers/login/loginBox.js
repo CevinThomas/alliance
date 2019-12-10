@@ -11,6 +11,7 @@ import ResponseMessage from "../../components/misc/responseMessage";
 import Axios from "axios";
 import * as loginConstants from "../../constants/login";
 import * as urlConstants from "../../constants/urls";
+import LOGGED_IN from "../../constants/token";
 
 const mapStateToProps = state => {
     return { loginCredentials: state.userLoginInformation };
@@ -32,6 +33,7 @@ const LoginBox = ( props ) => {
                 payload: response.data
             } );
             if ( response.data.message === "You are now logged in" ) {
+                props.dispatch( { type: LOGGED_IN, payload: true } );
                 setTimeout( () => {
                     props.history.push( "/" );
                 }, 1500 );
