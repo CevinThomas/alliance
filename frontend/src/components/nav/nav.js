@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import LOGGED_IN from "../../constants/token";
-import Heading from "../textElements/heading";
+import AvatarIcon from "../misc/svgLogin";
 
 const mapStateToProps = state => {
     return { isOnline: state.userIsOnline };
@@ -23,11 +23,13 @@ const Navbar = ( props ) => {
     let isOnlineElement;
     if ( props.isOnline === true ) {
         isOnlineElement = (
-            <Heading title={"WE ARE LOGGED IN"}/>
+            <Link to={"/account"}>
+                <AvatarIcon id={"avatar_icon"}/>
+            </Link>
         );
     } else {
         isOnlineElement = (
-            <Heading title={"WE ARE NOT LOGGED IN"}/>
+            <AvatarIcon id={"avatar_not_logged_in"}/>
         );
     }
 

@@ -54,7 +54,7 @@ const LoginBox = ( props ) => {
     return (
         <div id={props.id}>
             <Overlay/>
-            <AvatarIcon/>
+            <AvatarIcon id={"avatar_icon"}/>
             <Heading class={"login-header"} title={"Login"}/>
             <ResponseMessage class={"error-div"} errorMessage={props.loginCredentials.response.message}/>
             <div className={"form"} id={"loginForm"}>
