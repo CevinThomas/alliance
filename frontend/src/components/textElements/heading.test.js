@@ -18,12 +18,11 @@ test( "Renders without crashing", () => {
     expect( component.length ).toBe( 1 );
 } );
 
-//TODO: Fix this test
-/*test( "Displays correct H element from props", () => {
+test( "Displays correct H element from props", () => {
     const wrapper = setup( { title: "hello", type: "h2" } );
-    const component = findByTestAttr( wrapper, "component-heading-container" );
-    expect( component.containsMatchingElement( <h2/> ) ).toBeTruthy();
-} );*/
+    const component = findByTestAttr( wrapper, "component-heading" );
+    expect( component.matchesElement( <h2>hello</h2> ) ).toBeTruthy();
+} );
 
 test( "Displays correct title from props", () => {
     const wrapper = setup( { title: "Test title", type: "h2" } );
