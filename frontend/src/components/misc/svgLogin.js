@@ -2,9 +2,9 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 
-const AvatarIcon = () => {
+const AvatarIcon = ( props ) => {
     return (
-        <FontAwesomeIcon id={"avatar_icon"} icon={faUserCircle}/>
+        <FontAwesomeIcon id={props.id} icon={faUserCircle}/>
     );
 };
 

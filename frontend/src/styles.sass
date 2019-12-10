@@ -1,5 +1,6 @@
 $mainColor: #00cca3
 $whiteColor: #fff
+$redColor: #740e17
 
 $ipadSize: 980px
 $phoneSize: 476px
@@ -117,6 +118,17 @@ a:hover
 
 .navbar
   @extend %navBarStyling
+
+  #avatar_icon
+    color: $mainColor
+    font-size: 30px
+    margin-bottom: -5px
+
+  #avatar_not_logged_in
+    color: $redColor
+    font-size: 30px
+    margin-bottom: -5px
+
 
   .link-item
     display: inline-block
