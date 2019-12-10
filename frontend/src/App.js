@@ -1,11 +1,15 @@
 import React from "react";
 import "./styles.css";
-import Registration from "./Views/registration";
+import Registration from "./views/registration";
+import Login from "./views/login";
 import {Route} from "react-router-dom";
 
 function App() {
     return (
-        <Route path={"/registration"} component={Registration}/>
+        <React.Fragment>
+            <Route path={"/registration"} component={Registration}/>
+            <Route path={"/login"} component={Login}/>
+        </React.Fragment>
     );
 }
 
