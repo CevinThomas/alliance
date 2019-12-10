@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 import AvatarIcon from "../../components/misc/svgLogin";
 import Heading from "../../components/textElements/heading";
 import Input from "../../components/forms/input";
@@ -6,8 +7,32 @@ import Button from "../../components/general/button";
 import Overlay from "../../components/general/overlay";
 import NotMember from "../../components/misc/notMember";
 import ErrorMessage from "../../components/misc/errorMessage";
+import Axios from "axios";
+import * as loginConstants from "../../constants/login";
+
+const mapStateToProps = state => {
+    return { loginCredentials: state.userLoginInformation };
+};
 
 const LoginBox = ( props ) => {
+
+    const sendLoginRequest = () => {
+        Axios( {
+            method: "POST",
+            url: ""
+        } );
+    };
+
+    const handleInputChange = ( e ) => {
+        if ( e.target.name === "email" ) {
+            props.dispatch( { type: loginConstants.EMAIL_LOGIN, payload: e.target.value } );
+        }
+
+        if ( e.target.name === "password" ) {
+            props.dispatch( { type: loginConstants.PASSWORD_LOGIN, payload: e.target.value } );
+        }
+    };
+
     return (
         <div id={props.id}>
             <Overlay/>
@@ -16,8 +41,8 @@ const LoginBox = ( props ) => {
             <ErrorMessage class={"error-div"} errorMessage={"Error test"}/>
             <div className={"form"} id={"loginForm"}>
                 <div id={"form-inner"}>
-                    <Input placeholder={"Email"} type={"email"} name={"email"}/>
-                    <Input placeholder={"Password"} type={"password"} name={"password"}/>
+                    <Input onchange={handleInputChange} placeholder={"Email"} type={"email"} name={"email"}/>
+                    <Input onchange={handleInputChange} placeholder={"Password"} type={"password"} name={"password"}/>
                     <Button title={"Login"}/>
                     <NotMember link={"/registration"} message={"Not a member?"} id={"not-login"}/>
                 </div>
@@ -26,4 +51,4 @@ const LoginBox = ( props ) => {
     );
 };
 
-export default LoginBox;
+export default connect( mapStateToProps )( LoginBox );
