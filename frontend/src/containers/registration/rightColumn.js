@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import Heading from "../../components/textElements/heading";
 import Input from "../../components/forms/input";
 import Button from "../../components/general/button";
@@ -23,10 +24,17 @@ const RightColumn = ( props ) => {
                 email: props.userCredentials.email,
                 password: props.userCredentials.password
             }
-        } ).then( response => props.dispatch( {
-            type: registrationConstants.REGISTRATION_RESPONSE,
-            payload: response.data
-        } ) ).catch( e => console.log( e ) );
+        } ).then( ( response ) => {
+            props.dispatch( {
+                type: registrationConstants.REGISTRATION_RESPONSE,
+                payload: response.data
+            } );
+            if ( response.data.message === "User was successfully created!" ) {
+                setTimeout( () => {
+                    props.history.push( "/" );
+                }, 1000 );
+            }
+        } ).catch( e => console.log( e ) );
     };
 
 
@@ -63,4 +71,4 @@ const RightColumn = ( props ) => {
     );
 };
 
-export default connect( mapStateToProps )( RightColumn );
+export default connect( mapStateToProps )( withRouter( RightColumn ) );

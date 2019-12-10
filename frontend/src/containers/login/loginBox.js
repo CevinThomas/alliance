@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import AvatarIcon from "../../components/misc/svgLogin";
 import Heading from "../../components/textElements/heading";
 import Input from "../../components/forms/input";
@@ -25,10 +26,17 @@ const LoginBox = ( props ) => {
                 email: props.loginCredentials.email,
                 password: props.loginCredentials.password
             }
-        } ).then( response => props.dispatch( {
-            type: loginConstants.RESPONSE_LOGIN,
-            payload: response.data
-        } ) ).catch( e => console.log( e ) );
+        } ).then( ( response ) => {
+            props.dispatch( {
+                type: loginConstants.RESPONSE_LOGIN,
+                payload: response.data
+            } );
+            if ( response.data.message === "You are now logged in" ) {
+                setTimeout( () => {
+                    props.history.push( "/" );
+                }, 1500 );
+            }
+        } ).catch( e => console.log( e ) );
     };
 
     const handleInputChange = ( e ) => {
@@ -59,4 +67,4 @@ const LoginBox = ( props ) => {
     );
 };
 
-export default connect( mapStateToProps )( LoginBox );
+export default connect( mapStateToProps )( withRouter( LoginBox ) );
