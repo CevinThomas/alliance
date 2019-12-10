@@ -143,8 +143,7 @@ a:hover
     text-align: center
     margin: 0 auto
     margin-top: 20px
-    @media (max-width: $ipadSize)
-      margin-top: 12px
+
 
   .error-div
     width: 50%
@@ -200,12 +199,16 @@ a:hover
 
   #login-box
     height: 60%
-    width: 60%
+    width: 80%
     max-width: 800px
     max-height: 550px
     z-index: 999
     position: relative
     padding: 0 50px
+    box-sizing: border-box
+    @media(max-width: $phoneSize)
+      padding: 0 20px
+      width: 90%
 
     .login-header
       h1
@@ -215,7 +218,7 @@ a:hover
         color: $whiteColor
         text-transform: uppercase
         @media (max-width: $ipadSize)
-          margin: 40px auto 40px auto
+          margin: 30px auto 20px auto
 
     #avatar_icon
       width: 100%
