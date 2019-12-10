@@ -6,10 +6,15 @@ import * as serviceWorker from "./serviceWorker";
 import "./redux/index";
 import {Provider} from "react-redux";
 import store from "./redux/store/index";
+import Navbar from "./components/nav/nav";
+import {BrowserRouter as Router} from "react-router-dom";
 
 const app = (
     <Provider store={store}>
-        <App/>
+        <Router>
+            <Navbar/>
+            <App/>
+        </Router>
     </Provider>
 );
 
