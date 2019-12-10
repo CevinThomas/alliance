@@ -6,9 +6,9 @@ exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
 
     try {
-        User.validateInput( req.body.name, email, req.body.password, ( validated ) => {
+        User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
             if ( validated.validated === false ) {
-                res.status( 200 ).send( validated.errorMessage );
+                res.status( 200 ).send( { message: validated.errorMessage } );
             } else {
                 User.findUserInDatabase( "email", req.body.email, ( user ) => {
                     if ( user === null ) {
@@ -16,13 +16,14 @@ exports.addUser = async ( req, res, next ) => {
 
                         bcrypt.hash( req.body.password, 10, function ( err, hash ) {
                             const user = new User( req.body.name, email, hash );
-                            //user.saveUser();
+                            user.saveUser();
                             User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
-                                res.status( 200 ).send( "User successfully created" );
+                                res.status( 200 ).send( { message: "User was successfully created!", token: token } );
                             } );
                         } );
                     } else {
-                        res.status( 200 ).send( "This email already exists" );
+                        console.log( "hello" );
+                        res.status( 200 ).send( { message: "This email already exists" } );
                     }
                 } );
             }
@@ -34,37 +35,35 @@ exports.addUser = async ( req, res, next ) => {
 };
 
 exports.login = async ( req, res, next ) => {
-    try {
-        User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
-            if ( validated.validated !== false ) {
-                const email = req.body.email;
-                User.findUserInDatabase( "email", email, ( user ) => {
-                    if ( user === null ) {
-                        res.status( 200 ).send( "We could not find a user with these credentials" );
-                    } else {
-                        bcrypt.compare( req.body.password, user.password, ( err, response ) => {
-                            if ( err ) {
-                                throw err;
-                            }
+    console.log( req.body );
+    User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
+        if ( validated.validated !== false ) {
+            const email = req.body.email;
+            User.findUserInDatabase( "email", email, ( user ) => {
+                if ( user === null ) {
+                    res.status( 200 ).send( "We could not find a user with these credentials" );
+                } else {
+                    bcrypt.compare( req.body.password, user.password, ( err, response ) => {
+                        if ( err ) {
+                            throw err;
+                        }
 
-                            if ( user.tokens.length !== 0 ) {
-                                res.status( 200 ).send( "You are already logged in" );
-                            } else {
-                                const token = jwt.sign( { email }, process.env.JWTSECRET );
-                                User.editUsersToken( { method: "add", email: email, token: token }, ( user ) => {
-                                    res.status( 200 ).send( "You are now logged in" );
-                                } );
-                            }
-                        } );
-                    }
-                } );
-            } else {
-                res.status( 200 ).send( validated.errorMessage );
-            }
-        } );
-    } catch {
-        res.status( 500 ).send();
-    }
+                        if ( user.tokens.length !== 0 ) {
+                            res.status( 200 ).send( "You are already logged in" );
+                        } else {
+                            const token = jwt.sign( { email }, process.env.JWTSECRET );
+                            User.editUsersToken( { method: "add", email: req.body.email, token: token }, ( user ) => {
+                                res.status( 200 ).send( "You are now logged in" );
+                            } );
+                        }
+                    } );
+                }
+            } );
+        } else {
+            res.status( 200 ).send( validated.errorMessage );
+        }
+    } );
+
 };
 
 exports.logout = async ( req, res, next ) => {

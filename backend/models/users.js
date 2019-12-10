@@ -11,18 +11,23 @@ class User {
     }
 
     //If you change this, make sure to change the test for it as well
-    static validateInput = ( name, email, password, callback ) => {
+    static validateInput = ( options, callback ) => {
         let errorObject = {};
 
+        console.log( options.password.length );
 
-        if ( name.trim().length <= 0 ) {
-            errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
-            return callback( errorObject );
+
+        if ( options.name ) {
+            if ( options.name.trim().length <= 0 ) {
+                errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
+                return callback( errorObject );
+            }
         }
 
-        if ( email.length <= 0 || password.length <= 0 ) {
-            return errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
-        } else if ( password.length <= 6 ) {
+        if ( options.email.length <= 0 || options.password.length <= 0 ) {
+            errorObject = { validated: false, errorMessage: "Fields cannot be empty" };
+            return callback( errorObject );
+        } else if ( options.password.length <= 6 ) {
             errorObject = { validated: false, errorMessage: "Password must be longer than 6 characters" };
             return callback( errorObject );
         } else {
