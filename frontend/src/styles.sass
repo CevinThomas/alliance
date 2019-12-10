@@ -105,6 +105,16 @@ a:hover
   border: none
   font-size: 16px
 
+.error-div
+  width: 50%
+  text-align: center
+  @media (max-width: $ipadSize)
+    width: 100%
+
+  p
+    color: $mainColor
+    margin: 0
+
 .navbar
   @extend %navBarStyling
 
@@ -143,17 +153,6 @@ a:hover
     text-align: center
     margin: 0 auto
     margin-top: 20px
-
-
-  .error-div
-    width: 50%
-    text-align: center
-    @media (max-width: $ipadSize)
-      width: 100%
-
-    p
-      color: $mainColor
-      margin: 0
 
   #loginForm
     width: 100%
@@ -250,6 +249,9 @@ a:hover
   background-size: cover
   background: url("./images/deer-background.jpg") center
   background-size: cover
+
+  .error-div
+    margin: 0 auto
 
   &:before
     content: ""

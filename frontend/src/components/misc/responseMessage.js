@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorMessage = ( props ) => {
+const ResponseMessage = ( props ) => {
     return (
         <div className={props.class}>
             <p>{props.errorMessage}</p>
@@ -8,4 +8,4 @@ const ErrorMessage = ( props ) => {
     );
 };
 
-export default ErrorMessage;
+export default ResponseMessage;

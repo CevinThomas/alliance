@@ -3,13 +3,12 @@ const bcrypt = require( "bcrypt" );
 const jwt = require( "jsonwebtoken" );
 
 exports.addUser = async ( req, res, next ) => {
-    console.log( req.body );
     const email = req.body.email;
 
     try {
         User.validateInput( { name: req.body.name, email: email, password: req.body.password }, ( validated ) => {
             if ( validated.validated === false ) {
-                res.status( 200 ).send( validated.errorMessage );
+                res.status( 200 ).send( { message: validated.errorMessage } );
             } else {
                 User.findUserInDatabase( "email", req.body.email, ( user ) => {
                     if ( user === null ) {
@@ -17,13 +16,14 @@ exports.addUser = async ( req, res, next ) => {
 
                         bcrypt.hash( req.body.password, 10, function ( err, hash ) {
                             const user = new User( req.body.name, email, hash );
-                            //user.saveUser();
+                            user.saveUser();
                             User.editUsersToken( { method: "add", email: user.email, token: token }, ( user ) => {
-                                res.status( 200 ).send( "User successfully created" );
+                                res.status( 200 ).send( { message: "User was successfully created!", token: token } );
                             } );
                         } );
                     } else {
-                        res.status( 200 ).send( "This email already exists" );
+                        console.log( "hello" );
+                        res.status( 200 ).send( { message: "This email already exists" } );
                     }
                 } );
             }
@@ -52,7 +52,7 @@ exports.login = async ( req, res, next ) => {
                             res.status( 200 ).send( "You are already logged in" );
                         } else {
                             const token = jwt.sign( { email }, process.env.JWTSECRET );
-                            User.editUsersToken( { method: "add", email: email, token: token }, ( user ) => {
+                            User.editUsersToken( { method: "add", email: req.body.email, token: token }, ( user ) => {
                                 res.status( 200 ).send( "You are now logged in" );
                             } );
                         }

@@ -6,6 +6,7 @@ import Button from "../../components/general/button";
 import * as registrationConstants from "../../constants/registration";
 import * as urls from "../../constants/urls";
 import Axios from "axios";
+import ResponseMessage from "../../components/misc/responseMessage";
 
 const mapStateToProps = state => {
     return { userCredentials: state.userLoginCredentials };
@@ -20,9 +21,12 @@ const RightColumn = ( props ) => {
             data: {
                 name: props.userCredentials.name,
                 email: props.userCredentials.email,
-                password: props.userCredentials.email
+                password: props.userCredentials.password
             }
-        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        } ).then( response => props.dispatch( {
+            type: registrationConstants.REGISTRATION_RESPONSE,
+            payload: response.data
+        } ) ).catch( e => console.log( e ) );
     };
 
 
@@ -45,6 +49,7 @@ const RightColumn = ( props ) => {
                 <div>
                     <Heading class={"registration-heading"} title={"Create Account"}/>
                     <Heading type={"h3"} class={"registration-heading"} title={"We need some things from you"}/>
+                    <ResponseMessage class={"error-div"} errorMessage={props.userCredentials.response.message}/>
                 </div>
                 <div id={"registration-input-box"}>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"Enter your name"} name={"name"}/>

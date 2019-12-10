@@ -6,7 +6,7 @@ import Input from "../../components/forms/input";
 import Button from "../../components/general/button";
 import Overlay from "../../components/general/overlay";
 import NotMember from "../../components/misc/notMember";
-import ErrorMessage from "../../components/misc/errorMessage";
+import ResponseMessage from "../../components/misc/responseMessage";
 import Axios from "axios";
 import * as loginConstants from "../../constants/login";
 import * as urlConstants from "../../constants/urls";
@@ -25,7 +25,10 @@ const LoginBox = ( props ) => {
                 email: props.loginCredentials.email,
                 password: props.loginCredentials.password
             }
-        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        } ).then( response => props.dispatch( {
+            type: loginConstants.RESPONSE_LOGIN,
+            payload: response.data
+        } ) ).catch( e => console.log( e ) );
     };
 
     const handleInputChange = ( e ) => {
@@ -43,7 +46,7 @@ const LoginBox = ( props ) => {
             <Overlay/>
             <AvatarIcon/>
             <Heading class={"login-header"} title={"Login"}/>
-            <ErrorMessage class={"error-div"} errorMessage={"Error test"}/>
+            <ResponseMessage class={"error-div"} errorMessage={props.loginCredentials.responseMessage}/>
             <div className={"form"} id={"loginForm"}>
                 <div id={"form-inner"}>
                     <Input onchange={handleInputChange} placeholder={"Email"} type={"email"} name={"email"}/>

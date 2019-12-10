@@ -14,7 +14,7 @@ class User {
     static validateInput = ( options, callback ) => {
         let errorObject = {};
 
-        console.log( options.email.length );
+        console.log( options.password.length );
 
 
         if ( options.name ) {
