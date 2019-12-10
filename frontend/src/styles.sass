@@ -93,6 +93,37 @@ input
   justify-content: center
   z-index: -1
 
+  #loginForm
+    width: 100%
+    height: 50%
+
+    input
+      box-sizing: border-box
+      width: 100%
+      display: block
+      padding: 20px
+      border-radius: 40px
+      border: none
+      margin-top: 40px
+      font-size: 16px
+      @extend %inputStyling
+
+    button
+      box-sizing: border-box
+      width: 100%
+      display: block
+      padding: 20px
+      border-radius: 40px
+      border: none
+      margin-top: 40px
+      font-size: 16px
+      @extend %buttonStyling
+
+    #form-inner
+      height: 100%
+      width: 50%
+      padding-top: 10px
+
   &:before
     content: ""
     height: 100%
@@ -111,6 +142,20 @@ input
     z-index: 999
     position: relative
     padding: 0 50px
+
+    .login-header
+      h1
+        width: fit-content
+        border-bottom: 8px solid #fff
+        margin-top: 20px
+        color: $whiteColor
+        text-transform: uppercase
+
+    #avatar_icon
+      width: 100%
+      font-size: 120px
+      color: #00cca3
+      margin-top: -30px
 
     .overlay
       content: ""

@@ -10,11 +10,14 @@ const LoginBox = ( props ) => {
         <div id={props.id}>
             <Overlay/>
             <AvatarIcon/>
-            <Heading title={"Login"}/>
-            <Input/>
-            <Input/>
-            <Input/>
-            <Button/>
+            <Heading class={"login-header"} title={"Login"}/>
+            <div className={"form"} id={"loginForm"}>
+                <div id={"form-inner"}>
+                    <Input placeholder={"Email"} type={"email"} name={"email"}/>
+                    <Input placeholder={"Password"} type={"password"} name={"password"}/>
+                    <Button title={"Login"}/>
+                </div>
+            </div>
         </div>
     );
 };
