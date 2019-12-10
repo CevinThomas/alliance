@@ -46,7 +46,7 @@ const LoginBox = ( props ) => {
             <Overlay/>
             <AvatarIcon/>
             <Heading class={"login-header"} title={"Login"}/>
-            <ResponseMessage class={"error-div"} errorMessage={props.loginCredentials.responseMessage}/>
+            <ResponseMessage class={"error-div"} errorMessage={props.loginCredentials.response.message}/>
             <div className={"form"} id={"loginForm"}>
                 <div id={"form-inner"}>
                     <Input onchange={handleInputChange} placeholder={"Email"} type={"email"} name={"email"}/>

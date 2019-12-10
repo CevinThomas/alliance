@@ -35,13 +35,12 @@ exports.addUser = async ( req, res, next ) => {
 };
 
 exports.login = async ( req, res, next ) => {
-    console.log( req.body );
     User.validateInput( { email: req.body.email, password: req.body.password }, ( validated ) => {
         if ( validated.validated !== false ) {
             const email = req.body.email;
             User.findUserInDatabase( "email", email, ( user ) => {
                 if ( user === null ) {
-                    res.status( 200 ).send( "We could not find a user with these credentials" );
+                    res.status( 200 ).send( { message: "We could not find a user with these credentials" } );
                 } else {
                     bcrypt.compare( req.body.password, user.password, ( err, response ) => {
                         if ( err ) {
@@ -49,27 +48,27 @@ exports.login = async ( req, res, next ) => {
                         }
 
                         if ( user.tokens.length !== 0 ) {
-                            res.status( 200 ).send( "You are already logged in" );
+                            res.status( 200 ).send( { message: "You are already logged in" } );
                         } else {
                             const token = jwt.sign( { email }, process.env.JWTSECRET );
                             User.editUsersToken( { method: "add", email: req.body.email, token: token }, ( user ) => {
-                                res.status( 200 ).send( "You are now logged in" );
+                                res.status( 200 ).send( { message: "You are now logged in", token: token } );
                             } );
                         }
                     } );
                 }
             } );
         } else {
-            res.status( 200 ).send( validated.errorMessage );
+            res.status( 200 ).send( { message: validated.errorMessage } );
         }
     } );
 
 };
 
 exports.logout = async ( req, res, next ) => {
-    try {
-        //TODO: Refactor auth with new helper function
-        if ( req.headers["authorization"] ) {
+    //TODO: Refactor auth with new helper function
+    if ( req.headers["authorization"] ) {
+        if ( req.headers["authorization"] !== null ) {
             const token = req.headers["authorization"].split( "Bearer " )[1];
             User.findUserInDatabase( "tokens", token, ( user ) => {
                 if ( user !== null ) {
@@ -84,11 +83,11 @@ exports.logout = async ( req, res, next ) => {
         } else {
             res.status( 200 ).send( "You are not logged in" );
         }
-    } catch {
-        res.status( 500 ).send();
+    } else {
+        res.status( 200 ).send( "You are not logged in" );
     }
-
-};
+}
+;
 
 exports.sandbox = async ( req, res, next ) => {
     User.findUserInDatabase( "email", req.body.email, ( user ) => {

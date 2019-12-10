@@ -10,6 +10,9 @@ const Navbar = () => {
             <li className={"link-item"}>
                 <Link to={"/registration"}>Registration</Link>
             </li>
+            <li className={"link-item"}>
+                <Link to={"/logout"}>Logout</Link>
+            </li>
         </div>
     );
 };
