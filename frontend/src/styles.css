@@ -112,6 +112,7 @@ a:hover {
   padding: 20px;
   margin: 20px;
   box-sizing: border-box;
+  background-color: #fff;
 }
 
 .navbar {
@@ -129,6 +130,7 @@ a:hover {
   text-align: center;
   box-shadow: 0 0 3px 0 #00cca3;
   margin: 20px;
+  background-color: #fff;
 }
 
 #registration #right-column button, #login #loginForm button, button {
@@ -144,6 +146,30 @@ a:hover {
   font-size: 16px;
 }
 
+#admin .boxes {
+  height: 50%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+#account, #admin {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
 .error-div {
   width: 50%;
   text-align: center;
@@ -156,6 +182,18 @@ a:hover {
 .error-div p {
   color: #00cca3;
   margin: 0;
+}
+
+.overlay {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .navbar #avatar_icon {
@@ -185,6 +223,30 @@ a:hover {
   transition: 0.2s ease-in-out;
 }
 
+#admin {
+  background: url("./images/low-poly-3614652_1920.jpg") center no-repeat;
+  background-size: cover;
+}
+#admin #admin-sideMenu {
+  height: 80%;
+  width: 10%;
+  background-color: #00cca3;
+}
+#admin #admin-box-container {
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+#account {
+  background: url("./images/small-poly-3350169_1920.jpg") center no-repeat;
+  background-size: cover;
+  display: block;
+}
 #account #double-section-container {
   display: flex;
   justify-content: center;
@@ -222,7 +284,7 @@ a:hover {
 #account #double-box-container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 150px;
 }
 #login {
   height: 100vh;
@@ -320,17 +382,6 @@ a:hover {
   font-size: 120px;
   color: #00cca3;
   margin-top: -30px;
-}
-#login #login-box .overlay {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #000;
-  opacity: 0.5;
-  z-index: -1;
 }
 
 #registration {
