@@ -255,6 +255,12 @@ a:hover {
   -moz-transition: 0.5s ease-in-out;
   -o-transition: 0.5s ease-in-out;
 }
+@media (max-width: 767px) {
+  #admin .boxes {
+    height: 25%;
+    width: 100%;
+  }
+}
 #admin .boxes .box-container {
   z-index: 999;
 }
@@ -287,6 +293,14 @@ a:hover {
   justify-content: center;
   align-items: center;
 }
+@media (max-width: 767px) {
+  #admin #admin-sideMenu {
+    position: absolute;
+    top: 92px;
+    width: 80%;
+    height: 3%;
+  }
+}
 #admin #admin-sideMenu #admin-side-menu {
   height: 100%;
   width: 100%;
@@ -298,6 +312,14 @@ a:hover {
   height: 50%;
   position: relative;
 }
+@media (max-width: 767px) {
+  #admin #admin-sideMenu #admin-side-menu .side-menu-link-container {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    z-index: 999999;
+  }
+}
 #admin #admin-sideMenu #admin-side-menu .side-menu-link-container:hover a {
   color: #00cca3;
 }
@@ -308,6 +330,11 @@ a:hover {
   background-color: #fff;
   left: 0;
 }
+@media (max-width: 767px) {
+  #admin #admin-sideMenu #admin-side-menu .side-menu-link-container .overlay-transition {
+    z-index: -1;
+  }
+}
 #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a {
   display: flex;
   align-items: center;
@@ -315,6 +342,11 @@ a:hover {
   justify-content: center;
   width: 100%;
   z-index: 999;
+}
+@media (max-width: 767px) {
+  #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a {
+    height: 100%;
+  }
 }
 #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a:hover {
   color: #00cca3;

@@ -3,6 +3,7 @@ $whiteColor: #fff
 $redColor: #740e17
 
 $ipadSize: 980px
+$largePhoneSize: 767px
 $phoneSize: 476px
 $smallPhoneSize: 375px
 
@@ -240,6 +241,9 @@ a:hover
     -webkit-transition: $overlayTransition
     -moz-transition: $overlayTransition
     -o-transition: $overlayTransition
+    @media (max-width: $largePhoneSize)
+      height: 25%
+      width: 100%
 
     .box-container
       z-index: 999
@@ -276,6 +280,11 @@ a:hover
     display: flex
     justify-content: center
     align-items: center
+    @media (max-width: $largePhoneSize)
+      position: absolute
+      top: 92px
+      width: 80%
+      height: 3%
 
     #admin-side-menu
       height: 100%
@@ -287,6 +296,11 @@ a:hover
         text-align: center
         height: 50%
         position: relative
+        @media (max-width: $largePhoneSize)
+          display: inline-block
+          width: 50%
+          height: 100%
+          z-index: 999999
 
         &:hover
           a
@@ -299,6 +313,8 @@ a:hover
           @extend %overlayTransitionShared
           background-color: $whiteColor
           left: 0
+          @media (max-width: $largePhoneSize)
+            z-index: -1
 
         a
           display: flex
@@ -307,6 +323,8 @@ a:hover
           justify-content: center
           width: 100%
           z-index: 999
+          @media (max-width: $largePhoneSize)
+            height: 100%
 
           &:hover
             color: $mainColor
