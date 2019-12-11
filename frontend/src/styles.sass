@@ -120,7 +120,6 @@ a:hover
 %leftAndRightSection
   display: inline-block
   height: 100%
-  box-shadow: 0 0 3px 0 #00cca3
   padding: 20px
   box-sizing: border-box
   background-color: $whiteColor
@@ -384,19 +383,31 @@ a:hover
     display: flex
     justify-content: center
     align-items: center
-    margin-top: 50px
+    margin-top: 20px
     min-height: 600px
 
     #left-section
       width: 30%
-      background: url("./images/digital-art-963368_1920.png") center no-repeat
-      background-size: cover
       position: relative
+      background-color: $whiteColor
       @extend %leftAndRightSection
       box-shadow: none
       z-index: 9999
       height: 100%
       min-height: 600px
+
+      &:before
+        content: ""
+        position: absolute
+        right: 0
+        top: 0
+        height: 100%
+        width: 1px
+        opacity: 0.5
+        background-color: $mainColor
+        z-index: 99999
+        padding: 0 10px
+        box-sizing: border-box
 
       #left-section-overlay
         z-index: -1
