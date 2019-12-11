@@ -12,6 +12,10 @@ $overlayTransition: .5s ease-in-out
 
 
 h1
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 42px
   @media(max-width: $ipadSize)
@@ -21,6 +25,10 @@ h1
 
 h2
   z-index: 999
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 34px
   @media(max-width: $ipadSize)
@@ -29,6 +37,10 @@ h2
     font-size: 18px
 
 h3
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 22px
   @media(max-width: $ipadSize)
@@ -47,6 +59,10 @@ input
   outline: none
 
 p
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   z-index: 999
   line-height: 1.5
   font-size: 16px
@@ -106,7 +122,6 @@ a:hover
   height: 100%
   box-shadow: 0 0 3px 0 #00cca3
   padding: 20px
-  margin: 20px
   box-sizing: border-box
   background-color: $whiteColor
 
@@ -399,10 +414,28 @@ a:hover
 
 
     #right-section
-      width: 60%
+      width: 63%
       height: 100%
       min-height: 600px
       @extend %leftAndRightSection
+
+      .right-section-box-container
+        width: 100%
+        height: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-wrap: wrap
+
+        .right-section-box
+          width: 33%
+          min-height: 230px
+          display: flex
+          align-items: center
+          justify-content: center
+
+          h3
+            text-align: center
 
       h2
         position: relative
@@ -421,7 +454,34 @@ a:hover
     margin-top: 150px
 
   .account-box
+    position: relative
+    z-index: 9999
     @extend %boxStyling
+
+    &:hover
+      .overlay-transition
+        width: 100%
+        z-index: -1
+
+      h3
+        color: $whiteColor
+        z-index: 999
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+
+      p
+        color: $whiteColor
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+
+    .overlay-transition
+      left: 0
+      top: 0
+      @extend %overlayTransitionShared
 
 #login
   height: 100vh
