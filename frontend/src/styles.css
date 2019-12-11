@@ -51,6 +51,21 @@ input::placeholder {
   outline: none;
 }
 
+p {
+  font-size: 16px;
+  color: #00cca3;
+}
+@media (max-width: 980px) {
+  p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 476px) {
+  p {
+    font-size: 12px;
+  }
+}
+
 a {
   color: #fff;
   text-decoration: none;
@@ -90,11 +105,30 @@ a:hover {
   font-size: 16px;
 }
 
+#account #double-section-container #right-section, #account #double-section-container #left-section {
+  display: inline-block;
+  height: 100%;
+  box-shadow: 0 0 3px 0 #00cca3;
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+}
+
 .navbar {
   background-color: transparent;
   text-align: center;
   padding: 20px 0;
   z-index: 999;
+}
+
+#account .account-box {
+  display: inline-block;
+  width: 45%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 3px 0 #00cca3;
+  margin: 20px;
 }
 
 #registration #right-column button, #login #loginForm button, button {
@@ -151,6 +185,45 @@ a:hover {
   transition: 0.2s ease-in-out;
 }
 
+#account #double-section-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+#account #double-section-container #left-section {
+  width: 30%;
+}
+#account #double-section-container #left-section h2 {
+  position: relative;
+}
+#account #double-section-container #left-section h2:before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  height: 1px;
+  background-color: #00cca3;
+  top: 45px;
+}
+#account #double-section-container #right-section {
+  width: 60%;
+}
+#account #double-section-container #right-section h2 {
+  position: relative;
+}
+#account #double-section-container #right-section h2:before {
+  content: "";
+  width: 100%;
+  position: absolute;
+  height: 1px;
+  background-color: #00cca3;
+  top: 45px;
+}
+#account #double-box-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
 #login {
   height: 100vh;
   width: 100vw;

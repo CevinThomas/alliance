@@ -4,6 +4,7 @@ import Registration from "./views/registration";
 import Login from "./views/login";
 import {Route} from "react-router-dom";
 import Logout from "./views/logout";
+import Account from "./views/account";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Route path={"/registration"} component={Registration}/>
             <Route path={"/login"} component={Login}/>
             <Route path={"/logout"} component={Logout}/>
+            <Route path={"/account"} component={Account}/>
         </React.Fragment>
     );
 }
