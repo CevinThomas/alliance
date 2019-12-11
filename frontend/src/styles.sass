@@ -220,10 +220,19 @@ a:hover
   background-size: cover
   @extend %fullCoverPageBackground
 
+  h2
+    transition: $overlayTransition
+
+  p
+    transition: $overlayTransition
+
   .boxes
     @extend %adminBoxesShared
     position: relative
     transition: $overlayTransition
+
+    .box-container
+      z-index: 999
 
     .overlay-transition
       @extend %overlayTransitionShared
@@ -232,6 +241,14 @@ a:hover
       .overlay-transition
         width: 100%
         transition: $overlayTransition
+
+      h2
+        transition: $overlayTransition
+        color: $whiteColor
+
+      p
+        transition: $overlayTransition
+        color: $whiteColor
 
   #admin-sideMenu
     height: 80%

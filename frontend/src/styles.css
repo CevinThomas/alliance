@@ -235,13 +235,30 @@ a:hover {
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat;
   background-size: cover;
 }
+#admin h2 {
+  transition: 0.5s ease-in-out;
+}
+#admin p {
+  transition: 0.5s ease-in-out;
+}
 #admin .boxes {
   position: relative;
   transition: 0.5s ease-in-out;
 }
+#admin .boxes .box-container {
+  z-index: 999;
+}
 #admin .boxes:hover .overlay-transition {
   width: 100%;
   transition: 0.5s ease-in-out;
+}
+#admin .boxes:hover h2 {
+  transition: 0.5s ease-in-out;
+  color: #fff;
+}
+#admin .boxes:hover p {
+  transition: 0.5s ease-in-out;
+  color: #fff;
 }
 #admin #admin-sideMenu {
   height: 80%;
