@@ -157,7 +157,7 @@ a:hover {
   box-sizing: border-box;
 }
 
-#admin .boxes .overlay-transition {
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container .overlay-transition, #admin .boxes .overlay-transition {
   position: absolute;
   transition: 0.5s ease-in-out;
   width: 0;
@@ -282,6 +282,41 @@ a:hover {
   height: 80%;
   width: 10%;
   background-color: #00cca3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#admin #admin-sideMenu #admin-side-menu {
+  height: 100%;
+  width: 100%;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  height: 50%;
+  position: relative;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container:hover a {
+  color: #00cca3;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container:hover .overlay-transition {
+  width: 100%;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container .overlay-transition {
+  background-color: #fff;
+  left: 0;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container a {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 999;
+}
+#admin #admin-sideMenu #admin-side-menu .side-menu-link-container a:hover {
+  color: #00cca3;
 }
 #admin #admin-box-container {
   width: 80%;
