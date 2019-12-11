@@ -6,7 +6,7 @@ const BoxTwo = () => {
     return (
         <div id={"box-two"} className={"boxes"}>
             <OverlayTransition id={"admin-overlay-two"}/>
-            <Box class={"box-container"} title={"Box Two"} type={"h2"}/>
+            <Box class={"box-container"} title={"Create Challenges"} type={"h2"}/>
         </div>
     );
 };

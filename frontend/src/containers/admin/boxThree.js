@@ -6,7 +6,7 @@ const BoxThree = () => {
     return (
         <div className={"boxes"}>
             <OverlayTransition id={"admin-overlay-three"}/>
-            <Box class={"box-container"} title={"Box Three"} type={"h2"}/>
+            <Box class={"box-container"} title={"Manage Challengers"} type={"h2"}/>
         </div>
     );
 };
