@@ -1,9 +1,11 @@
 import React from "react";
 import Box from "../../components/general/box";
+import OverlayTransition from "../../components/general/overlay-transition";
 
 const BoxTwo = () => {
     return (
-        <div className={"boxes"}>
+        <div id={"box-two"} className={"boxes"}>
+            <OverlayTransition id={"admin-overlay-two"}/>
             <Box class={"box-container"} title={"Box Two"} type={"h2"}/>
         </div>
     );

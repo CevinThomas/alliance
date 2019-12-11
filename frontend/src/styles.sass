@@ -7,6 +7,7 @@ $phoneSize: 476px
 $smallPhoneSize: 375px
 
 $transition: .2s ease-in-out
+$overlayTransition: .5s ease-in-out
 
 
 h1
@@ -144,6 +145,13 @@ a:hover
   padding: 40px
   box-sizing: border-box
 
+%overlayTransitionShared
+  position: absolute
+  transition: $overlayTransition
+  width: 0
+  height: 100%
+  background-color: $mainColor
+
 %fullCoverPageBackground
   position: fixed
   z-index: -1
@@ -214,6 +222,16 @@ a:hover
 
   .boxes
     @extend %adminBoxesShared
+    position: relative
+    transition: $overlayTransition
+
+    .overlay-transition
+      @extend %overlayTransitionShared
+
+    &:hover
+      .overlay-transition
+        width: 100%
+        transition: $overlayTransition
 
   #admin-sideMenu
     height: 80%
@@ -229,6 +247,17 @@ a:hover
     align-items: center
     flex-flow: wrap
 
+    #admin-overlay-one
+      left: 0
+
+    #admin-overlay-two
+      right: 0
+
+    #admin-overlay-three
+      left: 0
+
+    #admin-overlay-four
+      right: 0
 
 #account
   background: url("./images/small-poly-3350169_1920.jpg") center no-repeat

@@ -157,6 +157,14 @@ a:hover {
   box-sizing: border-box;
 }
 
+#admin .boxes .overlay-transition {
+  position: absolute;
+  transition: 0.5s ease-in-out;
+  width: 0;
+  height: 100%;
+  background-color: #00cca3;
+}
+
 #account, #admin {
   position: fixed;
   z-index: -1;
@@ -227,6 +235,14 @@ a:hover {
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat;
   background-size: cover;
 }
+#admin .boxes {
+  position: relative;
+  transition: 0.5s ease-in-out;
+}
+#admin .boxes:hover .overlay-transition {
+  width: 100%;
+  transition: 0.5s ease-in-out;
+}
 #admin #admin-sideMenu {
   height: 80%;
   width: 10%;
@@ -240,6 +256,18 @@ a:hover {
   justify-content: center;
   align-items: center;
   flex-flow: wrap;
+}
+#admin #admin-box-container #admin-overlay-one {
+  left: 0;
+}
+#admin #admin-box-container #admin-overlay-two {
+  right: 0;
+}
+#admin #admin-box-container #admin-overlay-three {
+  left: 0;
+}
+#admin #admin-box-container #admin-overlay-four {
+  right: 0;
 }
 
 #account {
