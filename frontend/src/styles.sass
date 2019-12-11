@@ -20,6 +20,7 @@ h1
     font-size: 24px
 
 h2
+  z-index: 999
   color: $mainColor
   font-size: 34px
   @media(max-width: $ipadSize)
@@ -46,6 +47,7 @@ input
   outline: none
 
 p
+  z-index: 999
   line-height: 1.5
   font-size: 16px
   color: $mainColor
@@ -368,10 +370,21 @@ a:hover
     justify-content: center
     align-items: center
     margin-top: 50px
+    min-height: 600px
 
     #left-section
       width: 30%
+      background: url("./images/digital-art-963368_1920.png") center no-repeat
+      background-size: cover
+      position: relative
       @extend %leftAndRightSection
+      box-shadow: none
+      z-index: 9999
+      height: 100%
+      min-height: 600px
+
+      #left-section-overlay
+        z-index: -1
 
       h2
         position: relative
@@ -387,6 +400,8 @@ a:hover
 
     #right-section
       width: 60%
+      height: 100%
+      min-height: 600px
       @extend %leftAndRightSection
 
       h2
