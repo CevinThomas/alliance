@@ -1,6 +1,8 @@
 import React from "react";
 import LeftBox from "../containers/account/leftBox";
 import RightBox from "../containers/account/rightBox";
+import LeftSection from "../containers/account/leftSection";
+import RightSection from "../containers/account/rightSection";
 
 const Account = () => {
     return (
@@ -8,6 +10,8 @@ const Account = () => {
             <div id={"double-box-container"}>
                 <LeftBox/>
                 <RightBox/>
+                <LeftSection/>
+                <RightSection/>
             </div>
         </div>
     );
