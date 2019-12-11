@@ -96,6 +96,15 @@ a:hover
   border: none
   font-size: 16px
 
+%leftAndRightSection
+  display: inline-block
+  height: 100%
+  box-shadow: 0 0 3px 0 #00cca3
+  padding: 20px
+  margin: 20px
+  box-sizing: border-box
+
+
 %navBarStyling
   background-color: transparent
   text-align: center
@@ -164,6 +173,43 @@ a:hover
         transition: $transition
 
 #account
+
+  #double-section-container
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 50px
+
+    #left-section
+      width: 30%
+      @extend %leftAndRightSection
+
+      h2
+        position: relative
+
+        &:before
+          content: ""
+          width: 100%
+          position: absolute
+          height: 1px
+          background-color: $mainColor
+          top: 45px
+
+
+    #right-section
+      width: 60%
+      @extend %leftAndRightSection
+
+      h2
+        position: relative
+
+        &:before
+          content: ""
+          width: 100%
+          position: absolute
+          height: 1px
+          background-color: $mainColor
+          top: 45px
 
   #double-box-container
     display: flex

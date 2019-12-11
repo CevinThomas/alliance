@@ -10,9 +10,12 @@ const Account = () => {
             <div id={"double-box-container"}>
                 <LeftBox/>
                 <RightBox/>
+            </div>
+            <div id={"double-section-container"}>
                 <LeftSection/>
                 <RightSection/>
             </div>
+
         </div>
     );
 };
