@@ -1,6 +1,7 @@
 import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
+import * as spaceConstants from "../../constants/space";
 
 const initialState = {
     //TODO: Refactor state
@@ -21,10 +22,34 @@ const initialState = {
             token: ""
         }
     },
-    userIsOnline: false
+    userIsOnline: false,
+    spaceCredentials: {
+        name: "",
+        desc: "",
+        challengers: []
+    }
 };
 
+//TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+    if ( action.type === spaceConstants.SPACE_NAME ) {
+        return {
+            ...state,
+            spaceCredentials: {
+                ...state.spaceCredentials,
+                name: action.payload
+            }
+        };
+    }
+    if ( action.type === spaceConstants.SPACE_DESC ) {
+        return {
+            ...state,
+            spaceCredentials: {
+                ...state.spaceCredentials,
+                desc: action.payload
+            }
+        };
+    }
     if ( action.type === LOGGED_IN ) {
         return {
             ...state,

@@ -3,6 +3,7 @@ const getDb = require( "../database/index" ).getDb;
 class User {
 
     tokens = [];
+    friends = [];
 
     constructor( name, email, password ) {
         this.name = name;
