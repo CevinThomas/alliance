@@ -1,9 +1,12 @@
 import React from "react";
+import CreateBox from "../containers/createSpace/createBox";
+import Overlay from "../components/general/overlay";
 
 const CreateSpace = () => {
     return (
-        <div>
-            <h1>Hello</h1>
+        <div id={"create-space"}>
+            <Overlay/>
+            <CreateBox/>
         </div>
     );
 };
