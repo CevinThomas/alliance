@@ -37,6 +37,8 @@ app.post( "/api/add-users-to-space", auth, spaceController.addUsersToSpace );
 
 app.post( "/api/add-challenge", auth, challengeController.addChallenge );
 
+app.get( "/api/me", auth, userController.getInformation );
+
 app.get( "/api/sandbox", userController.sandbox );
 
 mongoConnect( () => {
