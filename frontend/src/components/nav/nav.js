@@ -23,14 +23,14 @@ const Navbar = ( props ) => {
     let isOnlineElement;
     if ( props.isOnline === true ) {
         isOnlineElement = (
-            <Link to={"/account"}>
-                <AvatarIcon id={"avatar_icon"}/>
-            </Link>
+            <li className={"link-item"}>
+                <Link to={"/account"}>
+                    <AvatarIcon id={"avatar_icon"}/>
+                </Link>
+            </li>
         );
     } else {
-        isOnlineElement = (
-            <AvatarIcon id={"avatar_not_logged_in"}/>
-        );
+        isOnlineElement = "";
     }
 
 
@@ -45,9 +45,9 @@ const Navbar = ( props ) => {
             <li className={"link-item"}>
                 <Link to={"/logout"}>Logout</Link>
             </li>
-            <li className={"link-item"}>
-                {isOnlineElement}
-            </li>
+            
+            {isOnlineElement}
+
         </div>
     );
 };

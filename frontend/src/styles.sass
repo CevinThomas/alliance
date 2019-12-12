@@ -3,13 +3,19 @@ $whiteColor: #fff
 $redColor: #740e17
 
 $ipadSize: 980px
+$largePhoneSize: 767px
 $phoneSize: 476px
 $smallPhoneSize: 375px
 
 $transition: .2s ease-in-out
+$overlayTransition: .5s ease-in-out
 
 
 h1
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 42px
   @media(max-width: $ipadSize)
@@ -18,6 +24,11 @@ h1
     font-size: 24px
 
 h2
+  z-index: 999
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 34px
   @media(max-width: $ipadSize)
@@ -26,6 +37,10 @@ h2
     font-size: 18px
 
 h3
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
   color: $mainColor
   font-size: 22px
   @media(max-width: $ipadSize)
@@ -44,6 +59,12 @@ input
   outline: none
 
 p
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
+  z-index: 999
+  line-height: 1.5
   font-size: 16px
   color: $mainColor
   @media (max-width: $ipadSize)
@@ -99,10 +120,9 @@ a:hover
 %leftAndRightSection
   display: inline-block
   height: 100%
-  box-shadow: 0 0 3px 0 #00cca3
   padding: 20px
-  margin: 20px
   box-sizing: border-box
+  background-color: $whiteColor
 
 
 %navBarStyling
@@ -119,6 +139,7 @@ a:hover
   text-align: center
   box-shadow: 0 0 3px 0 #00cca3
   margin: 20px
+  background-color: $whiteColor
 
 %buttonStyling
   width: 50%
@@ -132,6 +153,35 @@ a:hover
   border: none
   font-size: 16px
 
+%adminBoxesShared
+  height: 50%
+  width: 50%
+  display: flex
+  justify-content: center
+  align-items: center
+  text-align: center
+  padding: 40px
+  box-sizing: border-box
+
+%overlayTransitionShared
+  position: absolute
+  transition: $overlayTransition
+  width: 0
+  height: 100%
+  background-color: $mainColor
+
+%fullCoverPageBackground
+  position: fixed
+  z-index: -1
+  top: 0
+  left: 0
+  height: 100vh
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  background-size: cover
+
 .error-div
   width: 50%
   text-align: center
@@ -141,6 +191,17 @@ a:hover
   p
     color: $mainColor
     margin: 0
+
+.overlay
+  content: ""
+  width: 100%
+  height: 100%
+  position: absolute
+  top: 0
+  left: 0
+  background: #000
+  opacity: 0.5
+  z-index: -1
 
 .navbar
   @extend %navBarStyling
@@ -172,17 +233,184 @@ a:hover
         -o-transition: $transition
         transition: $transition
 
+#admin
+  background: url("./images/low-poly-3614652_1920.jpg") center no-repeat
+  background-size: cover
+  @extend %fullCoverPageBackground
+
+  h2
+    transition: $overlayTransition
+    -webkit-transition: $overlayTransition
+    -moz-transition: $overlayTransition
+    -o-transition: $overlayTransition
+
+  p
+    transition: $overlayTransition
+    -webkit-transition: $overlayTransition
+    -moz-transition: $overlayTransition
+    -o-transition: $overlayTransition
+
+  .boxes
+    @extend %adminBoxesShared
+    position: relative
+    transition: $overlayTransition
+    -webkit-transition: $overlayTransition
+    -moz-transition: $overlayTransition
+    -o-transition: $overlayTransition
+    @media (max-width: $largePhoneSize)
+      height: 25%
+      width: 100%
+
+    .box-container
+      z-index: 999
+
+    .overlay-transition
+      @extend %overlayTransitionShared
+
+    &:hover
+      .overlay-transition
+        width: 100%
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+
+      h2
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+        color: $whiteColor
+
+      p
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+        color: $whiteColor
+
+  #admin-sideMenu
+    height: 80%
+    width: 10%
+    background-color: $mainColor
+    display: flex
+    justify-content: center
+    align-items: center
+    @media (max-width: $largePhoneSize)
+      position: absolute
+      top: 92px
+      width: 80%
+      height: 3%
+
+    #admin-side-menu
+      height: 100%
+      width: 100%
+
+      .side-menu-link-container
+        display: flex
+        width: 100%
+        text-align: center
+        height: 50%
+        position: relative
+        @media (max-width: $largePhoneSize)
+          display: inline-block
+          width: 50%
+          height: 100%
+          z-index: 999999
+
+        &:hover
+          a
+            color: $mainColor
+
+          .overlay-transition
+            width: 100%
+
+        .overlay-transition
+          @extend %overlayTransitionShared
+          background-color: $whiteColor
+          left: 0
+          @media (max-width: $largePhoneSize)
+            z-index: -1
+
+        a
+          display: flex
+          align-items: center
+          text-align: center
+          justify-content: center
+          width: 100%
+          z-index: 999
+          @media (max-width: $largePhoneSize)
+            height: 100%
+
+          &:hover
+            color: $mainColor
+
+  #admin-box-container
+    width: 80%
+    height: 80%
+    background: $whiteColor
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-flow: wrap
+
+    .admin-box-link
+      width: 100%
+      height: 100%
+      display: flex
+      align-items: center
+      z-index: 999
+
+    #admin-overlay-one
+      left: 0
+
+    #admin-overlay-two
+      right: 0
+
+    #admin-overlay-three
+      left: 0
+
+    #admin-overlay-four
+      right: 0
+
 #account
+  background: url("./images/small-poly-3350169_1920.jpg") center no-repeat
+  background-size: cover
+  @extend %fullCoverPageBackground
+  display: block
 
   #double-section-container
     display: flex
     justify-content: center
     align-items: center
-    margin-top: 50px
+    margin-top: 20px
+    min-height: 600px
 
     #left-section
       width: 30%
+      position: relative
+      background-color: $whiteColor
       @extend %leftAndRightSection
+      box-shadow: none
+      z-index: 9999
+      height: 100%
+      min-height: 600px
+
+      &:before
+        content: ""
+        position: absolute
+        right: 0
+        top: 0
+        height: 100%
+        width: 1px
+        opacity: 0.5
+        background-color: $mainColor
+        z-index: 99999
+        padding: 0 10px
+        box-sizing: border-box
+
+      #left-section-overlay
+        z-index: -1
 
       h2
         position: relative
@@ -197,8 +425,28 @@ a:hover
 
 
     #right-section
-      width: 60%
+      width: 63%
+      height: 100%
+      min-height: 600px
       @extend %leftAndRightSection
+
+      .right-section-box-container
+        width: 100%
+        height: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-wrap: wrap
+
+        .right-section-box
+          width: 33%
+          min-height: 230px
+          display: flex
+          align-items: center
+          justify-content: center
+
+          h3
+            text-align: center
 
       h2
         position: relative
@@ -214,10 +462,37 @@ a:hover
   #double-box-container
     display: flex
     justify-content: center
-    margin-top: 50px
+    margin-top: 150px
 
   .account-box
+    position: relative
+    z-index: 9999
     @extend %boxStyling
+
+    &:hover
+      .overlay-transition
+        width: 100%
+        z-index: -1
+
+      h3
+        color: $whiteColor
+        z-index: 999
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+
+      p
+        color: $whiteColor
+        transition: $overlayTransition
+        -webkit-transition: $overlayTransition
+        -moz-transition: $overlayTransition
+        -o-transition: $overlayTransition
+
+    .overlay-transition
+      left: 0
+      top: 0
+      @extend %overlayTransitionShared
 
 #login
   height: 100vh
@@ -309,17 +584,6 @@ a:hover
       font-size: 120px
       color: #00cca3
       margin-top: -30px
-
-    .overlay
-      content: ""
-      width: 100%
-      height: 100%
-      position: absolute
-      top: 0
-      left: 0
-      background: #000
-      opacity: 0.5
-      z-index: -1
 
 #registration
   position: fixed
