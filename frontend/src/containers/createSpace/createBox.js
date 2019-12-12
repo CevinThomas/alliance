@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import TopBar from "../../components/nav/topBar";
 import Heading from "../../components/textElements/heading";
@@ -7,6 +7,14 @@ import Button from "../../components/general/button";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
 import * as spaceConstants from "../../constants/space";
+import * as userConstants from "../../constants/user";
+import *as generalConstants from "../../constants/general";
+import getToken from "../../helperMethods/getToken";
+
+const mapStateToProps = state => ({
+    user: state.MainUserCredentials,
+    showModal: state.showChallengerModal
+});
 
 const CreateBox = ( props ) => {
 
@@ -21,13 +29,24 @@ const CreateBox = ( props ) => {
         }
     };
 
+    getToken();
+
+    useEffect( () => {
+        Axios( {
+            method: "GET",
+            url: urlConstants.GET_ME
+        } ).then( ( response ) => {
+            props.dispatch( { type: userConstants.USER_CREDENTIALS, payload: response.data } );
+            console.log( response.data );
+        } );
+    }, [] );
+
     //TODO: Refactor this into a single helper method
     const sendDataToEndpoint = () => {
         Axios( {
             method: "POST",
             url: urlConstants.CREATE_SPACE_URL
         } );
-        console.log( "hello" );
     };
 
     //TODO: Refactor this into a single helper method
@@ -40,6 +59,21 @@ const CreateBox = ( props ) => {
         }
     };
 
+    const showModalFunction = () => {
+        props.dispatch( { type: generalConstants.SHOW_MODAL, payload: true } );
+    };
+
+    let ModalUI;
+    props.user.friends.map( ( friend ) => {
+        ModalUI = (
+            <div className={"friend-container"}>
+                <label htmlFor="">{friend}</label>
+                <Input type={"checkbox"} value={friend}/>
+            </div>
+        );
+    } );
+
+
     return (
         <div className={"create-space-box"}>
             <TopBar links={topBarObject}/>
@@ -50,12 +84,13 @@ const CreateBox = ( props ) => {
                            placeholder={"Enter Name"}/>
                     <Input onchange={handleInputChange} type={"text"} name={"desc"} id={"desc"}
                            placeholder={"Enter Description"}/>
-                    <Button id={"challengers-button"} title={"Add Challengers"}/>
+                    <Button onclick={showModalFunction} id={"challengers-button"} title={"Add Challengers"}/>
                     <Button onclick={sendDataToEndpoint} title={"Create"}/>
                 </div>
+                {props.showModal ? <div className={"modal"}>{ModalUI}</div> : ""}
             </div>
         </div>
     );
 };
 
-export default connect()( CreateBox );
+export default connect( mapStateToProps )( CreateBox );

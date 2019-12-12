@@ -2,6 +2,8 @@ import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
+import * as userConstants from "../../constants/user";
+import * as generalConstants from "../../constants/general";
 
 const initialState = {
     //TODO: Refactor state
@@ -27,11 +29,32 @@ const initialState = {
         name: "",
         desc: "",
         challengers: []
-    }
+    },
+    MainUserCredentials: {
+        name: "",
+        friends: []
+    },
+    showChallengerModal: false
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+    if ( action.type === generalConstants.SHOW_MODAL ) {
+        return {
+            ...state,
+            showChallengerModal: action.payload
+        };
+    }
+    if ( action.type === userConstants.USER_CREDENTIALS ) {
+        return {
+            ...state,
+            MainUserCredentials: {
+                ...state.MainUserCredentials,
+                name: action.payload.name,
+                friends: action.payload.friends
+            }
+        };
+    }
     if ( action.type === spaceConstants.SPACE_NAME ) {
         return {
             ...state,
