@@ -285,6 +285,14 @@ a:hover {
   background-color: #00cca3;
   box-sizing: border-box;
 }
+#create-space .create-space-box-container .modal .checked-friend {
+  background-color: #fff;
+}
+#create-space .create-space-box-container .modal button {
+  background-color: #fff;
+  margin-bottom: 10px;
+  color: #00cca3;
+}
 #create-space .create-space-box-container .modal .friend-container {
   display: flex;
   justify-content: center;

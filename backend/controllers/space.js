@@ -3,16 +3,22 @@ const getToken = require( "../helperFunctions/index" ).getToken;
 const User = require( "../models/users" );
 
 exports.createSpace = async ( req, res, next ) => {
-    try {
-        const user = req.user;
+    //TODO: Make sure the space is unique, Unique name
+    const requestUser = req.user;
+    const spaceName = req.body.name;
 
-        const space = new Space( user._id, req.body.name, req.body.description );
-        const saved = await space.save();
+    const usersToAdd = Space.validateUsersEmail( req.body.friendsToInvite );
 
-        res.status( 200 ).send( "Space created" );
-    } catch {
-        res.status( 500 ).send( "Could not create space" );
-    }
+    const space = new Space( requestUser._id, req.body.name, req.body.desc );
+    space.save();
+
+    const createdSpace = await Space.findSpacePerCreatedName( spaceName );
+    User.findMultipleUsersInDatabase( "email", usersToAdd, ( users ) => {
+        Space.addUsersToSpace( createdSpace._id, users, ( response ) => {
+            //TODO: Some type of error checking
+        } );
+    } );
+    res.status( 200 ).send( "Space created" );
 };
 
 

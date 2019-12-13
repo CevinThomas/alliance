@@ -13,7 +13,9 @@ import getToken from "../../helperMethods/getToken";
 
 const mapStateToProps = state => ({
     user: state.MainUserCredentials,
-    showModal: state.showChallengerModal
+    showModal: state.showChallengerModal,
+    space: state.spaceCredentials,
+    friendsToInvite: state.friendsToInvite
 });
 
 const CreateBox = ( props ) => {
@@ -36,8 +38,9 @@ const CreateBox = ( props ) => {
             method: "GET",
             url: urlConstants.GET_ME
         } ).then( ( response ) => {
+            console.log( response );
+            //TODO: Unit checking
             props.dispatch( { type: userConstants.USER_CREDENTIALS, payload: response.data } );
-            console.log( response.data );
         } );
     }, [] );
 
@@ -45,7 +48,12 @@ const CreateBox = ( props ) => {
     const sendDataToEndpoint = () => {
         Axios( {
             method: "POST",
-            url: urlConstants.CREATE_SPACE_URL
+            url: urlConstants.CREATE_SPACE_URL,
+            data: {
+                name: props.space.name,
+                desc: props.space.desc,
+                friendsToInvite: props.friendsToInvite
+            }
         } );
     };
 
@@ -59,18 +67,36 @@ const CreateBox = ( props ) => {
         }
     };
 
+    const handleCheckboxChange = ( e ) => {
+        if ( e.target.checked ) {
+            props.dispatch( { type: spaceConstants.SPACE_CHALLENGERS, payload: { add: e.target.value } } );
+        } else {
+            props.dispatch( { type: spaceConstants.SPACE_CHALLENGERS, payload: { remove: e.target.value } } );
+        }
+
+    };
+
     const showModalFunction = () => {
         props.dispatch( { type: generalConstants.SHOW_MODAL, payload: true } );
     };
 
     let ModalUI;
-    props.user.friends.map( ( friend ) => {
-        ModalUI = (
-            <div className={"friend-container"}>
-                <label htmlFor="">{friend}</label>
-                <Input type={"checkbox"} value={friend}/>
-            </div>
-        );
+    ModalUI = props.user.friends.map( ( friend ) => {
+        if ( props.friendsToInvite.includes( friend ) ) {
+            return (<div key={friend} className={"friend-container checked-friend"}>
+                    <label htmlFor="">{friend}</label>
+                    <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend}/>
+                </div>
+            );
+        } else {
+            return (
+                <div key={friend} className={"friend-container"}>
+                    <label htmlFor="">{friend}</label>
+                    <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend}/>
+                </div>
+            );
+        }
+
     } );
 
 
@@ -85,9 +111,11 @@ const CreateBox = ( props ) => {
                     <Input onchange={handleInputChange} type={"text"} name={"desc"} id={"desc"}
                            placeholder={"Enter Description"}/>
                     <Button onclick={showModalFunction} id={"challengers-button"} title={"Add Challengers"}/>
-                    <Button onclick={sendDataToEndpoint} title={"Create"}/>
                 </div>
-                {props.showModal ? <div className={"modal"}>{ModalUI}</div> : ""}
+                {props.showModal ?
+                    <div className={"modal"}>{ModalUI} <Button onclick={sendDataToEndpoint} title={"Create"}/>
+                    </div>
+                    : ""}
             </div>
         </div>
     );
