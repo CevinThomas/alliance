@@ -1,6 +1,7 @@
 const User = require( "../models/users" );
 const bcrypt = require( "bcrypt" );
 const jwt = require( "jsonwebtoken" );
+const getToken = require( "../helperFunctions/index" );
 
 exports.addUser = async ( req, res, next ) => {
     const email = req.body.email;
@@ -98,6 +99,14 @@ exports.logout = async ( req, res, next ) => {
     }
 }
 ;
+
+//TODO: Make this route good
+exports.getInformation = async ( req, res, next ) => {
+    const token = getToken.getToken( req );
+    User.findUserInDatabase( "token", token, ( user ) => {
+        res.status( 200 ).send( user );
+    } );
+};
 
 exports.sandbox = async ( req, res, next ) => {
     User.findUserInDatabase( "email", req.body.email, ( user ) => {

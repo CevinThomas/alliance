@@ -1,6 +1,9 @@
 import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
+import * as spaceConstants from "../../constants/space";
+import * as userConstants from "../../constants/user";
+import * as generalConstants from "../../constants/general";
 
 const initialState = {
     //TODO: Refactor state
@@ -21,10 +24,85 @@ const initialState = {
             token: ""
         }
     },
-    userIsOnline: false
+    userIsOnline: false,
+    spaceCredentials: {
+        name: "",
+        desc: ""
+    },
+    MainUserCredentials: {
+        id: "",
+        name: "",
+        friends: []
+    },
+    friendsToInvite: [],
+    showChallengerModal: false
 };
 
+//TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+    if ( action.type === spaceConstants.SPACE_CHALLENGERS ) {
+        if ( action.payload.add ) {
+            const toAdd = action.payload.add;
+            const newArray = [ ...state.friendsToInvite ];
+            newArray.push( toAdd );
+            console.log( "To Add", toAdd );
+            return {
+                ...state,
+                friendsToInvite: newArray
+            };
+        }
+        if ( action.payload.remove ) {
+            const toRemove = action.payload.remove;
+            const indexOfRemove = state.friendsToInvite.indexOf( toRemove );
+            console.log( indexOfRemove );
+            const newArray = [ ...state.friendsToInvite ];
+            newArray.splice( indexOfRemove, 1 );
+            console.log( "To Remove", toRemove );
+            return {
+                ...state,
+                friendsToInvite: newArray
+            };
+        }
+        return {
+            ...state,
+            friendsToInvite: state.friendsToInvite + " " + action.payload
+        };
+    }
+    if ( action.type === generalConstants.SHOW_MODAL ) {
+        return {
+            ...state,
+            showChallengerModal: action.payload
+        };
+    }
+    if ( action.type === userConstants.USER_CREDENTIALS ) {
+        return {
+            ...state,
+            MainUserCredentials: {
+                ...state.MainUserCredentials,
+                id: action.payload._id,
+                name: action.payload.name,
+                friends: action.payload.friends
+            }
+        };
+    }
+    if ( action.type === spaceConstants.SPACE_NAME ) {
+        return {
+            ...state,
+            spaceCredentials: {
+                ...state.spaceCredentials,
+                name: action.payload
+            }
+        };
+    }
+    if ( action.type === spaceConstants.SPACE_DESC ) {
+        return {
+            ...state,
+            spaceCredentials: {
+                ...state.spaceCredentials,
+                desc: action.payload
+            }
+        };
+    }
     if ( action.type === LOGGED_IN ) {
         return {
             ...state,

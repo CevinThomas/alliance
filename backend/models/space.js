@@ -21,7 +21,12 @@ class Space {
 
     static findSpacePerUser( userId ) {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => console.log( r ) );
+        return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
+    }
+
+    static findSpacePerCreatedName( createdName ) {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => r );
     }
 
     static findSpacePerId( spaceId ) {

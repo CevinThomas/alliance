@@ -111,7 +111,7 @@ a:hover {
   vertical-align: top;
 }
 
-#registration #right-column input, #login #loginForm input {
+#registration #right-column input, #login #loginForm input, #create-space .form-container #challengers-button, #create-space input {
   margin: 15px auto 15px auto;
   box-shadow: 0 0 3px 0 #00cca3;
   color: #00cca3;
@@ -182,7 +182,7 @@ a:hover {
   background-color: #00cca3;
 }
 
-#account, #admin {
+#account, #admin, #create-space {
   position: fixed;
   z-index: -1;
   top: 0;
@@ -246,6 +246,95 @@ a:hover {
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
+}
+
+.top-bar {
+  height: 15%;
+  background-color: #00cca3;
+}
+.top-bar .top-bar-link-container {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+}
+.top-bar .top-bar-link-container a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#create-space {
+  background: url("./images/deer-3219872_1920.jpg") center no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#create-space .create-space-box-container {
+  padding: 0 40px;
+  margin-top: 150px;
+}
+#create-space .create-space-box-container .modal {
+  display: inline-block;
+  width: 60%;
+  height: 100%;
+  vertical-align: top;
+  margin-top: 50px;
+  background-color: #00cca3;
+  box-sizing: border-box;
+}
+#create-space .create-space-box-container .modal .checked-friend {
+  background-color: #fff;
+}
+#create-space .create-space-box-container .modal button {
+  background-color: #fff;
+  margin-bottom: 10px;
+  color: #00cca3;
+}
+#create-space .create-space-box-container .modal .friend-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+}
+#create-space .create-space-box-container .modal .friend-container label {
+  color: #fff;
+}
+#create-space .create-space-box-container .modal .friend-container input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  margin: 0;
+}
+#create-space input {
+  margin: 25px auto 25px auto;
+}
+#create-space .form-container {
+  width: 40%;
+  box-shadow: 0 0 1px 0 #00cca3;
+  padding: 30px 0;
+  margin-top: 50px;
+  display: inline-block;
+}
+#create-space .form-container #challengers-button {
+  color: #00cca3;
+  background-color: #fff;
+}
+#create-space .form-container button {
+  width: 80%;
+}
+#create-space .create-space-box {
+  height: 80%;
+  width: 80%;
+  background: #fff;
 }
 
 #admin {

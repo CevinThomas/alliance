@@ -1,10 +1,16 @@
+import Axios from "axios";
+
 const getToken = () => {
     let token;
     if ( localStorage.getItem( "TOKEN" ) ) {
         token = localStorage.getItem( "TOKEN" );
-        return token;
     } else {
-        return false;
+        token = false;
+    }
+    if ( token !== false ) {
+        return Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+        return Axios.defaults.headers.common["Authorization"] = null;
     }
 };
 
