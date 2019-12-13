@@ -8,9 +8,21 @@ const challengeController = require( "./controllers/challenges" );
 const spaceController = require( "./controllers/space" );
 const auth = require( "./middleware/authentication" );
 const mongoConnect = require( "./database/index" ).mongoConnect;
+const app = express();
+const http = require( "http" ).createServer( app );
+const io = require( "socket.io" )( http );
 require( "dotenv" ).config();
 
-const app = express();
+
+io.on( "connection", ( socket ) => {
+    console.log( "a user is connected" );
+    socket.on( "disconnect", function () {
+        console.log( "user disconnected" );
+    } );
+    socket.on( "Test message", function ( msg ) {
+        console.log( "message: " + msg );
+    } );
+} );
 
 //TODO: Make Cors more detailed
 const cors = require( "cors" );
@@ -42,7 +54,7 @@ app.get( "/api/me", auth, userController.getInformation );
 app.get( "/api/sandbox", userController.sandbox );
 
 mongoConnect( () => {
-    app.listen( 8000 );
+    http.listen( 8000 );
 } );
 
 module.exports = app;

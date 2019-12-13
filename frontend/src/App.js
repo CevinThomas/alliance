@@ -9,6 +9,7 @@ import Admin from "./views/admin";
 import CreateSpace from "./views/createSpace";
 import ManageChallengers from "./views/manageChallengers";
 
+
 function App() {
     return (
         //TODO: Look into Switch, also exact path. Also if page not found, show login component or a 404 component.
