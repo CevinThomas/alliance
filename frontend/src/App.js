@@ -7,6 +7,7 @@ import Logout from "./views/logout";
 import Account from "./views/account";
 import Admin from "./views/admin";
 import CreateSpace from "./views/createSpace";
+import ManageChallengers from "./views/manageChallengers";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path={"/logout"} component={Logout}/>
                 <Route path={"/account"} component={Account}/>
                 <Route path={"/admin/create-space"} component={CreateSpace}/>
+                <Route path={"/admin/manage-challengers"} component={ManageChallengers}/>
                 <Route path={"/admin"} component={Admin}/>
             </Switch>
         </React.Fragment>
