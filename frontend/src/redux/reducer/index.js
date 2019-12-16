@@ -37,11 +37,31 @@ const initialState = {
     },
     friendsToInvite: [],
     showChallengerModal: false,
-    friendRequests: []
+    friendRequests: [],
+    addFriend: "",
+    friendsList: []
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === friendConstants.CURRENT_FRIENDS ) {
+        const newArray = [];
+        action.payload.map( ( friend ) => {
+            newArray.push( friend );
+        } );
+        return {
+            ...state,
+            friendsList: newArray
+        };
+    }
+
+    if ( action.type === friendConstants.ADD_FRIEND ) {
+        return {
+            ...state,
+            addFriend: action.payload
+        };
+    }
 
     if ( action.type === friendConstants.FRIEND_REQUESTS ) {
         const newArray = [];

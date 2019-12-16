@@ -51,6 +51,7 @@ app.post( "/api/add-challenge", auth, challengeController.addChallenge );
 app.post( "/api/add-friends", auth, friendsController.addFriend );
 app.post( "/api/accept-friend", auth, friendsController.acceptFriend );
 app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
+app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 
 app.get( "/api/me", auth, userController.getInformation );
 

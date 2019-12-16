@@ -2,9 +2,11 @@ const getDb = require( "../database/index" ).getDb;
 
 class User {
 
+    //TODO: Write one function to get stuff dynamically from DB
+
     tokens = [];
     friends = [];
-    invites = [];
+    incomingFriendRequest = [];
 
     constructor( name, email, password ) {
         this.name = name;
@@ -68,24 +70,29 @@ class User {
         } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
-    static addFriends = ( email, friend ) => {
+    static addFriends = ( userEmail, friend ) => {
         //TODO: Check if the user already has sent an invite to the requested friend.
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { invites: email } } ).then( r => r ).catch( e => e );
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
     };
 
     static acceptOrDeclineFriend = ( userEmail, friendEmail, accept ) => {
         const db = getDb();
         let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
         if ( accept ) {
-            bulk.find( { email: userEmail } ).update( { $pull: { invites: { $in: [ friendEmail ] } } } );
+            bulk.find( { email: userEmail } ).update( { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );
             bulk.find( { email: userEmail } ).update( { $push: { friends: friendEmail } } );
             bulk.find( { email: friendEmail } ).update( { $push: { friends: userEmail } } );
             bulk.execute();
         } else {
-            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: userEmail }, { $pull: { invites: { $in: [ friendEmail ] } } } );
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: userEmail }, { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );
         }
 
+    };
+
+    static getCurrentFriends = ( email ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).findOne( { email }, { email: 1 } ).then( r => r ).catch( e => console.log( e ) );
     };
 
     saveUser() {

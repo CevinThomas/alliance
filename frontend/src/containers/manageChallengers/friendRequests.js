@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
 import getToken from "../../helperMethods/getToken";
-import * as friendConstants from "../../constants/friends";
 import Button from "../../components/general/button";
+import * as friendConstants from "../../constants/friends";
 
 const mapStateToProps = state => {
     return { friendRequests: state.friendRequests };
@@ -46,11 +46,7 @@ const FriendRequests = ( props ) => {
     };
 
     const handleAcceptOrDecline = ( email, accept ) => {
-        if ( accept ) {
-            submitAcceptOrDeclineRequest( email, accept );
-        } else {
-            submitAcceptOrDeclineRequest( email, accept );
-        }
+        submitAcceptOrDeclineRequest( email, accept );
     };
 
     let UI;
