@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import Input from "../components/forms/input";
 import Button from "../components/general/button";
-import socketIOClient from "socket.io-client";
+import {friendsSocket, mainSocket} from "../sockets/index";
 
-const socket = socketIOClient( "http://localhost:8000" );
 const ManageChallengers = () => {
 
     const [ message, setMessage ] = useState( "" );
@@ -11,9 +10,10 @@ const ManageChallengers = () => {
     const handleSocketChange = ( e ) => {
         setMessage( e.target.value );
     };
-    
+
     const sendSocketMessage = ( e ) => {
-        socket.emit( "Test message", message );
+        mainSocket.emit( "Test message", message );
+        friendsSocket.emit( "friends", message );
     };
 
     return (

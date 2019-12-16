@@ -13,7 +13,6 @@ const http = require( "http" ).createServer( app );
 const io = require( "socket.io" )( http );
 require( "dotenv" ).config();
 
-
 io.on( "connection", ( socket ) => {
     console.log( "a user is connected" );
     socket.on( "disconnect", function () {
