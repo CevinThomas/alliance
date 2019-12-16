@@ -4,6 +4,7 @@ class User {
 
     tokens = [];
     friends = [];
+    invites = [];
 
     constructor( name, email, password ) {
         this.name = name;
@@ -14,9 +15,6 @@ class User {
     //If you change this, make sure to change the test for it as well
     static validateInput = ( options, callback ) => {
         let errorObject = {};
-
-        console.log( options.password.length );
-
 
         if ( options.name ) {
             if ( options.name.trim().length <= 0 ) {
@@ -60,6 +58,34 @@ class User {
         } else {
             db.collection( process.env.USERSCOLLECTION ).updateOne( { tokens: options.token }, { $set: { tokens: [] } } ).then( r => callback( r ) ).catch( e => callback( e ) );
         }
+    };
+
+    static findFriendRequests = ( email, callback ) => {
+        const db = getDb();
+        db.collection( process.env.USERSCOLLECTION ).findOne( { email }, {
+            name: 0,
+            password: 0
+        } ).then( r => callback( r ) ).catch( e => callback( e ) );
+    };
+
+    static addFriends = ( email, friend ) => {
+        //TODO: Check if the user already has sent an invite to the requested friend.
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { invites: email } } ).then( r => r ).catch( e => e );
+    };
+
+    static acceptOrDeclineFriend = ( userEmail, friendEmail, accept ) => {
+        const db = getDb();
+        let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
+        if ( accept ) {
+            bulk.find( { email: userEmail } ).update( { $pull: { invites: { $in: [ friendEmail ] } } } );
+            bulk.find( { email: userEmail } ).update( { $push: { friends: friendEmail } } );
+            bulk.find( { email: friendEmail } ).update( { $push: { friends: userEmail } } );
+            bulk.execute();
+        } else {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: userEmail }, { $pull: { invites: { $in: [ friendEmail ] } } } );
+        }
+
     };
 
     saveUser() {

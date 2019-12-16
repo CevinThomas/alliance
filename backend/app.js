@@ -6,6 +6,7 @@ const sassMiddleware = require( "node-sass-middleware" );
 const userController = require( "./controllers/users" );
 const challengeController = require( "./controllers/challenges" );
 const spaceController = require( "./controllers/space" );
+const friendsController = require( "./controllers/friends" );
 const auth = require( "./middleware/authentication" );
 const mongoConnect = require( "./database/index" ).mongoConnect;
 const app = express();
@@ -47,6 +48,9 @@ app.post( "/api/create-space", auth, spaceController.createSpace );
 app.post( "/api/add-users-to-space", auth, spaceController.addUsersToSpace );
 
 app.post( "/api/add-challenge", auth, challengeController.addChallenge );
+app.post( "/api/add-friends", auth, friendsController.addFriend );
+app.post( "/api/accept-friend", auth, friendsController.acceptFriend );
+app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 
 app.get( "/api/me", auth, userController.getInformation );
 

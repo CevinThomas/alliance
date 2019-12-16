@@ -1,0 +1,1 @@
+export const FRIEND_REQUESTS = "FRIEND_REQUESTS";

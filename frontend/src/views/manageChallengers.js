@@ -1,25 +1,12 @@
-import React, {useState} from "react";
-import Input from "../components/forms/input";
-import Button from "../components/general/button";
-import {friendsSocket, mainSocket} from "../sockets/index";
+import React from "react";
+import FriendRequests from "../containers/manageChallengers/friendRequests";
 
 const ManageChallengers = () => {
 
-    const [ message, setMessage ] = useState( "" );
-
-    const handleSocketChange = ( e ) => {
-        setMessage( e.target.value );
-    };
-
-    const sendSocketMessage = ( e ) => {
-        mainSocket.emit( "Test message", message );
-        friendsSocket.emit( "friends", message );
-    };
 
     return (
         <div>
-            <Input onchange={handleSocketChange} type={"text"}/>
-            <Button onclick={sendSocketMessage}/>
+            <FriendRequests/>
         </div>
     );
 };

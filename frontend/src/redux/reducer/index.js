@@ -4,6 +4,7 @@ import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
+import * as friendConstants from "../../constants/friends";
 
 const initialState = {
     //TODO: Refactor state
@@ -35,11 +36,25 @@ const initialState = {
         friends: []
     },
     friendsToInvite: [],
-    showChallengerModal: false
+    showChallengerModal: false,
+    friendRequests: []
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === friendConstants.FRIEND_REQUESTS ) {
+        const newArray = [];
+        action.payload.map( ( request ) => {
+            newArray.push( request );
+        } );
+        return {
+            ...state,
+            friendRequests: newArray
+        };
+    }
+
+
     if ( action.type === spaceConstants.SPACE_CHALLENGERS ) {
         if ( action.payload.add ) {
             const toAdd = action.payload.add;
