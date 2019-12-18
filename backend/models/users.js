@@ -6,6 +6,7 @@ class User {
 
     tokens = [];
     friends = [];
+    spaces = [];
     incomingFriendRequest = [];
     incomingSpaceInvites = [];
 

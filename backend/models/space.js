@@ -24,6 +24,17 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
     }
 
+
+    //TODO: Add if statement checking if accepted or declined just like in the users
+    static acceptSpaceInvite = ( space, user ) => {
+        const db = getDb();
+        let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
+        bulk.find( { email: user.email } ).update( { $push: { spaces: space._id } } );
+        bulk.find( { email: user.email } ).update( { $pull: { incomingSpaceInvites: space.name } } );
+        bulk.execute();
+        db.collection( process.env.SPACECOLLECTION ).updateOne( { name: space.name }, { $push: { challengers: user._id } } );
+    };
+
     static findSpacePerCreatedName( createdName ) {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => r );
@@ -34,10 +45,10 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } );
     }
 
-    static inviteUsersToSpace( spaceId, friends, callback ) {
+    static inviteUsersToSpace( spaceName, friends, callback ) {
         const db = getDb();
         friends.map( ( friend ) => {
-            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceId } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
         } );
     }
 

@@ -14,14 +14,30 @@ exports.createSpace = async ( req, res, next ) => {
 
     const createdSpace = await Space.findSpacePerCreatedName( spaceName );
 
+    //TODO: Add the createSpace.name and the createSpace.owner/host also
     await User.spaceFindUsers( usersToAdd, ( friends ) => {
-        Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
-            //console.log( response );
+        Space.inviteUsersToSpace( createdSpace.name, friends, ( response ) => {
             //TODO: Some type of error checking
         } );
     } );
 
     res.status( 200 ).send( "Space created" );
+};
+
+exports.acceptSpaceInvite = async ( req, res, next ) => {
+    if ( req.body.accept === true ) {
+
+        const space = await Space.findSpacePerCreatedName( req.body.name );
+        User.findUserInDatabase( "email", req.user.email, ( user ) => {
+            Space.acceptSpaceInvite( space, user );
+        } );
+
+
+    } else {
+
+    }
+
+    res.status( 200 ).send( req.body );
 };
 
 

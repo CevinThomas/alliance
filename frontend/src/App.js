@@ -9,6 +9,7 @@ import Admin from "./views/admin";
 import CreateSpace from "./views/createSpace";
 import ManageChallengers from "./views/manageChallengers";
 import Friend from "./containers/manageChallengers/friend";
+import EditSpaceChallenges from "./views/edit-space-challenges";
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
                 <Route exact path={"/admin/create-space"} component={CreateSpace}/>
                 <Route exact path={"/admin/manage-challengers"} component={ManageChallengers}/>
                 <Route exact path={"/admin"} component={Admin}/>
-                <Route path={"/admin/:friend"} component={Friend}/>
+                <Route exact path={"/admin/edit-space-challenges"} component={EditSpaceChallenges}/>
+                <Route exact path={"/admin/friend/:friend"} component={Friend}/>
             </Switch>
         </React.Fragment>
     );

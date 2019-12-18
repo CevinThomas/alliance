@@ -50,6 +50,7 @@ app.post( "/api/add-users-to-space", auth, spaceController.addUsersToSpace );
 app.post( "/api/add-challenge", auth, challengeController.addChallenge );
 app.post( "/api/add-friends", auth, friendsController.addFriend );
 app.post( "/api/accept-friend", auth, friendsController.acceptFriend );
+app.post( "/api/accept-space", auth, spaceController.acceptSpaceInvite );
 app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 
