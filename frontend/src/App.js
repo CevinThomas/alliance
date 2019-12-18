@@ -7,6 +7,10 @@ import Logout from "./views/logout";
 import Account from "./views/account";
 import Admin from "./views/admin";
 import CreateSpace from "./views/createSpace";
+import ManageChallengers from "./views/manageChallengers";
+import Friend from "./containers/manageChallengers/friend";
+import EditSpaceChallenges from "./views/edit-space-challenges";
+
 
 function App() {
     return (
@@ -17,8 +21,11 @@ function App() {
                 <Route path={"/login"} component={Login}/>
                 <Route path={"/logout"} component={Logout}/>
                 <Route path={"/account"} component={Account}/>
-                <Route path={"/admin/create-space"} component={CreateSpace}/>
-                <Route path={"/admin"} component={Admin}/>
+                <Route exact path={"/admin/create-space"} component={CreateSpace}/>
+                <Route exact path={"/admin/manage-challengers"} component={ManageChallengers}/>
+                <Route exact path={"/admin"} component={Admin}/>
+                <Route exact path={"/admin/edit-space-challenges"} component={EditSpaceChallenges}/>
+                <Route exact path={"/admin/friend/:friend"} component={Friend}/>
             </Switch>
         </React.Fragment>
     );

@@ -13,12 +13,31 @@ exports.createSpace = async ( req, res, next ) => {
     space.save();
 
     const createdSpace = await Space.findSpacePerCreatedName( spaceName );
-    User.findMultipleUsersInDatabase( "email", usersToAdd, ( users ) => {
-        Space.addUsersToSpace( createdSpace._id, users, ( response ) => {
+
+    //TODO: Add the createSpace.name and the createSpace.owner/host also
+    await User.spaceFindUsers( usersToAdd, ( friends ) => {
+        Space.inviteUsersToSpace( createdSpace.name, friends, ( response ) => {
             //TODO: Some type of error checking
         } );
     } );
+
     res.status( 200 ).send( "Space created" );
+};
+
+exports.acceptSpaceInvite = async ( req, res, next ) => {
+    if ( req.body.accept === true ) {
+
+        const space = await Space.findSpacePerCreatedName( req.body.name );
+        User.findUserInDatabase( "email", req.user.email, ( user ) => {
+            Space.acceptSpaceInvite( space, user );
+        } );
+
+
+    } else {
+
+    }
+
+    res.status( 200 ).send( req.body );
 };
 
 
@@ -26,13 +45,11 @@ exports.addUsersToSpace = async ( req, res, next ) => {
     const token = getToken( req );
     const usersToAdd = Space.validateUsersEmail( req.body.membersToInvite );
     User.findMultipleUsersInDatabase( "email", usersToAdd, ( users ) => {
-        Space.addUsersToSpace( req.body.spaceID, users, ( response ) => {
+        Space.inviteUsersToSpace( req.body.spaceID, users, ( response ) => {
 
         } );
     } );
-    if ( !token ) {
-        res.status( 200 ).send( "Please login first" );
-    } else {
-        res.status( 200 ).send( "Adding users" );
-    }
+
+    return !token ? res.status( 200 ).send( "Please Login first" ) : res.status( 200 ).send( "Adding Users" );
+
 };

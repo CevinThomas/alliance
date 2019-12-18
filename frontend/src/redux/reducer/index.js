@@ -4,6 +4,7 @@ import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
+import * as friendConstants from "../../constants/friends";
 
 const initialState = {
     //TODO: Refactor state
@@ -35,11 +36,57 @@ const initialState = {
         friends: []
     },
     friendsToInvite: [],
-    showChallengerModal: false
+    showChallengerModal: false,
+    friendRequests: [],
+    addFriend: "",
+    friendsList: [],
+    incomingSpaceInvites: []
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === userConstants.USER_INCOMING_SPACE_INVITES ) {
+        let spaceInvites = [];
+        action.payload.map( ( invite ) => {
+            spaceInvites.push( invite );
+        } );
+        return {
+            ...state,
+            incomingSpaceInvites: spaceInvites
+        };
+    }
+
+    if ( action.type === friendConstants.CURRENT_FRIENDS ) {
+        const newArray = [];
+        action.payload.map( ( friend ) => {
+            newArray.push( friend );
+        } );
+        return {
+            ...state,
+            friendsList: newArray
+        };
+    }
+
+    if ( action.type === friendConstants.ADD_FRIEND ) {
+        return {
+            ...state,
+            addFriend: action.payload
+        };
+    }
+
+    if ( action.type === friendConstants.FRIEND_REQUESTS ) {
+        const newArray = [];
+        action.payload.map( ( request ) => {
+            newArray.push( request );
+        } );
+        return {
+            ...state,
+            friendRequests: newArray
+        };
+    }
+
+
     if ( action.type === spaceConstants.SPACE_CHALLENGERS ) {
         if ( action.payload.add ) {
             const toAdd = action.payload.add;
@@ -75,13 +122,19 @@ function rootReducer( state = initialState, action ) {
         };
     }
     if ( action.type === userConstants.USER_CREDENTIALS ) {
+        let friendsArray = [];
+        if ( action.payload.friends.length !== 0 ) {
+            action.payload.friends.map( ( friend ) => {
+                friendsArray.push( friend );
+            } );
+        }
         return {
             ...state,
             MainUserCredentials: {
                 ...state.MainUserCredentials,
                 id: action.payload._id,
                 name: action.payload.name,
-                friends: action.payload.friends
+                friends: friendsArray
             }
         };
     }

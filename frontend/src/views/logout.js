@@ -9,18 +9,8 @@ import removeToken from "../helperMethods/removeToken";
 
 const Logout = ( props ) => {
 
-    const token = getToken();
-
-    if ( token !== false ) {
-        Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-        Axios.defaults.headers.common["Authorization"] = null;
-    }
-
-
-    //TODO: Refactor to a module
-    Axios.defaults.headers.common = { "Authorization": `Bearer ${token}` };
-
+    getToken();
+     
     useEffect( () => {
         Axios( {
             method: "POST",
