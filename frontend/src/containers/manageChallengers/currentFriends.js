@@ -1,8 +1,10 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
 import * as friendsConstants from "../../constants/friends";
+import Button from "../../components/general/button";
 
 const mapStateToProps = state => {
     return { friends: state.friendsList };
@@ -11,6 +13,7 @@ const mapStateToProps = state => {
 const CurrentFriends = ( props ) => {
 
     //TODO: Send error message to Redux
+    //TODO: This needs to run again, once we have accepted a friend
     useEffect( () => {
         Axios( {
             method: "GET",
@@ -24,9 +27,11 @@ const CurrentFriends = ( props ) => {
 
     if ( props.friends.length !== 0 ) {
         friendsUI = props.friends.map( ( friend ) => {
+            console.log( friend );
             return (
                 <div>
-                    <h1>{friend}</h1>
+                    <h1>{friend.name}</h1>
+                    <Link to={"/admin/friend/?id=" + friend._id}><Button title={"View"}/></Link>
                 </div>
             );
         } );

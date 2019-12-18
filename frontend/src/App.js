@@ -8,6 +8,7 @@ import Account from "./views/account";
 import Admin from "./views/admin";
 import CreateSpace from "./views/createSpace";
 import ManageChallengers from "./views/manageChallengers";
+import Friend from "./containers/manageChallengers/friend";
 
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
                 <Route path={"/login"} component={Login}/>
                 <Route path={"/logout"} component={Logout}/>
                 <Route path={"/account"} component={Account}/>
-                <Route path={"/admin/create-space"} component={CreateSpace}/>
-                <Route path={"/admin/manage-challengers"} component={ManageChallengers}/>
-                <Route path={"/admin"} component={Admin}/>
+                <Route exact path={"/admin/create-space"} component={CreateSpace}/>
+                <Route exact path={"/admin/manage-challengers"} component={ManageChallengers}/>
+                <Route exact path={"/admin"} component={Admin}/>
+                <Route path={"/admin/:friend"} component={Friend}/>
             </Switch>
         </React.Fragment>
     );

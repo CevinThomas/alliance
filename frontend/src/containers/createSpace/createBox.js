@@ -84,17 +84,18 @@ const CreateBox = ( props ) => {
     if ( props.user.friends ) {
         if ( props.user.friends.length > 0 ) {
             ModalUI = props.user.friends.map( ( friend ) => {
-                if ( props.friendsToInvite.includes( friend ) ) {
-                    return (<div key={friend} className={"friend-container checked-friend"}>
-                            <label htmlFor="">{friend}</label>
-                            <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend}/>
+                console.log( props.friendsToInvite );
+                if ( props.friendsToInvite.includes( friend.email ) ) {
+                    return (<div key={friend._id} className={"friend-container checked-friend"}>
+                            <label htmlFor="">{friend.name}</label>
+                            <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend.email}/>
                         </div>
                     );
                 } else {
                     return (
-                        <div key={friend} className={"friend-container"}>
-                            <label htmlFor="">{friend}</label>
-                            <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend}/>
+                        <div key={friend._id} className={"friend-container"}>
+                            <label htmlFor="">{friend.name}</label>
+                            <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend.email}/>
                         </div>
                     );
                 }

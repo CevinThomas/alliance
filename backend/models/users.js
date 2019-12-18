@@ -7,6 +7,7 @@ class User {
     tokens = [];
     friends = [];
     incomingFriendRequest = [];
+    incomingSpaceInvites = [];
 
     constructor( name, email, password ) {
         this.name = name;
@@ -37,19 +38,33 @@ class User {
         }
     };
 
+    static spaceFindUsers = async ( friendsEmailArray, callback ) => {
+        const db = getDb();
+        db.collection( process.env.USERSCOLLECTION ).find( {
+            email: {
+                $in: friendsEmailArray
+            }
+        } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
+    };
+
     static findMultipleUsersInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         searchParam.map( ( email ) => {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { email } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).findOne( { email } ).then( user => callback( user ) ).catch( e => callback( e ) );
         } );
     };
 
+    //TODO: PROJECTION SYNTAX FOR THE REST OF THE APPLICATION
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam.trim() } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).findOne( { email: searchParam.trim() }, { email: 0 } ).then( ( r ) => {
+                callback( r );
+            } ).catch( e => callback( e ) );
         } else {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: searchParam.trim() } ).then( r => callback( r ) ).catch( e => callback( e ) );
+            db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: searchParam.trim() }, { email: 0 } ).then( ( r ) => {
+                callback( r );
+            } ).catch( e => callback( e ) );
         }
     };
 
@@ -76,13 +91,14 @@ class User {
         return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
     };
 
-    static acceptOrDeclineFriend = ( userEmail, friendEmail, accept ) => {
+    //TODO: Check to see if the execution was completed, return value to conditionally send response to user
+    static acceptOrDeclineFriend = ( userEmail, friendEmail, accept, userObject, friendObject ) => {
         const db = getDb();
         let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
         if ( accept ) {
             bulk.find( { email: userEmail } ).update( { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );
-            bulk.find( { email: userEmail } ).update( { $push: { friends: friendEmail } } );
-            bulk.find( { email: friendEmail } ).update( { $push: { friends: userEmail } } );
+            bulk.find( { email: userEmail } ).update( { $push: { friends: friendObject } } );
+            bulk.find( { email: friendEmail } ).update( { $push: { friends: userObject } } );
             bulk.execute();
         } else {
             db.collection( process.env.USERSCOLLECTION ).updateOne( { email: userEmail }, { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );

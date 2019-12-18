@@ -110,13 +110,19 @@ function rootReducer( state = initialState, action ) {
         };
     }
     if ( action.type === userConstants.USER_CREDENTIALS ) {
+        let friendsArray = [];
+        if ( action.payload.friends.length !== 0 ) {
+            action.payload.friends.map( ( friend ) => {
+                friendsArray.push( friend );
+            } );
+        }
         return {
             ...state,
             MainUserCredentials: {
                 ...state.MainUserCredentials,
                 id: action.payload._id,
                 name: action.payload.name,
-                friends: action.payload.friends
+                friends: friendsArray
             }
         };
     }

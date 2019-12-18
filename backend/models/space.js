@@ -34,14 +34,11 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } );
     }
 
-    static addUsersToSpace( spaceId, users, callback ) {
+    static inviteUsersToSpace( spaceId, friends, callback ) {
         const db = getDb();
-        users.pending = true;
-        db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
-            $push: {
-                challengers: users
-            }
-        } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        friends.map( ( friend ) => {
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceId } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        } );
     }
 
     save() {

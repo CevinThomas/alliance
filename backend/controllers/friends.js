@@ -17,13 +17,22 @@ exports.addFriend = async ( req, res, next ) => {
 
 exports.acceptFriend = async ( req, res, next ) => {
 
+    //TODO: This should be filtered out in the mongoDB process, not here, remove fields not used.
     const friendEmail = req.body;
-    User.acceptOrDeclineFriend( req.user.email, friendEmail.email, friendEmail.accept );
+    User.findUserInDatabase( "email", friendEmail.email, ( friend ) => {
+        friend.password = "";
+        friend.tokens = "";
+        friend.friends = "";
+        friend.incomingFriendRequest = "";
+        User.acceptOrDeclineFriend( req.user.email, friendEmail.email, friendEmail.accept, req.user, friend );
+    } );
+
     res.status( 200 ).send( "Accepting friend" );
 };
 
 exports.getFriends = async ( req, res, next ) => {
     const user = await User.getCurrentFriends( req.user.email );
+    console.log( user );
 
     res.status( 200 ).send( user.friends );
 };
