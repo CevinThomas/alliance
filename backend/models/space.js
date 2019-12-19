@@ -19,6 +19,16 @@ class Space {
         } );
     }
 
+    //TODO: Maybe add so we can see who the owner is?
+    static getSpaceInformationFromInvite = async spaceId => {
+        console.log( spaceId );
+        const db = getDb();
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaceId } } ).project( {
+            "name": 1,
+            "description": 1
+        } ).toArray();
+    };
+
     static findSpacePerUser( userId ) {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
@@ -30,7 +40,7 @@ class Space {
         const db = getDb();
         let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
         bulk.find( { email: user.email } ).update( { $push: { spaces: space._id } } );
-        bulk.find( { email: user.email } ).update( { $pull: { incomingSpaceInvites: space.name } } );
+        bulk.find( { email: user.email } ).update( { $pull: { incomingSpaceInvites: space._id } } );
         bulk.execute();
         db.collection( process.env.SPACECOLLECTION ).updateOne( { name: space.name }, { $push: { challengers: user._id } } );
     };

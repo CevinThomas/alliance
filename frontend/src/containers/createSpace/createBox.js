@@ -7,12 +7,13 @@ import Button from "../../components/general/button";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
 import * as spaceConstants from "../../constants/space";
-import * as userConstants from "../../constants/user";
 import *as generalConstants from "../../constants/general";
+import * as friendConstants from "../../constants/friends";
 import getToken from "../../helperMethods/getToken";
 
 const mapStateToProps = state => ({
     user: state.MainUserCredentials,
+    friendsList: state.friendsList,
     showModal: state.showChallengerModal,
     space: state.spaceCredentials,
     friendsToInvite: state.friendsToInvite
@@ -36,11 +37,11 @@ const CreateBox = ( props ) => {
     useEffect( () => {
         Axios( {
             method: "GET",
-            url: urlConstants.GET_ME
+            url: urlConstants.GET_CURRENT_FRIENDS
         } ).then( ( response ) => {
             console.log( response );
             //TODO: Unit checking
-            props.dispatch( { type: userConstants.USER_CREDENTIALS, payload: response.data } );
+            props.dispatch( { type: friendConstants.CURRENT_FRIENDS, payload: response.data } );
         } );
     }, [] );
 
@@ -81,10 +82,9 @@ const CreateBox = ( props ) => {
     };
 
     let ModalUI = "";
-    if ( props.user.friends ) {
-        if ( props.user.friends.length > 0 ) {
-            ModalUI = props.user.friends.map( ( friend ) => {
-                console.log( props.friendsToInvite );
+    if ( props.friendsList ) {
+        if ( props.friendsList.length > 0 ) {
+            ModalUI = props.friendsList.map( ( friend ) => {
                 if ( props.friendsToInvite.includes( friend.email ) ) {
                     return (<div key={friend._id} className={"friend-container checked-friend"}>
                             <label htmlFor="">{friend.name}</label>
@@ -102,7 +102,6 @@ const CreateBox = ( props ) => {
 
             } );
         }
-
     }
 
 

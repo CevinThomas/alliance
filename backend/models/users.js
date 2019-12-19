@@ -93,13 +93,13 @@ class User {
     };
 
     //TODO: Check to see if the execution was completed, return value to conditionally send response to user
-    static acceptOrDeclineFriend = ( userEmail, friendEmail, accept, userObject, friendObject ) => {
+    static acceptOrDeclineFriend = ( userEmail, friendEmail, accept, userId, friendId ) => {
         const db = getDb();
         let bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
         if ( accept ) {
             bulk.find( { email: userEmail } ).update( { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );
-            bulk.find( { email: userEmail } ).update( { $push: { friends: friendObject } } );
-            bulk.find( { email: friendEmail } ).update( { $push: { friends: userObject } } );
+            bulk.find( { email: userEmail } ).update( { $push: { friends: friendId } } );
+            bulk.find( { email: friendEmail } ).update( { $push: { friends: userId } } );
             bulk.execute();
         } else {
             db.collection( process.env.USERSCOLLECTION ).updateOne( { email: userEmail }, { $pull: { incomingFriendRequest: { $in: [ friendEmail ] } } } );
@@ -107,9 +107,14 @@ class User {
 
     };
 
-    static getCurrentFriends = ( email ) => {
+    //TODO: SO THIS WORKS (PROJECTION)
+    static getCurrentFriends = async ( email ) => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { email }, { email: 1 } ).then( r => r ).catch( e => console.log( e ) );
+        const frientsId = await db.collection( process.env.USERSCOLLECTION ).findOne( { email }, { email: 1 } ).then( r => r ).catch( e => console.log( e ) );
+        return await db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: frientsId.friends } } ).project( {
+            "name": 1,
+            "email": 1
+        } ).toArray();
     };
 
     saveUser() {

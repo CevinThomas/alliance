@@ -47,6 +47,7 @@ const initialState = {
 function rootReducer( state = initialState, action ) {
 
     if ( action.type === userConstants.USER_INCOMING_SPACE_INVITES ) {
+        console.log( action.payload );
         let spaceInvites = [];
         action.payload.map( ( invite ) => {
             spaceInvites.push( invite );

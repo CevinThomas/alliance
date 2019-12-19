@@ -12,6 +12,8 @@ const mapStateToProps = state => {
 
 const EditSpaceChallenges = ( props ) => {
 
+    //TODO: REFACTOR Into containers
+
     const [ madeRequest, setMadeRequest ] = useState( 0 );
 
     getToken();
@@ -20,23 +22,24 @@ const EditSpaceChallenges = ( props ) => {
     useEffect( () => {
         Axios( {
             method: "GET",
-            url: urlConstants.GET_ME
-        } ).then( ( me ) => {
+            url: urlConstants.GET_SPACE_INVITES
+        } ).then( ( spaceInvites ) => {
+            console.log( spaceInvites );
             props.dispatch( {
                 type: userConstants.USER_INCOMING_SPACE_INVITES,
-                payload: me.data.incomingSpaceInvites
+                payload: spaceInvites.data
             } );
         } ).catch( e => console.log( e ) );
     }, [] );
 
     //TODO: REFACTOR into a module (We call this in friendRequests as well)
-    const submitAcceptOrDeclineRequest = ( name, accept ) => {
+    const submitAcceptOrDeclineRequest = ( id, accept ) => {
         Axios( {
             method: "POST",
             url: "http://localhost:8000/api/accept-space",
             data: {
                 accept,
-                name
+                id
             }
         } );
         //TODO: Find a better way to make the component update (maybe a certain type of response from the server to determine)
@@ -45,18 +48,20 @@ const EditSpaceChallenges = ( props ) => {
         }, 500 );
     };
 
-    const handleAcceptOrDecline = ( name, accept ) => {
-        submitAcceptOrDeclineRequest( name, accept );
+    const handleAcceptOrDecline = ( id, accept ) => {
+        submitAcceptOrDeclineRequest( id, accept );
     };
 
     let spaceInvitesUI;
 
     spaceInvitesUI = props.spaceInvites.map( ( invite ) => {
+        console.log( invite );
         return (
-            <div key={invite}>
-                <h2>{invite}</h2>
-                <Button onclick={() => handleAcceptOrDecline( invite, true )} title={"Accept"}/>
-                <Button onclick={() => handleAcceptOrDecline( invite, true )} title={"Decline"}/>
+            <div key={invite._id}>
+                <h2>{invite.name}</h2>
+                <h3>{invite.description}</h3>
+                <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Accept"}/>
+                <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Decline"}/>
             </div>
         );
     } );

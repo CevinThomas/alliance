@@ -16,7 +16,7 @@ exports.createSpace = async ( req, res, next ) => {
 
     //TODO: Add the createSpace.name and the createSpace.owner/host also
     await User.spaceFindUsers( usersToAdd, ( friends ) => {
-        Space.inviteUsersToSpace( createdSpace.name, friends, ( response ) => {
+        Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
             //TODO: Some type of error checking
         } );
     } );
@@ -27,12 +27,10 @@ exports.createSpace = async ( req, res, next ) => {
 exports.acceptSpaceInvite = async ( req, res, next ) => {
     if ( req.body.accept === true ) {
 
-        const space = await Space.findSpacePerCreatedName( req.body.name );
+        const space = await Space.findSpacePerId( req.body.id );
         User.findUserInDatabase( "email", req.user.email, ( user ) => {
             Space.acceptSpaceInvite( space, user );
         } );
-
-
     } else {
 
     }
@@ -52,4 +50,9 @@ exports.addUsersToSpace = async ( req, res, next ) => {
 
     return !token ? res.status( 200 ).send( "Please Login first" ) : res.status( 200 ).send( "Adding Users" );
 
+};
+
+exports.getSpaceInvites = async ( req, res, next ) => {
+    const spaceInvites = await Space.getSpaceInformationFromInvite( req.user.incomingSpaceInvites );
+    res.status( 200 ).send( spaceInvites );
 };
