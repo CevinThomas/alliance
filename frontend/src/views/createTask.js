@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 const mapStateToProps = state => {
     return { typesOfTasks: state.typesOfTasks };
@@ -7,10 +8,28 @@ const mapStateToProps = state => {
 
 const CreateTask = ( props ) => {
 
-    console.log( props );
+    let tasksUI;
+    if ( props.typesOfTasks.length !== 0 ) {
+        tasksUI = props.typesOfTasks.map( ( type ) => {
+            return (
+
+                <div key={type}>
+                    <Link to={"/admin/create-challenges/" + type}>
+                        <h2>{type}</h2>
+                    </Link>
+                </div>
+
+            );
+        } );
+    } else {
+        tasksUI = <div>There has been a massive error</div>;
+    }
+
     return (
         <div>
-            <h1>Task</h1>
+            <div>
+                {tasksUI}
+            </div>
         </div>
     );
 };
