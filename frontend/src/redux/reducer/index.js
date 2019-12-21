@@ -40,7 +40,8 @@ const initialState = {
     friendRequests: [],
     addFriend: "",
     friendsList: [],
-    incomingSpaceInvites: []
+    incomingSpaceInvites: [],
+    typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ]
 };
 
 //TODO: Create seperate reducers depending on view
