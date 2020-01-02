@@ -24,6 +24,13 @@ exports.createSpace = async ( req, res, next ) => {
     res.status( 200 ).send( "Space created" );
 };
 
+exports.getSpacesFromUser = async ( req, res, next ) => {
+    const token = getToken( req );
+    const user = await Space.getSpacesFromUser( token );
+    console.log( user );
+    res.send( "Hello" );
+};
+
 exports.acceptSpaceInvite = async ( req, res, next ) => {
     if ( req.body.accept === true ) {
 

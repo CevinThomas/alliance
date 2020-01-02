@@ -1,17 +1,21 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
+import * as urlConstants from "../../constants/urls";
+import getToken from "../../helperMethods/getToken";
 
 const mapStateToProps = state => {
     return { chosenTaskType: state.chosenTaskType };
 };
 const ShowSpaceStep = ( props ) => {
 
+    getToken();
+
     useEffect( () => {
         Axios( {
             method: "GET",
-            url: ""
-        } );
+            url: urlConstants.GET_SPACES_FROM_USER
+        } ).then( r => console.log( r ) );
     } );
 
     return (
