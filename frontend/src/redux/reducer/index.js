@@ -42,13 +42,22 @@ const initialState = {
     addFriend: "",
     friendsList: [],
     incomingSpaceInvites: [],
+    //TODO: Make typesOfTasks environment variables
     typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ],
     chosenTaskType: "",
-    usersSpaces: []
+    usersSpaces: [],
+    chosenSpace: ""
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === taskConstants.CHOSEN_SPACE ) {
+        return {
+            ...state,
+            chosenSpace: action.payload
+        };
+    }
 
     if ( action.type === spaceConstants.USERS_SPACES ) {
 
