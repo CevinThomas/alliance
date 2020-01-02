@@ -5,6 +5,7 @@ import * as spaceConstants from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
+import * as taskConstants from "../../constants/tasks";
 
 const initialState = {
     //TODO: Refactor state
@@ -41,11 +42,19 @@ const initialState = {
     addFriend: "",
     friendsList: [],
     incomingSpaceInvites: [],
-    typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ]
+    typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ],
+    chosenTaskType: ""
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+    
+    if ( action.type === taskConstants.CHOSEN_TASK_TYPE ) {
+        return {
+            ...state,
+            chosenTaskType: action.payload
+        };
+    }
 
     if ( action.type === userConstants.USER_INCOMING_SPACE_INVITES ) {
         console.log( action.payload );

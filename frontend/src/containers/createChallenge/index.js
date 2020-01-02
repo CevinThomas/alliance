@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import * as taskConstants from "../../constants/tasks";
 
 const mapStateToProps = state => {
     return { typesOfTasks: state.typesOfTasks };
@@ -8,15 +8,18 @@ const mapStateToProps = state => {
 
 const ChooseChallenge = ( props ) => {
 
+    const handleTaskTypeClicked = ( e ) => {
+        props.dispatch( { type: taskConstants.CHOSEN_TASK_TYPE, payload: e.target.dataset.taskType } );
+    };
+
     let tasksUI;
     if ( props.typesOfTasks.length !== 0 ) {
         tasksUI = props.typesOfTasks.map( ( type ) => {
             return (
-
                 <div key={type}>
-                    <Link to={"/admin/create-challenges/" + type}>
-                        <h2>{type}</h2>
-                    </Link>
+                    <div id={type} className={"task-type"}>
+                        <h2 data-task-type={type} onClick={handleTaskTypeClicked}>{type}</h2>
+                    </div>
                 </div>
 
             );

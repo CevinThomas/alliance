@@ -1,0 +1,1 @@
+export const CHOSEN_TASK_TYPE = "CHOSEN_TASK_TYPE";
