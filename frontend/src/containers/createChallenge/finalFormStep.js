@@ -13,7 +13,8 @@ const FinalFormStep = ( props ) => {
     if ( props.chosenTask === "Checkbox" ) {
         formUI = (
             <div>
-                <Input placeholder={"Name of Challenge"}/>
+                <Input type={"text"} placeholder={"Name of Challenge"}/>
+                <Input type={"text"} placeholder={"Description of Challenge"}/>
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {
