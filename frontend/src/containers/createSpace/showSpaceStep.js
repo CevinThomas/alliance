@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
+import * as spaceConstants from "../../constants/space";
 import getToken from "../../helperMethods/getToken";
 
 const mapStateToProps = state => {
@@ -15,7 +16,9 @@ const ShowSpaceStep = ( props ) => {
         Axios( {
             method: "GET",
             url: urlConstants.GET_SPACES_FROM_USER
-        } ).then( r => console.log( r ) );
+        } ).then( ( response ) => {
+            props.dispatch( { type: spaceConstants.USERS_SPACES, payload: response.data } );
+        } );
     } );
 
     return (
