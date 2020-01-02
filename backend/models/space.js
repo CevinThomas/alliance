@@ -35,9 +35,10 @@ class Space {
     }
 
     //TODO: THIS IS THE CORRECT PROJECTION WAY
-    static getSpacesFromUser = ( token ) => {
+    static getSpacesFromUser = async ( token ) => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { fields: { spaces: 1 } } ).then( r => r ).catch( e => e );
+        const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { fields: { spaces: 1 } } ).then( r => r ).catch( e => e );
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } }, { fields: { name: 1 } } ).toArray();
     };
 
     //TODO: Add if statement checking if accepted or declined just like in the users
@@ -60,6 +61,7 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } );
     }
 
+    //TODO: Not optimal, check other solution for $in
     static inviteUsersToSpace( spaceName, friends, callback ) {
         const db = getDb();
         friends.map( ( friend ) => {

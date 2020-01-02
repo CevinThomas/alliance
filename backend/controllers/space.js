@@ -26,8 +26,8 @@ exports.createSpace = async ( req, res, next ) => {
 
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
-    const user = await Space.getSpacesFromUser( token );
-    console.log( user );
+    const spaces = await Space.getSpacesFromUser( token );
+    console.log( spaces );
     res.send( "Hello" );
 };
 
