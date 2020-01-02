@@ -34,9 +34,10 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
     }
 
+    //TODO: THIS IS THE CORRECT PROJECTION WAY
     static getSpacesFromUser = ( token ) => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token } ).then( r => r ).catch( e => e );
+        return db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { fields: { spaces: 1 } } ).then( r => r ).catch( e => e );
     };
 
     //TODO: Add if statement checking if accepted or declined just like in the users
