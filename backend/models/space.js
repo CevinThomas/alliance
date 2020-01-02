@@ -38,7 +38,7 @@ class Space {
     static getSpacesFromUser = async ( token ) => {
         const db = getDb();
         const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { fields: { spaces: 1 } } ).then( r => r ).catch( e => e );
-        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } }, { fields: { name: 1 } } ).toArray();
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).project( { "name": 1 } ).toArray();
     };
 
     //TODO: Add if statement checking if accepted or declined just like in the users

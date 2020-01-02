@@ -24,11 +24,11 @@ exports.createSpace = async ( req, res, next ) => {
     res.status( 200 ).send( "Space created" );
 };
 
+//TODO: Error checking
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );
-    console.log( spaces );
-    res.send( "Hello" );
+    res.status( 200 ).send( spaces );
 };
 
 exports.acceptSpaceInvite = async ( req, res, next ) => {
