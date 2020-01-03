@@ -1,31 +1,48 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const Select = ( props ) => {
 
     const [ selectedMonth, setSelectedMonth ] = useState( "January" );
     const [ currentMonthMaxDays, setCurrentMonthMaxDays ] = useState( 31 );
-    console.log( selectedMonth );
-    console.log( currentMonthMaxDays );
+    const [ currentDay, setCurrentDay ] = useState( 1 );
+    const [ currentMonth, setCurrentMonth ] = useState( 0 );
 
-    let monthUI;
+    const date = new Date();
+
+    useEffect( () => {
+        setCurrentDay( date.getDate() );
+        setCurrentMonth( date.getMonth() );
+    }, [] );
+
+    let monthUI, selected;
     monthUI = Object.entries( props.months ).map( ( month ) => {
+        if ( month[0] == currentMonth ) {
+            selected = "selected";
+        } else {
+            selected = "";
+        }
         const removedNumber = month.splice( 1, 1 );
         return (
-            <option key={removedNumber} value={removedNumber}>
+            <option selected={selected} key={removedNumber} value={removedNumber}>
                 {removedNumber}
             </option>
         );
     } );
 
-    let maxDays = [];
+    let daysToShow = [];
     for ( let i = 0; i < currentMonthMaxDays; i++ ) {
-        maxDays.push( (i) + 1 );
+        daysToShow.push( (i) + 1 );
     }
 
-    let daysUI;
-    daysUI = maxDays.map( ( day ) => {
+    let daysUI, daySelected;
+    daysUI = daysToShow.map( ( day ) => {
+        if ( day == currentDay ) {
+            daySelected = "selected";
+        } else {
+            daySelected = "";
+        }
         return (
-            <option>
+            <option selected={daySelected} key={day}>
                 {day}
             </option>
         );
