@@ -18,8 +18,8 @@ const Select = ( props ) => {
     } );
 
     let maxDays = [];
-    for ( let i = 1; i < currentMonthMaxDays; i++ ) {
-        maxDays.push( i );
+    for ( let i = 0; i < currentMonthMaxDays; i++ ) {
+        maxDays.push( (i) + 1 );
     }
 
     let daysUI;
@@ -30,7 +30,7 @@ const Select = ( props ) => {
             </option>
         );
     } );
-    
+
     const handleMonthChange = ( e ) => {
         setSelectedMonth( e.target.value );
         displayCorrectDays( e.target.value );
