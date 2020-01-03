@@ -338,7 +338,49 @@ a:hover {
 }
 
 #create-task {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#create-task #checkbox-form {
+  height: 80%;
+  width: 80%;
+}
+#create-task #checkbox-form .right-column {
+  height: 50%;
+  width: 100%;
+  background: #00cca3;
+}
+#create-task #checkbox-form .right-column .right-container {
+  width: 50%;
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+}
+#create-task #checkbox-form .right-column h2 {
+  margin: 0;
+  color: #fff;
+}
+#create-task #checkbox-form .right-column button {
+  background: #fff;
+  color: #00cca3;
+}
+#create-task #checkbox-form .left-column {
+  height: 50%;
+  width: 100%;
+  background: url("./images/the-polygon-1562743_1280.jpg") center no-repeat;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#create-task #checkbox-form .left-column h2 {
+  margin: 0;
 }
 #create-task .creation-modal {
   position: fixed;

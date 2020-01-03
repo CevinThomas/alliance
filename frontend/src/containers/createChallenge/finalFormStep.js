@@ -2,6 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
+import Heading from "../../components/textElements/heading";
+import Paragraph from "../../components/textElements/paragraph";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -47,7 +49,7 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <button>Add Checkbox</button>
                 </div>
-                
+
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {
@@ -59,12 +61,30 @@ const FinalFormStep = ( props ) => {
     }
 
     return (
-        <div>
-            <h2>Final form step</h2>
-            <div>
-                <h2>You have chosen {props.chosenTask}</h2>
-                {formUI}
+        <div className={"final-form"} id={"checkbox-form"}>
+            <div className={"left-column"}>
+                <div>
+                    <Heading title={"Create your task"} type={"h2"}/>
+                    <Paragraph title={"And get instant access to our Resources!"}/>
+                </div>
+                <div>
+                    
+                </div>
             </div>
+            <div className={"right-column"}>
+                <div className={"right-container"}>
+                    <h2>Final form step</h2>
+                    <div>
+                        <h2>You have chosen {props.chosenTask}</h2>
+                        {formUI}
+                    </div>
+                </div>
+                <div className={"right-container"}>
+
+                </div>
+            </div>
+
+
         </div>
     );
 };

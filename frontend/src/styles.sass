@@ -326,7 +326,49 @@ a:hover
     background: $whiteColor
 
 #create-task
-  position: relative
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+
+  #checkbox-form
+    height: 80%
+    width: 80%
+
+    .right-column
+      height: 50%
+      width: 100%
+      background: $mainColor
+
+      .right-container
+        width: 50%
+        display: inline-block
+        height: 100%
+        vertical-align: top
+
+      h2
+        margin: 0
+        color: $whiteColor
+
+      button
+        background: $whiteColor
+        color: $mainColor
+
+    .left-column
+      height: 50%
+      width: 100%
+      background: url("./images/the-polygon-1562743_1280.jpg") center no-repeat
+      position: relative
+      display: flex
+      justify-content: center
+      align-items: center
+
+      h2
+        margin: 0
 
   .creation-modal
     position: fixed
