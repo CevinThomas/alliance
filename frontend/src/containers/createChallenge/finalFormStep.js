@@ -43,6 +43,9 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <Select months={months} maxDays={maxDays} years={years}/>
                 </div>
+                <div>
+                    <button>Add Checkbox</button>
+                </div>
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {
