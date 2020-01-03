@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
+import CreationModal from "../../components/modals/creationModal";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -36,6 +37,7 @@ const FinalFormStep = ( props ) => {
     //TODO: Remake these into the environment variables just like in redux for easier maintenance
     //TODO: Instead of having a single Select component for months, days and years. Make one component that holds each, move state and logic to this container
     if ( props.chosenTask === "Checkbox" ) {
+
         formUI = (
             <div>
                 <Input type={"text"} placeholder={"Name of Challenge"}/>
@@ -46,6 +48,7 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <button>Add Checkbox</button>
                 </div>
+                <CreationModal title={"Create a Checkbox"}/>
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {

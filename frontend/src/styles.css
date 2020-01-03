@@ -337,6 +337,29 @@ a:hover {
   background: #fff;
 }
 
+#create-task {
+  position: relative;
+}
+#create-task .creation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+#create-task .creation-modal .inside-modal {
+  width: 80%;
+  height: 80%;
+  background: white;
+}
+#create-task .creation-modal .inside-modal h2 {
+  text-align: center;
+}
+
 #admin {
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat;
   background-size: cover;

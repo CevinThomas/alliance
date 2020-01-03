@@ -21,7 +21,7 @@ const CreateChallenge = ( props ) => {
     }
 
     return (
-        <div>
+        <div id={"create-task"}>
             {stepsUI}
         </div>
     );
