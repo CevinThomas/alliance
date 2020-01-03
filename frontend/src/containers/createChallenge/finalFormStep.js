@@ -24,16 +24,24 @@ const FinalFormStep = ( props ) => {
         November: { days: 30 },
         December: { days: 31 }
     };
+    const date = new Date();
+    const year = date.getFullYear();
+    let years = [];
+
+    for ( let i = year; i < year + 5; i++ ) {
+        years.push( i );
+    }
 
     let formUI;
     //TODO: Remake these into the environment variables just like in redux for easier maintenance
+    //TODO: Instead of having a single Select component for months, days and years. Make one component that holds each, move state and logic to this container
     if ( props.chosenTask === "Checkbox" ) {
         formUI = (
             <div>
                 <Input type={"text"} placeholder={"Name of Challenge"}/>
                 <Input type={"text"} placeholder={"Description of Challenge"}/>
                 <div>
-                    <Select months={months} maxDays={maxDays}/>
+                    <Select months={months} maxDays={maxDays} years={years}/>
                 </div>
             </div>
         );

@@ -37,13 +37,22 @@ const Select = ( props ) => {
     let daysUI, daySelected;
     daysUI = daysToShow.map( ( day ) => {
         if ( day == currentDay ) {
-            daySelected = "selected";
+            daySelected = day;
         } else {
             daySelected = "";
         }
         return (
             <option selected={daySelected} key={day}>
                 {day}
+            </option>
+        );
+    } );
+
+    let yearsUI;
+    yearsUI = props.years.map( ( year ) => {
+        return (
+            <option key={year}>
+                {year}
             </option>
         );
     } );
@@ -63,11 +72,14 @@ const Select = ( props ) => {
 
     return (
         <React.Fragment>
-            <select onChange={handleMonthChange}>
+            <select name={"month-selected"} onChange={handleMonthChange}>
                 {monthUI}
             </select>
-            <select>
+            <select name={"day-selected"}>
                 {daysUI}
+            </select>
+            <select name={"year-selected"}>
+                {yearsUI}
             </select>
         </React.Fragment>
     );
