@@ -4,6 +4,7 @@ import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
 import Paragraph from "../../components/textElements/paragraph";
+import CircularClickableIcon from "../../components/general/circularClickableIcon";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -46,10 +47,6 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <Select months={months} maxDays={maxDays} years={years}/>
                 </div>
-                <div>
-                    <button>Add Checkbox</button>
-                </div>
-
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {
@@ -67,8 +64,10 @@ const FinalFormStep = ( props ) => {
                     <Heading title={"Create your task"} type={"h2"}/>
                     <Paragraph title={"And get instant access to our Resources!"}/>
                 </div>
-                <div>
-                    
+                <div className={"circle-container"}>
+                    <CircularClickableIcon type={"h4"} title={"Yo Yo"}/>
+                    <CircularClickableIcon type={"h4"} title={"Yo"}/>
+                    <CircularClickableIcon type={"h4"} title={"Hey"}/>
                 </div>
             </div>
             <div className={"right-column"}>

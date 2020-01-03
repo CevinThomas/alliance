@@ -56,6 +56,25 @@ h3 {
   }
 }
 
+h4 {
+  transition: 0.5s ease-in-out;
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  color: #00cca3;
+  font-size: 18px;
+}
+@media (max-width: 980px) {
+  h4 {
+    font-size: 14px;
+  }
+}
+@media (max-width: 476px) {
+  h4 {
+    font-size: 12px;
+  }
+}
+
 input::placeholder {
   color: #00cca3;
 }
@@ -378,6 +397,31 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+#create-task #checkbox-form .left-column > div {
+  width: 100%;
+  display: block;
+}
+#create-task #checkbox-form .left-column .circle-container {
+  width: 100%;
+  height: 50%;
+  display: block;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#create-task #checkbox-form .left-column .circle-icon {
+  background: #fff;
+  box-shadow: 0 0 3px 0 #00cca3;
+  width: calc(28% / 3);
+  height: 100px;
+  display: inline-block;
+  border-radius: 400px;
+}
+#create-task #checkbox-form .left-column .circle-icon .circle-heading-container {
+  margin-top: 120px;
+  text-align: center;
 }
 #create-task #checkbox-form .left-column h2 {
   margin: 0;

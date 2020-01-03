@@ -1,11 +1,17 @@
 import React from "react";
+import Heading from "../textElements/heading";
 
-const CirclularClickableIcon = () => {
+const CircularClickableIcon = ( props ) => {
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+            <div className={"circle-icon"}>
+                <div className={"circle-heading-container"}>
+                    <Heading type={props.type} title={props.title}/>
+                </div>
+            </div>
+
+        </React.Fragment>
     );
 };
 
-export default CirclularClickableIcon;
+export default CircularClickableIcon;
