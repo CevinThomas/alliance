@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
-import CreationModal from "../../components/modals/creationModal";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -48,7 +47,7 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <button>Add Checkbox</button>
                 </div>
-                <CreationModal title={"Create a Checkbox"}/>
+                
             </div>
         );
     } else if ( props.chosenTask === "Single" ) {
