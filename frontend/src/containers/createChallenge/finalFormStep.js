@@ -31,10 +31,10 @@ const FinalFormStep = ( props ) => {
     };
     const date = new Date();
     const year = date.getFullYear();
-    let years = [];
+    let currentAndFiveYearsAhead = [];
 
     for ( let i = year; i < year + 5; i++ ) {
-        years.push( i );
+        currentAndFiveYearsAhead.push( i );
     }
 
     let formUI;
@@ -47,7 +47,7 @@ const FinalFormStep = ( props ) => {
                 <Input type={"text"} placeholder={"Name of Challenge"}/>
                 <Input type={"text"} placeholder={"Description of Challenge"}/>
                 <div>
-                    <Select months={months} maxDays={maxDays} years={years}/>
+                    <Select months={months} maxDays={maxDays} years={currentAndFiveYearsAhead}/>
                 </div>
             </div>
         );
