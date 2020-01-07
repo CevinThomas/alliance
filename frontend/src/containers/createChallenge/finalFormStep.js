@@ -84,7 +84,7 @@ const FinalFormStep = ( props ) => {
                     name: nameAndDesc.name,
                     description: nameAndDesc.desc,
                     goal: nameAndDesc.goal,
-                    endDate: props.endDate,
+                    endDate: props.endDateTimeStamp,
                     type: props.chosenTask,
                     chosenSpace: props.chosenSpace,
                     listItems: props.checkListItems,
