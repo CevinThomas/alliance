@@ -464,6 +464,18 @@ a:hover {
   width: 80%;
   height: 80%;
   background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#create-task .creation-container .inside-modal .left-column {
+  width: 100%;
+  display: block;
+}
+#create-task .creation-container .inside-modal .right-column {
+  width: 100%;
+  display: block;
 }
 #create-task .creation-container .inside-modal h2 {
   text-align: center;

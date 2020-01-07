@@ -110,7 +110,7 @@ const FinalFormStep = ( props ) => {
 
         let modalUI;
         if ( showCheckModal === true ) {
-            modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Left Side"} rightType={"h2"} rightTitle={"Right Side"}/>;
+            modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"} rightTitle={"Bottom Side"}/>;
         }
 
 
