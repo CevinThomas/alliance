@@ -73,7 +73,7 @@ const FinalFormStep = ( props ) => {
                 </div>
             </div>
             <div className={"right-column"}>
-                <div className={"right-container"}>
+                <div id={"first-right-container"} className={"right-container"}>
                     <h2>Final form step</h2>
                     <div>
                         <h2>You have chosen {props.chosenTask}</h2>

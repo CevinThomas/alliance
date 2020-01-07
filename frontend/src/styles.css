@@ -398,10 +398,13 @@ a:hover {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  background-size: cover;
 }
 #create-task #checkbox-form .left-column > div {
   width: 100%;
   display: block;
+  text-align: center;
+  margin-top: 50px;
 }
 #create-task #checkbox-form .left-column .circle-container {
   width: 100%;
@@ -412,15 +415,16 @@ a:hover {
   align-items: center;
 }
 #create-task #checkbox-form .left-column .circle-icon {
-  background: #fff;
-  box-shadow: 0 0 3px 0 #00cca3;
   width: calc(28% / 3);
   height: 100px;
   display: inline-block;
   border-radius: 400px;
 }
+#create-task #checkbox-form .left-column .circle-icon svg {
+  width: 100%;
+  height: 50%;
+}
 #create-task #checkbox-form .left-column .circle-icon .circle-heading-container {
-  margin-top: 120px;
   text-align: center;
 }
 #create-task #checkbox-form .left-column h2 {

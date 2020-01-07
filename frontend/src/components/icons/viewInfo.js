@@ -1,13 +1,13 @@
 import React from "react";
 import Heading from "../textElements/heading";
-import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ViewInfo = ( props ) => {
     return (
         <React.Fragment>
             <div className={"circle-icon"}>
-                <FontAwesomeIcon id={props.id} icon={faUserCircle}/>
+                <FontAwesomeIcon id={props.id} icon={faInfoCircle}/>
                 <div className={"circle-heading-container"}>
                     <Heading type={props.type} title={props.title}/>
                 </div>
