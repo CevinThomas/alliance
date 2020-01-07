@@ -377,9 +377,19 @@ a:hover {
 }
 #create-task #checkbox-form .right-column .right-container {
   width: 50%;
-  display: inline-block;
   height: 100%;
   vertical-align: top;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#create-task #checkbox-form .right-column .right-container .task-form {
+  width: 100%;
+}
+#create-task #checkbox-form .right-column .right-container .task-form-heading {
+  width: 100%;
 }
 #create-task #checkbox-form .right-column h2 {
   margin: 0;
@@ -408,8 +418,6 @@ a:hover {
 }
 #create-task #checkbox-form .left-column .circle-container {
   width: 100%;
-  height: 50%;
-  display: block;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

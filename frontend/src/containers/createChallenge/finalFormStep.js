@@ -1,5 +1,4 @@
 import React from "react";
-import {connect} from "react-redux";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
@@ -7,6 +6,7 @@ import Paragraph from "../../components/textElements/paragraph";
 import AddCheckbox from "../../components/icons/addCheckbox";
 import ChangeInformation from "../../components/icons/changeInformation";
 import ViewInfo from "../../components/icons/viewInfo";
+import {connect} from "react-redux";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -74,8 +74,8 @@ const FinalFormStep = ( props ) => {
             </div>
             <div className={"right-column"}>
                 <div id={"first-right-container"} className={"right-container"}>
-                    <h2>Final form step</h2>
-                    <div>
+                    <Heading class={"task-form-heading"} title={"Final Form Step"} type={"h2"}/>
+                    <div className={"task-form"}>
                         <h2>You have chosen {props.chosenTask}</h2>
                         {formUI}
                     </div>
