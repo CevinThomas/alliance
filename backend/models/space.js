@@ -51,9 +51,9 @@ class Space {
         db.collection( process.env.SPACECOLLECTION ).updateOne( { name: space.name }, { $push: { challengers: user._id } } );
     };
 
-    static findSpacePerCreatedName( createdName ) {
+    static findSpacePerCreatedName( createdName, callback ) {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => r );
+        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => callback( r ) );
     }
 
     static findSpacePerId( spaceId ) {
@@ -68,6 +68,11 @@ class Space {
             db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
         } );
     }
+
+    static addSpaceToCreator = ( userId, spaceId ) => {
+        const db = getDb();
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => r ).catch( e => e );
+    };
 
     save() {
         const db = getDb();

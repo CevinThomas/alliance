@@ -12,14 +12,16 @@ exports.createSpace = async ( req, res, next ) => {
     const space = new Space( requestUser._id, req.body.name, req.body.desc );
     space.save();
 
-    const createdSpace = await Space.findSpacePerCreatedName( spaceName );
-
-    //TODO: Add the createSpace.name and the createSpace.owner/host also
-    await User.spaceFindUsers( usersToAdd, ( friends ) => {
-        Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
-            //TODO: Some type of error checking
+    Space.findSpacePerCreatedName( spaceName, ( createdSpace ) => {
+        //TODO: Add the createSpace.name and the createSpace.owner/host also
+        User.spaceFindUsers( usersToAdd, ( friends ) => {
+            Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
+                Space.addSpaceToCreator( requestUser._id, createdSpace._id );
+                //TODO: Some type of error checking
+            } );
         } );
     } );
+
 
     res.status( 200 ).send( "Space created" );
 };

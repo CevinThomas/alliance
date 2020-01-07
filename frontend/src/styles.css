@@ -450,6 +450,13 @@ a:hover {
 }
 #create-task .creation-container .inside-modal .right-column {
   width: 100%;
+  flex-wrap: wrap;
+}
+#create-task .creation-container .inside-modal .right-column .right-heading {
+  width: 100%;
+}
+#create-task .creation-container .inside-modal .right-column .right-column-form {
+  width: 100%;
 }
 #create-task .creation-container .inside-modal h2 {
   text-align: center;
