@@ -65,9 +65,9 @@ const FinalFormStep = ( props ) => {
                     <Paragraph title={"And get instant access to our Resources!"}/>
                 </div>
                 <div className={"circle-container"}>
-                    <CircularClickableIcon type={"h4"} title={"Yo Yo"}/>
-                    <CircularClickableIcon type={"h4"} title={"Yo"}/>
-                    <CircularClickableIcon type={"h4"} title={"Hey"}/>
+                    <CircularClickableIcon type={"h4"} title={"Add Checkbox"}/>
+                    <CircularClickableIcon type={"h4"} title={"Change task information"}/>
+                    <CircularClickableIcon type={"h4"} title={"View info"}/>
                 </div>
             </div>
             <div className={"right-column"}>
