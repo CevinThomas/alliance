@@ -43,7 +43,7 @@ const initialState = {
     friendsList: [],
     incomingSpaceInvites: [],
     //TODO: Make typesOfTasks environment variables
-    typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ],
+    typesOfTasks: [ "Checklist", "Single", "Big", "Small" ],
     chosenTaskType: "",
     usersSpaces: [],
     chosenSpace: "",
@@ -172,7 +172,6 @@ function rootReducer( state = initialState, action ) {
             const toAdd = action.payload.add;
             const newArray = [ ...state.friendsToInvite ];
             newArray.push( toAdd );
-            console.log( "To Add", toAdd );
             return {
                 ...state,
                 friendsToInvite: newArray
@@ -184,7 +183,6 @@ function rootReducer( state = initialState, action ) {
             console.log( indexOfRemove );
             const newArray = [ ...state.friendsToInvite ];
             newArray.splice( indexOfRemove, 1 );
-            console.log( "To Remove", toRemove );
             return {
                 ...state,
                 friendsToInvite: newArray

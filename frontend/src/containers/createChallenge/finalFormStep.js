@@ -47,7 +47,7 @@ const FinalFormStep = ( props ) => {
         let formUI;
         //TODO: Remake these into the environment variables just like in redux for easier maintenance
         //TODO: Instead of having a single Select component for months, days and years. Make one component that holds each, move state and logic to this container
-        if ( props.chosenTask === "Checkbox" ) {
+        if ( props.chosenTask === "Checklist" ) {
 
             formUI = (
                 <div>
