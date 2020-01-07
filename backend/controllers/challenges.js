@@ -3,10 +3,10 @@ const Challenge = require( "../models/challenge" );
 exports.addChallenge = ( req, res, next ) => {
 
     const user = req.user;
-    const challenge = new Challenge( req.body.name, req.body.type, req.user._id, req.body.description, req.body.goal );
+    const createdChallenge = new Challenge( req.body.name, req.body.type, user._id, req.body.description, req.body.goal, req.body.chosenSpace, req.body.listItems, req.body.endDate );
+    createdChallenge.save( ( createdChallenge ) => {
+        Challenge.addToSpaceAndUser( createdChallenge._id, user._id, req.body.chosenSpace );
+    } );
 
-    const membersToChallenge = [ "cevin.thomas.ny@gmail.com", "jimmy.bjornhard@anegy.se" ];
-
-    challenge.addMembersToChallenge( membersToChallenge );
-    res.status( 200 ).send( challenge );
+    res.status( 200 ).send( createdChallenge );
 };

@@ -5,7 +5,7 @@ ObjectId = require( "mongodb" ).ObjectID;
 class Space {
 
     challengers = [];
-    taskChallenges = [];
+    tasks = [];
 
     constructor( owner, name, description ) {
         this.owner = owner;

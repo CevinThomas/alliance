@@ -47,6 +47,23 @@ const FinalFormStep = ( props ) => {
             currentAndFiveYearsAhead.push( i );
         }
 
+        const handleStartOverClick = () => {
+            props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
+        };
+
+        //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
+        const handleCreateClick = () => {
+            Axios( {
+                method: "POST",
+                url: urlConstants.CREATE_CHALLENGE,
+                data: {
+                    typeOfTask: props.chosenTask,
+                    chosenSpace: props.chosenSpace,
+                    listItems: props.checkListItems,
+                }
+            } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        };
+
         let formUI;
         //TODO: Remake these into the environment variables just like in redux for easier maintenance
         //TODO: Instead of having a single Select component for months, days and years. Make one component that holds each, move state and logic to this container
@@ -69,23 +86,6 @@ const FinalFormStep = ( props ) => {
         } else {
 
         }
-
-        const handleStartOverClick = () => {
-            props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
-        };
-
-        //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
-        const handleCreateClick = () => {
-            Axios( {
-                method: "POST",
-                url: urlConstants.CREATE_CHALLENGE,
-                data: {
-                    typeOfTask: props.chosenTask,
-                    chosenSpace: props.chosenSpace,
-                    listItems: props.checkListItems
-                }
-            } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
-        };
 
         const showSpecificModal = ( e ) => {
             if ( e.target.id === "checkbox" ) {
