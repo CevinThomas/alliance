@@ -385,8 +385,11 @@ a:hover {
   width: 100%;
   text-align: center;
 }
-#create-task #checkbox-form .right-column h2 {
+#create-task #checkbox-form .right-column h2, #create-task #checkbox-form .right-column h3 {
   margin: 0;
+  color: #fff;
+}
+#create-task #checkbox-form .right-column p {
   color: #fff;
 }
 #create-task #checkbox-form .right-column button {

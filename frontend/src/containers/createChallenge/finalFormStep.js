@@ -11,7 +11,11 @@ import CheckboxModal from "../../components/modals/checkboxModal";
 import * as taskConstants from "../../constants/tasks";
 
 const mapStateToProps = state => {
-    return { chosenTask: state.chosenTaskType, showCheckModal: state.showCheckModal };
+    return {
+        chosenTask: state.chosenTaskType,
+        showCheckModal: state.showCheckModal,
+        checkListItems: state.checklistItems
+    };
 };
 
 const FinalFormStep = ( props ) => {
@@ -72,6 +76,18 @@ const FinalFormStep = ( props ) => {
                 props.dispatch( { type: taskConstants.SHOW_VIEW_MODAL, payload: true } );
             }
         };
+        
+        let checkListUI;
+        if ( props.checkListItems.length !== 0 ) {
+            checkListUI = props.checkListItems.map( ( item ) => {
+                return (
+                    <div>
+                        <Heading title={item.name} type={"h3"}/>
+                        <Paragraph title={item.description}/>
+                    </div>
+                );
+            } );
+        }
 
         let mainUI = (
             <div className={"final-form"} id={"checkbox-form"}>
@@ -97,7 +113,7 @@ const FinalFormStep = ( props ) => {
                         </div>
                     </div>
                     <div className={"right-container"}>
-
+                        {checkListUI}
                     </div>
                 </div>
 
