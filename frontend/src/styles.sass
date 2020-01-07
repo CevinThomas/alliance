@@ -350,6 +350,7 @@ a:hover
   #checkbox-form
     height: 80%
     width: 80%
+    z-index: -1
 
     .right-column
       height: 50%
@@ -417,6 +418,8 @@ a:hover
         svg
           width: 100%
           height: 50%
+          z-index: 999
+          color: $whiteColor
 
         .circle-heading-container
           text-align: center
@@ -424,16 +427,22 @@ a:hover
       h2
         margin: 0
 
-  .creation-modal
+  .creation-container
+    width: 100%
+    height: 100%
     position: fixed
     top: 0
     left: 0
-    height: 100%
-    width: 100%
     display: flex
     justify-content: center
     align-items: center
-    background: black
+
+    .creation-modal
+      height: 80%
+      width: 80%
+      display: flex
+      justify-content: center
+      align-items: center
 
     .inside-modal
       width: 80%

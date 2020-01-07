@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 const AddCheckbox = ( props ) => {
     return (
         <React.Fragment>
-            <div className={"circle-icon"}>
+            <div onClick={props.onclick} id={"checkbox"} className={"circle-icon"}>
                 <FontAwesomeIcon id={props.id} icon={faCheckSquare}/>
                 <div className={"circle-heading-container"}>
                     <Heading type={props.type} title={props.title}/>
