@@ -26,6 +26,7 @@ const FinalFormStep = ( props ) => {
 
         const [ nameAndDesc, setNameAndDesc ] = useState( { name: "", desc: "", goal: "" } );
 
+        //TODO: Move this into the Select component, and then rename that component, because it is very specific to this place.
         const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
         const maxDays = {
             January: { days: 31 },

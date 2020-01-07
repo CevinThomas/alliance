@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from "react";
+import getMonthFromString from "../../helperMethods/getMonthFromString";
+import {connect} from "react-redux";
 
 const Select = ( props ) => {
 
-    const [ selectedMonth, setSelectedMonth ] = useState( "January" );
+    const date = new Date();
+
+    const [ selectedMonth, setSelectedMonth ] = useState( "" );
     const [ currentMonthMaxDays, setCurrentMonthMaxDays ] = useState( 31 );
     const [ currentDay, setCurrentDay ] = useState( 1 );
     const [ currentMonth, setCurrentMonth ] = useState( 0 );
 
-    const date = new Date();
+    const [ chosenEndDate, setChosenEndDate ] = useState( {
+        year: (date.getFullYear()).toString(),
+        month: (date.getMonth() + 1).toString(),
+        day: (date.getDate()).toString()
+    } );
 
     useEffect( () => {
         setCurrentDay( date.getDate() );
@@ -60,6 +68,28 @@ const Select = ( props ) => {
     const handleMonthChange = ( e ) => {
         setSelectedMonth( e.target.value );
         displayCorrectDays( e.target.value );
+        handleEndDateChange( e );
+    };
+
+    const handleEndDateChange = ( e ) => {
+        if ( e.target.name === "month-selected" ) {
+            setChosenEndDate( {
+                ...chosenEndDate,
+                month: getMonthFromString( e.target.value ).toString()
+            } );
+        }
+        if ( e.target.name === "year-selected" ) {
+            setChosenEndDate( {
+                ...chosenEndDate,
+                year: e.target.value
+            } );
+        }
+        if ( e.target.name === "day-selected" ) {
+            setChosenEndDate( {
+                ...chosenEndDate,
+                day: e.target.value
+            } );
+        }
     };
 
     const displayCorrectDays = ( newMonth ) => {
@@ -75,14 +105,14 @@ const Select = ( props ) => {
             <select name={"month-selected"} onChange={handleMonthChange}>
                 {monthUI}
             </select>
-            <select name={"day-selected"}>
+            <select onChange={handleEndDateChange} name={"day-selected"}>
                 {daysUI}
             </select>
-            <select name={"year-selected"}>
+            <select onChange={handleEndDateChange} name={"year-selected"}>
                 {yearsUI}
             </select>
         </React.Fragment>
     );
 };
 
-export default Select;
+export default connect()( Select );
