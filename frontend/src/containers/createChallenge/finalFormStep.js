@@ -9,13 +9,16 @@ import ViewInfo from "../../components/icons/viewInfo";
 import {connect} from "react-redux";
 import CheckboxModal from "../../components/modals/checkboxModal";
 import * as taskConstants from "../../constants/tasks";
+import * as urlConstants from "../../constants/urls";
 import Button from "../../components/general/button";
+import Axios from "axios";
 
 const mapStateToProps = state => {
     return {
         chosenTask: state.chosenTaskType,
         showCheckModal: state.showCheckModal,
-        checkListItems: state.checklistItems
+        checkListItems: state.checklistItems,
+        chosenSpace: state.chosenSpace
     };
 };
 
@@ -53,6 +56,7 @@ const FinalFormStep = ( props ) => {
                 <div>
                     <Input type={"text"} placeholder={"Name of Challenge"}/>
                     <Input type={"text"} placeholder={"Description of Challenge"}/>
+                    <Button onclick={handleCreateClick} title={"Create Challenge"}/>
                     <div>
                         <Select months={months} maxDays={maxDays} years={currentAndFiveYearsAhead}/>
                     </div>
@@ -68,6 +72,19 @@ const FinalFormStep = ( props ) => {
 
         const handleStartOverClick = () => {
             props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
+        };
+
+        //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
+        const handleCreateClick = () => {
+            Axios( {
+                method: "POST",
+                url: urlConstants.CREATE_CHALLENGE,
+                data: {
+                    typeOfTask: props.chosenTask,
+                    chosenSpace: props.chosenSpace,
+                    listItems: props.checkListItems
+                }
+            } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
         };
 
         const showSpecificModal = ( e ) => {

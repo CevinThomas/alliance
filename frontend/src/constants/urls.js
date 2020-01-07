@@ -8,3 +8,4 @@ export const CREATE_SPACE_URL = address + "/create-space";
 export const GET_CURRENT_FRIENDS = address + "/get-friends-list";
 export const GET_SPACE_INVITES = address + "/get-space-invites";
 export const GET_SPACES_FROM_USER = address + "/get-spaces-from-user";
+export const CREATE_CHALLENGE = address + "/add-challenge";
