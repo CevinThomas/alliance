@@ -15,10 +15,8 @@ const CheckboxModal = ( props ) => {
                         </div>
                     </div>
                     <div className={"right-column"}>
-                        <div>
-                            <Heading type={props.rightType} title={props.rightTitle}/>
-                        </div>
-                        <div>
+                        <Heading class={"right-heading"} type={props.rightType} title={props.rightTitle}/>
+                        <div className={"right-column-form"}>
                             <Input type={"text"} placeholder={"Name of Checkbox"} name={"checkbox-name"}/>
                             <Input type={"text"} placeholder={"Description of Checkbox"} name={"checkbox-description"}/>
                         </div>
