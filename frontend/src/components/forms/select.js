@@ -96,13 +96,13 @@ const Select = ( props ) => {
 
     return (
         <React.Fragment>
-            <select name={"month-selected"} onChange={handleMonthChange}>
+            <select name={"month"} onChange={handleMonthChange}>
                 {monthUI}
             </select>
-            <select onChange={handleEndDateChange} name={"day-selected"}>
+            <select onChange={handleEndDateChange} name={"day"}>
                 {daysUI}
             </select>
-            <select onChange={handleEndDateChange} name={"year-selected"}>
+            <select onChange={handleEndDateChange} name={"year"}>
                 {yearsUI}
             </select>
         </React.Fragment>

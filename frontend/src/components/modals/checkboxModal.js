@@ -11,18 +11,10 @@ const CheckboxModal = ( props ) => {
     const [ itemData, setItemData ] = useState( { name: "", description: "", completed: false } );
 
     const handleInputChange = ( e ) => {
-        if ( e.target.name === "checkbox-name" ) {
-            setItemData( {
-                ...itemData,
-                name: e.target.value
-            } );
-        }
-        if ( e.target.name === "checkbox-description" ) {
-            setItemData( {
-                ...itemData,
-                description: e.target.value
-            } );
-        }
+        setItemData( {
+            ...itemData,
+            [e.target.name]: e.target.value
+        } );
     };
 
     const handleCreateItem = () => {
@@ -48,9 +40,9 @@ const CheckboxModal = ( props ) => {
                         <Heading class={"right-heading"} type={props.rightType} title={props.rightTitle}/>
                         <div className={"right-column-form"}>
                             <Input onchange={handleInputChange} type={"text"} placeholder={"Name of Checkbox"}
-                                   name={"checkbox-name"}/>
+                                   name={"name"}/>
                             <Input onchange={handleInputChange} type={"text"} placeholder={"Description of Checkbox"}
-                                   name={"checkbox-description"}/>
+                                   name={"description"}/>
                             <Button onclick={handleCreateItem} title={"Create item"}/>
                         </div>
                     </div>
