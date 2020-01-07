@@ -1,2 +1,3 @@
 export const CHOSEN_TASK_TYPE = "CHOSEN_TASK_TYPE";
 export const CHOSEN_SPACE = "CHOSEN_SPACE";
+export const CREATE_TASK_ITEM = "CREATE_TASK_ITEM";

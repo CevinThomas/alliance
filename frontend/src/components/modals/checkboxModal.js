@@ -4,6 +4,7 @@ import Heading from "../textElements/heading";
 import Overlay from "../general/overlay";
 import Button from "../general/button";
 import {connect} from "react-redux";
+import * as taskConstants from "../../constants/tasks";
 
 const CheckboxModal = ( props ) => {
 
@@ -25,7 +26,7 @@ const CheckboxModal = ( props ) => {
     };
 
     const handleCreateItem = () => {
-
+        props.dispatch( { type: taskConstants.CREATE_TASK_ITEM, payload: itemData } );
     };
 
     return (

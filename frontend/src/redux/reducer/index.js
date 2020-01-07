@@ -46,11 +46,23 @@ const initialState = {
     typesOfTasks: [ "Checkbox", "Single", "Big", "Small" ],
     chosenTaskType: "",
     usersSpaces: [],
-    chosenSpace: ""
+    chosenSpace: "",
+    checklistItems: []
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === taskConstants.CREATE_TASK_ITEM ) {
+        let newItemCreated = [];
+        newItemCreated.push( action.payload );
+
+        const listOfItems = state.checklistItems.concat( newItemCreated );
+        return {
+            ...state,
+            checklistItems: listOfItems
+        };
+    }
 
     if ( action.type === taskConstants.CHOSEN_SPACE ) {
         return {
