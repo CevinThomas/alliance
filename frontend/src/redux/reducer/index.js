@@ -48,14 +48,23 @@ const initialState = {
     usersSpaces: [],
     chosenSpace: "",
     checklistItems: [],
+    endDateTimeStamp: "",
 
     showCheckModal: false,
     showChangeModal: false,
     showViewModal: false
+
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === taskConstants.END_DATE_CREATION ) {
+        return {
+            ...state,
+            endDateTimeStamp: action.payload
+        };
+    }
 
     if ( action.type === taskConstants.RESET_TASK_CREATION ) {
         return {

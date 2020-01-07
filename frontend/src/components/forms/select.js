@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import getMonthFromString from "../../helperMethods/getMonthFromString";
 import {connect} from "react-redux";
+import * as taskConstants from "../../constants/tasks";
 
 const Select = ( props ) => {
 
@@ -10,6 +11,7 @@ const Select = ( props ) => {
     const [ currentMonthMaxDays, setCurrentMonthMaxDays ] = useState( 31 );
     const [ currentDay, setCurrentDay ] = useState( 1 );
     const [ currentMonth, setCurrentMonth ] = useState( 0 );
+    const [ currentYear, setCurrentYear ] = useState( 0 );
 
     const [ chosenEndDate, setChosenEndDate ] = useState( {
         year: (date.getFullYear()).toString(),
@@ -18,9 +20,16 @@ const Select = ( props ) => {
     } );
 
     useEffect( () => {
-        setCurrentDay( date.getDate() );
-        setCurrentMonth( date.getMonth() );
-    }, [] );
+        setCurrentDay( date.getDate().toString() );
+        setCurrentMonth( (date.getMonth() + 1).toString() );
+        setCurrentYear( date.getFullYear().toString() );
+
+        let endDate = new Date( Date.UTC( chosenEndDate.year, chosenEndDate.month, chosenEndDate.day ) );
+        const timeStamp = endDate.getTime() / 1000;
+
+        props.dispatch( { type: taskConstants.END_DATE_CREATION, payload: timeStamp } );
+
+    }, [ chosenEndDate ] );
 
     let monthUI, selected;
     monthUI = Object.entries( props.months ).map( ( month ) => {
