@@ -29,9 +29,14 @@ const CheckboxModal = ( props ) => {
         props.dispatch( { type: taskConstants.CREATE_TASK_ITEM, payload: itemData } );
     };
 
+    const handleCloseModal = () => {
+        props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: false } );
+    };
+
     return (
         <div className={"creation-container"}>
             <Overlay/>
+            <div id={"checkbox-close"} onClick={handleCloseModal}>Close</div>
             <div className={"creation-modal"}>
                 <div className={"inside-modal"}>
                     <div className={"left-column"}>
