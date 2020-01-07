@@ -76,7 +76,8 @@ const FinalFormStep = ( props ) => {
                 <div id={"first-right-container"} className={"right-container"}>
                     <Heading class={"task-form-heading"} title={"Final Form Step"} type={"h2"}/>
                     <div className={"task-form"}>
-                        <h2>You have chosen {props.chosenTask}</h2>
+                        <Heading class={"task-form-heading"}
+                                 title={"You have chosen " + props.chosenTask} type={"h2"}/>
                         {formUI}
                     </div>
                 </div>

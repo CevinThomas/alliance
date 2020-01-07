@@ -130,7 +130,7 @@ a:hover {
   vertical-align: top;
 }
 
-#registration #right-column input, #login #loginForm input, #create-space .form-container #challengers-button, #create-space input {
+#registration #right-column input, #login #loginForm input, #create-task #checkbox-form .right-column .right-container input, #create-space .form-container #challengers-button, #create-space input {
   margin: 15px auto 15px auto;
   box-shadow: 0 0 3px 0 #00cca3;
   color: #00cca3;
@@ -387,9 +387,11 @@ a:hover {
 }
 #create-task #checkbox-form .right-column .right-container .task-form {
   width: 100%;
+  margin-top: -150px;
 }
 #create-task #checkbox-form .right-column .right-container .task-form-heading {
   width: 100%;
+  text-align: center;
 }
 #create-task #checkbox-form .right-column h2 {
   margin: 0;
