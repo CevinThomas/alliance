@@ -67,7 +67,7 @@ const FinalFormStep = ( props ) => {
         }
 
         const handleStartOverClick = () => {
-            props.dispatch( { type: taskConstants. } );
+            props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
         };
 
         const showSpecificModal = ( e ) => {

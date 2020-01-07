@@ -57,6 +57,15 @@ const initialState = {
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
 
+    if ( action.type === taskConstants.RESET_TASK_CREATION ) {
+        return {
+            ...state,
+            chosenTaskType: "",
+            chosenSpace: "",
+            checklistItems: []
+        };
+    }
+
     if ( action.type === taskConstants.SHOW_CHECKBOX_MODAL ) {
         return {
             ...state,
