@@ -4,7 +4,9 @@ import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
 import Paragraph from "../../components/textElements/paragraph";
-import CircularClickableIcon from "../../components/general/circularClickableIcon";
+import AddCheckbox from "../../components/icons/addCheckbox";
+import ChangeInformation from "../../components/icons/changeInformation";
+import ViewInfo from "../../components/icons/viewInfo";
 
 const mapStateToProps = state => {
     return { chosenTask: state.chosenTaskType };
@@ -65,9 +67,9 @@ const FinalFormStep = ( props ) => {
                     <Paragraph title={"And get instant access to our Resources!"}/>
                 </div>
                 <div className={"circle-container"}>
-                    <CircularClickableIcon type={"h4"} title={"Add Checkbox"}/>
-                    <CircularClickableIcon type={"h4"} title={"Change task information"}/>
-                    <CircularClickableIcon type={"h4"} title={"View info"}/>
+                    <AddCheckbox type={"h4"} title={"Add Checkbox"}/>
+                    <ChangeInformation type={"h4"} title={"Change task information"}/>
+                    <ViewInfo type={"h4"} title={"View info"}/>
                 </div>
             </div>
             <div className={"right-column"}>
