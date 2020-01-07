@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import getMonthFromString from "../../helperMethods/getMonthFromString";
 import {connect} from "react-redux";
 import * as taskConstants from "../../constants/tasks";
 
@@ -81,24 +80,10 @@ const Select = ( props ) => {
     };
 
     const handleEndDateChange = ( e ) => {
-        if ( e.target.name === "month-selected" ) {
-            setChosenEndDate( {
-                ...chosenEndDate,
-                month: getMonthFromString( e.target.value ).toString()
-            } );
-        }
-        if ( e.target.name === "year-selected" ) {
-            setChosenEndDate( {
-                ...chosenEndDate,
-                year: e.target.value
-            } );
-        }
-        if ( e.target.name === "day-selected" ) {
-            setChosenEndDate( {
-                ...chosenEndDate,
-                day: e.target.value
-            } );
-        }
+        setChosenEndDate( {
+            ...chosenEndDate,
+            [e.target.name]: e.target.value
+        } );
     };
 
     const displayCorrectDays = ( newMonth ) => {
