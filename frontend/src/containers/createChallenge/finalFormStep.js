@@ -9,6 +9,7 @@ import ViewInfo from "../../components/icons/viewInfo";
 import {connect} from "react-redux";
 import CheckboxModal from "../../components/modals/checkboxModal";
 import * as taskConstants from "../../constants/tasks";
+import Button from "../../components/general/button";
 
 const mapStateToProps = state => {
     return {
@@ -65,6 +66,10 @@ const FinalFormStep = ( props ) => {
 
         }
 
+        const handleStartOverClick = () => {
+            props.dispatch( { type: taskConstants. } );
+        };
+
         const showSpecificModal = ( e ) => {
             if ( e.target.id === "checkbox" ) {
                 props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: true } );
@@ -76,7 +81,7 @@ const FinalFormStep = ( props ) => {
                 props.dispatch( { type: taskConstants.SHOW_VIEW_MODAL, payload: true } );
             }
         };
-        
+
         let checkListUI;
         if ( props.checkListItems.length !== 0 ) {
             checkListUI = props.checkListItems.map( ( item ) => {
@@ -91,6 +96,7 @@ const FinalFormStep = ( props ) => {
 
         let mainUI = (
             <div className={"final-form"} id={"checkbox-form"}>
+                <Button onclick={handleStartOverClick} id={"start-over"} title={"Start over"}/>
                 <div className={"left-column"}>
                     <div>
                         <Heading title={"Create your task"} type={"h2"}/>
