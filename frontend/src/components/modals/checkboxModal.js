@@ -8,7 +8,7 @@ import * as taskConstants from "../../constants/tasks";
 
 const CheckboxModal = ( props ) => {
 
-    const [ itemData, setItemData ] = useState( { name: "", description: "" } );
+    const [ itemData, setItemData ] = useState( { name: "", description: "", completed: false } );
 
     const handleInputChange = ( e ) => {
         if ( e.target.name === "checkbox-name" ) {

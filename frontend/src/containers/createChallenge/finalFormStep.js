@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
@@ -23,6 +23,8 @@ const mapStateToProps = state => {
 };
 
 const FinalFormStep = ( props ) => {
+
+        const [ nameAndDesc, setNameAndDesc ] = useState( { name: "", desc: "", goal: "" } );
 
         const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
         const maxDays = {
@@ -51,13 +53,38 @@ const FinalFormStep = ( props ) => {
             props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
         };
 
+        const handleInputChange = ( e ) => {
+            if ( e.target.name === "checkbox-name" ) {
+                setNameAndDesc( {
+                    ...nameAndDesc,
+                    name: e.target.value
+                } );
+            }
+            if ( e.target.name === "checkbox-description" ) {
+                setNameAndDesc( {
+                    ...nameAndDesc,
+                    desc: e.target.value
+                } );
+            }
+            if ( e.target.name === "checkbox-goal" ) {
+                setNameAndDesc( {
+                    ...nameAndDesc,
+                    goal: e.target.value
+                } );
+            }
+        };
+
         //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
         const handleCreateClick = () => {
             Axios( {
                 method: "POST",
                 url: urlConstants.CREATE_CHALLENGE,
                 data: {
-                    typeOfTask: props.chosenTask,
+                    name: nameAndDesc.name,
+                    description: nameAndDesc.desc,
+                    goal: nameAndDesc.goal,
+                    endDate: props.endDate,
+                    type: props.chosenTask,
                     chosenSpace: props.chosenSpace,
                     listItems: props.checkListItems,
                 }
@@ -71,8 +98,12 @@ const FinalFormStep = ( props ) => {
 
             formUI = (
                 <div>
-                    <Input type={"text"} placeholder={"Name of Challenge"}/>
-                    <Input type={"text"} placeholder={"Description of Challenge"}/>
+                    <Input onchange={handleInputChange} type={"text"} placeholder={"Name of Challenge"}
+                           name={"checkbox-name"}/>
+                    <Input onchange={handleInputChange} type={"text"} placeholder={"Description of Challenge"}
+                           name={"checkbox-description"}/>
+                    <Input onchange={handleInputChange} type={"text"} placeholder={"What is your goal?"}
+                           name={"checkbox-goal"}/>
                     <Button onclick={handleCreateClick} title={"Create Challenge"}/>
                     <div>
                         <Select months={months} maxDays={maxDays} years={currentAndFiveYearsAhead}/>
