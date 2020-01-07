@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
@@ -8,16 +8,13 @@ import ChangeInformation from "../../components/icons/changeInformation";
 import ViewInfo from "../../components/icons/viewInfo";
 import {connect} from "react-redux";
 import CheckboxModal from "../../components/modals/checkboxModal";
+import * as taskConstants from "../../constants/tasks";
 
 const mapStateToProps = state => {
-    return { chosenTask: state.chosenTaskType };
+    return { chosenTask: state.chosenTaskType, showCheckModal: state.showCheckModal };
 };
 
 const FinalFormStep = ( props ) => {
-
-        const [ showCheckModal, setCheckModal ] = useState( false );
-        const [ showChangeModal, setChangeModal ] = useState( false );
-        const [ showViewModal, setViewModal ] = useState( false );
 
         const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
         const maxDays = {
@@ -66,13 +63,13 @@ const FinalFormStep = ( props ) => {
 
         const showSpecificModal = ( e ) => {
             if ( e.target.id === "checkbox" ) {
-                setCheckModal( true );
+                props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: true } );
             }
             if ( e.target.id === "change" ) {
-                setChangeModal( true );
+                props.dispatch( { type: taskConstants.SHOW_CHANGE_MODAL, payload: true } );
             }
             if ( e.target.id === "view" ) {
-                setViewModal( true );
+                props.dispatch( { type: taskConstants.SHOW_VIEW_MODAL, payload: true } );
             }
         };
 
@@ -109,7 +106,7 @@ const FinalFormStep = ( props ) => {
         );
 
         let modalUI;
-        if ( showCheckModal === true ) {
+        if ( props.showCheckModal === true ) {
             modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"} rightTitle={"Bottom Side"}/>;
         }
 
