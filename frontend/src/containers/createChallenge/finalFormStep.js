@@ -55,24 +55,10 @@ const FinalFormStep = ( props ) => {
         };
 
         const handleInputChange = ( e ) => {
-            if ( e.target.name === "checkbox-name" ) {
-                setNameAndDesc( {
-                    ...nameAndDesc,
-                    name: e.target.value
-                } );
-            }
-            if ( e.target.name === "checkbox-description" ) {
-                setNameAndDesc( {
-                    ...nameAndDesc,
-                    desc: e.target.value
-                } );
-            }
-            if ( e.target.name === "checkbox-goal" ) {
-                setNameAndDesc( {
-                    ...nameAndDesc,
-                    goal: e.target.value
-                } );
-            }
+            setNameAndDesc( {
+                ...nameAndDesc,
+                [e.target.name]: e.target.value
+            } );
         };
 
         //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
@@ -100,11 +86,11 @@ const FinalFormStep = ( props ) => {
             formUI = (
                 <div>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"Name of Challenge"}
-                           name={"checkbox-name"}/>
+                           name={"name"}/>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"Description of Challenge"}
-                           name={"checkbox-description"}/>
+                           name={"description"}/>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"What is your goal?"}
-                           name={"checkbox-goal"}/>
+                           name={"goal"}/>
                     <Button onclick={handleCreateClick} title={"Create Challenge"}/>
                     <div>
                         <Select months={months} maxDays={maxDays} years={currentAndFiveYearsAhead}/>
