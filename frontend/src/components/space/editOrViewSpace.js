@@ -6,6 +6,8 @@ import * as urlConstants from "../../constants/urls";
 import getToken from "../../helperMethods/getToken";
 import Paragraph from "../../components/textElements/paragraph";
 import {withRouter} from "react-router-dom";
+import Input from "../forms/input";
+import Button from "../general/button";
 
 
 const EditOrViewSpace = ( props ) => {
@@ -17,6 +19,8 @@ const EditOrViewSpace = ( props ) => {
     const [ responseSpace, setResponseSpace ] = useState( null );
     const [ startDisplayingData, setStartDisplayingData ] = useState( false );
     const [ requestFailed, setRequestFailed ] = useState( false );
+    const [ editData, setEditData ] = useState( { name: "", description: "" } );
+    const [ membersToRemove, setMembersToRemove ] = useState( [] );
 
     useEffect( () => {
         const spaceId = queryString.parse( props.history.location.search );
@@ -36,24 +40,78 @@ const EditOrViewSpace = ( props ) => {
                     setRequestFailed( true );
                 } else {
                     setResponseSpace( response.data );
+                    setEditData( {
+                        name: response.data.name,
+                        description: response.data.description
+                    } );
                     setStartDisplayingData( true );
                 }
             } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
 
+    const handleInputChange = ( e ) => {
+        setEditData( {
+            ...editData,
+            [e.target.name]: e.target.value
+        } );
+    };
+
+    const determineButtonState = ( e ) => {
+        if ( e.target.textContent === "Remove" ) {
+            seeIfMemberIdIsAlreadyAdded( e );
+        } else {
+            cancelRemovingMember( e );
+        }
+    };
+
+    const seeIfMemberIdIsAlreadyAdded = ( e ) => {
+        if ( membersToRemove.includes( e.target.attributes[0].nodeValue ) ) return;
+        else {
+            removeMembersHandler( e.target.attributes[0].nodeValue );
+        }
+    };
+
+    const removeMembersHandler = ( memberId ) => {
+        let memberIdToRemove = [];
+        memberIdToRemove.push( memberId );
+        setMembersToRemove( membersToRemove.concat( memberIdToRemove ) );
+    };
+
+    const cancelRemovingMember = ( e ) => {
+        const index = membersToRemove.indexOf( e.target.attributes[0].nodeValue );
+        const freshMembersToRemove = [ ...membersToRemove ];
+        freshMembersToRemove.splice( index, 1 );
+        setMembersToRemove( freshMembersToRemove );
+    };
+
+    console.log( membersToRemove );
+
     let viewUI;
     if ( requestFailed !== true ) {
         if ( startDisplayingData === true ) {
             if ( responseSpace !== null ) {
                 viewUI = (
-                    <div>
-                        <Heading title={responseSpace.name} type={"h2"}/>
-                        <Paragraph title={responseSpace.description}/>
+                    <div id={"view-spaces"}>
+                        <Heading title={editData.name} type={"h2"}/>
+                        {props.isOwner ? <Input type={"text"} name={"name"} onchange={handleInputChange}
+                                                value={editData.name}/> : null}
+                        <Paragraph title={editData.description}/>
+                        {props.isOwner ? <Input type={"text"} name={"description"} onchange={handleInputChange}
+                                                value={editData.description}/> : null}
                         <div>
                             <Heading title={"Members"} type={"h3"}/>
                             {responseSpace.challengers.map( ( challenger ) => {
-                                return <div key={challenger}><Heading title={challenger} type={"h4"}/></div>;
+                                return (
+                                    <div key={challenger}>
+                                        <Heading title={challenger}
+                                                 type={"h4"}/> {membersToRemove.includes( challenger ) ?
+                                        <span>We will remove this</span> : null}
+                                        {props.isOwner ? <Button data={challenger}
+                                                                 title={membersToRemove.includes( challenger ) ? "Cancel" : "Remove"}
+                                                                 onclick={determineButtonState}/> : null}
+                                    </div>
+                                );
                             } )}
                         </div>
                     </div>
