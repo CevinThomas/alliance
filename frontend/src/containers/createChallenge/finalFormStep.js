@@ -18,7 +18,8 @@ const mapStateToProps = state => {
         chosenTask: state.chosenTaskType,
         showCheckModal: state.showCheckModal,
         checkListItems: state.checklistItems,
-        chosenSpace: state.chosenSpace
+        chosenSpace: state.chosenSpace,
+        endDateTimeStamp: state.endDateTimeStamp
     };
 };
 
@@ -88,7 +89,7 @@ const FinalFormStep = ( props ) => {
                     <Input onchange={handleInputChange} type={"text"} placeholder={"Name of Challenge"}
                            name={"name"}/>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"Description of Challenge"}
-                           name={"description"}/>
+                           name={"desc"}/>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"What is your goal?"}
                            name={"goal"}/>
                     <Button onclick={handleCreateClick} title={"Create Challenge"}/>

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import * as taskConstants from "../../constants/tasks";
+import getMonthFromString from "../../helperMethods/getMonthFromString";
 
 const Select = ( props ) => {
 
@@ -20,7 +21,7 @@ const Select = ( props ) => {
 
     useEffect( () => {
         setCurrentDay( date.getDate().toString() );
-        setCurrentMonth( (date.getMonth() + 1).toString() );
+        setCurrentMonth( (date.getMonth()).toString() );
         setCurrentYear( date.getFullYear().toString() );
 
         let endDate = new Date( Date.UTC( chosenEndDate.year, chosenEndDate.month, chosenEndDate.day ) );
@@ -29,7 +30,7 @@ const Select = ( props ) => {
         props.dispatch( { type: taskConstants.END_DATE_CREATION, payload: timeStamp } );
 
     }, [ chosenEndDate ] );
-
+    
     let monthUI, selected;
     monthUI = Object.entries( props.months ).map( ( month ) => {
         if ( month[0] == currentMonth ) {
@@ -80,10 +81,19 @@ const Select = ( props ) => {
     };
 
     const handleEndDateChange = ( e ) => {
-        setChosenEndDate( {
-            ...chosenEndDate,
-            [e.target.name]: e.target.value
-        } );
+        if ( e.target.name === "month" ) {
+            setChosenEndDate( {
+                ...chosenEndDate,
+                [e.target.name]: getMonthFromString( e.target.value ).toString()
+            } );
+        } else {
+            setChosenEndDate( {
+                ...chosenEndDate,
+                [e.target.name]: e.target.value
+            } );
+        }
+
+
     };
 
     const displayCorrectDays = ( newMonth ) => {
