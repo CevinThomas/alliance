@@ -39,6 +39,10 @@ exports.getSingleSpace = async ( req, res, next ) => {
 
 };
 
+exports.updateSpaceCredentials = ( req, res, next ) => {
+    res.status( 200 ).send( req.body );
+};
+
 //TODO: Error checking
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );

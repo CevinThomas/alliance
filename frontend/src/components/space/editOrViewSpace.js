@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import queryString from "query-string";
 import Heading from "../../components/textElements/heading";
 import Axios from "axios";
@@ -50,6 +50,18 @@ const EditOrViewSpace = ( props ) => {
         }
     }, [ selectedSpaceId ] );
 
+    const submitUpdatedChanges = useCallback( () => {
+        Axios( {
+            method: "PUT",
+            url: urlConstants.UPDATE_SPACE_CREDENTIALS,
+            data: {
+                removeMembers: membersToRemove,
+                updatedText: editData,
+                spaceId: responseSpace._id
+            }
+        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+    } );
+
     const handleInputChange = ( e ) => {
         setEditData( {
             ...editData,
@@ -85,8 +97,6 @@ const EditOrViewSpace = ( props ) => {
         setMembersToRemove( freshMembersToRemove );
     };
 
-    console.log( membersToRemove );
-
     let viewUI;
     if ( requestFailed !== true ) {
         if ( startDisplayingData === true ) {
@@ -106,7 +116,7 @@ const EditOrViewSpace = ( props ) => {
                                     <div key={challenger}>
                                         <Heading title={challenger}
                                                  type={"h4"}/> {membersToRemove.includes( challenger ) ?
-                                        <span>We will remove this</span> : null}
+                                        <span>We will remove {challenger}</span> : null}
                                         {props.isOwner ? <Button data={challenger}
                                                                  title={membersToRemove.includes( challenger ) ? "Cancel" : "Remove"}
                                                                  onclick={determineButtonState}/> : null}
@@ -114,6 +124,8 @@ const EditOrViewSpace = ( props ) => {
                                 );
                             } )}
                         </div>
+                        {props.isOwner ?
+                            <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}
                     </div>
                 );
             } else {
