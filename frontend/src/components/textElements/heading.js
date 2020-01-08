@@ -22,7 +22,7 @@ const Heading = ( props ) => {
     }
 
     return (
-        <div data-test={"component-heading-container"} className={props.class}>
+        <div id={props.id} data-test={"component-heading-container"} className={props.class}>
             {heading}
         </div>
     );
@@ -30,7 +30,8 @@ const Heading = ( props ) => {
 
 Heading.propTypes = {
     title: PropTypes.string.isRequired,
-    class: PropTypes.string
+    class: PropTypes.string,
+    id: PropTypes.string
 };
 
 export default Heading;

@@ -5,6 +5,7 @@ import * as spaceConstants from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
+import * as taskConstants from "../../constants/tasks";
 
 const initialState = {
     //TODO: Refactor state
@@ -40,11 +41,107 @@ const initialState = {
     friendRequests: [],
     addFriend: "",
     friendsList: [],
-    incomingSpaceInvites: []
+    incomingSpaceInvites: [],
+    //TODO: Make typesOfTasks environment variables
+    typesOfTasks: [ "Checklist", "Single", "Big", "Small" ],
+    chosenTaskType: "",
+    usersSpaces: [],
+    chosenSpace: "",
+    checklistItems: [],
+    endDateTimeStamp: "",
+
+    showCheckModal: false,
+    showChangeModal: false,
+    showViewModal: false,
+    showThankYouModal: false
+
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === taskConstants.SHOW_THANK_YOU_MODAL ) {
+        return {
+            ...state,
+            showThankYouModal: action.payload
+        };
+    }
+
+    if ( action.type === taskConstants.END_DATE_CREATION ) {
+        return {
+            ...state,
+            endDateTimeStamp: action.payload
+        };
+    }
+
+    if ( action.type === taskConstants.RESET_TASK_CREATION ) {
+        return {
+            ...state,
+            chosenTaskType: "",
+            chosenSpace: "",
+            checklistItems: [],
+            showThankYouModal: false
+        };
+    }
+
+    if ( action.type === taskConstants.SHOW_CHECKBOX_MODAL ) {
+        return {
+            ...state,
+            showCheckModal: action.payload
+        };
+    }
+
+    if ( action.type === taskConstants.SHOW_CHANGE_MODAL ) {
+        return {
+            ...state,
+            showCheckModal: action.payload
+        };
+    }
+
+    if ( action.type === taskConstants.SHOW_VIEW_MODAL ) {
+        return {
+            ...state,
+            showCheckModal: action.payload
+        };
+    }
+
+    if ( action.type === taskConstants.CREATE_TASK_ITEM ) {
+        let newItemCreated = [];
+        newItemCreated.push( action.payload );
+
+        const listOfItems = state.checklistItems.concat( newItemCreated );
+        return {
+            ...state,
+            checklistItems: listOfItems
+        };
+    }
+
+    if ( action.type === taskConstants.CHOSEN_SPACE ) {
+        return {
+            ...state,
+            chosenSpace: action.payload
+        };
+    }
+
+    if ( action.type === spaceConstants.USERS_SPACES ) {
+
+        let spacesArray = [];
+        action.payload.map( ( spaceObject ) => {
+            spacesArray.push( spaceObject );
+        } );
+
+        return {
+            ...state,
+            usersSpaces: spacesArray
+        };
+    }
+
+    if ( action.type === taskConstants.CHOSEN_TASK_TYPE ) {
+        return {
+            ...state,
+            chosenTaskType: action.payload
+        };
+    }
 
     if ( action.type === userConstants.USER_INCOMING_SPACE_INVITES ) {
         console.log( action.payload );
@@ -93,7 +190,6 @@ function rootReducer( state = initialState, action ) {
             const toAdd = action.payload.add;
             const newArray = [ ...state.friendsToInvite ];
             newArray.push( toAdd );
-            console.log( "To Add", toAdd );
             return {
                 ...state,
                 friendsToInvite: newArray
@@ -105,7 +201,6 @@ function rootReducer( state = initialState, action ) {
             console.log( indexOfRemove );
             const newArray = [ ...state.friendsToInvite ];
             newArray.splice( indexOfRemove, 1 );
-            console.log( "To Remove", toRemove );
             return {
                 ...state,
                 friendsToInvite: newArray

@@ -9,14 +9,17 @@ import * as urlConstants from "../../constants/urls";
 import * as spaceConstants from "../../constants/space";
 import *as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
+import * as taskConstants from "../../constants/tasks";
 import getToken from "../../helperMethods/getToken";
+import ThankYouModal from "../../components/modals/thankYouModal";
 
 const mapStateToProps = state => ({
     user: state.MainUserCredentials,
     friendsList: state.friendsList,
     showModal: state.showChallengerModal,
     space: state.spaceCredentials,
-    friendsToInvite: state.friendsToInvite
+    friendsToInvite: state.friendsToInvite,
+    showThankYouModal: state.showThankYouModal
 });
 
 const CreateBox = ( props ) => {
@@ -55,7 +58,7 @@ const CreateBox = ( props ) => {
                 desc: props.space.desc,
                 friendsToInvite: props.friendsToInvite
             }
-        } );
+        } ).then( r => props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } ) );
     };
 
     //TODO: Refactor this into a single helper method
@@ -103,6 +106,8 @@ const CreateBox = ( props ) => {
             } );
         }
     }
+
+    if ( props.showThankYouModal === true ) return <ThankYouModal title={"Thank you for creating this space!"}/>;
 
 
     return (

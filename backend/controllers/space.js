@@ -12,16 +12,27 @@ exports.createSpace = async ( req, res, next ) => {
     const space = new Space( requestUser._id, req.body.name, req.body.desc );
     space.save();
 
-    const createdSpace = await Space.findSpacePerCreatedName( spaceName );
+    Space.findSpacePerCreatedName( spaceName, ( createdSpace ) => {
+        //TODO: Add the createSpace.name and the createSpace.owner/host also
+        User.spaceFindUsers( usersToAdd, ( friends ) => {
+            Space.inviteUsersToSpace( createdSpace._id, usersToAdd, ( response ) => {
+                Space.addSpaceToCreator( requestUser._id, createdSpace._id, () => {
 
-    //TODO: Add the createSpace.name and the createSpace.owner/host also
-    await User.spaceFindUsers( usersToAdd, ( friends ) => {
-        Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
-            //TODO: Some type of error checking
+                } );
+                //TODO: Some type of error checking
+            } );
         } );
     } );
 
+
     res.status( 200 ).send( "Space created" );
+};
+
+//TODO: Error checking
+exports.getSpacesFromUser = async ( req, res, next ) => {
+    const token = getToken( req );
+    const spaces = await Space.getSpacesFromUser( token );
+    res.status( 200 ).send( spaces );
 };
 
 exports.acceptSpaceInvite = async ( req, res, next ) => {
@@ -30,12 +41,13 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
         const space = await Space.findSpacePerId( req.body.id );
         User.findUserInDatabase( "email", req.user.email, ( user ) => {
             Space.acceptSpaceInvite( space, user );
+            res.status( 200 ).send( req.body );
         } );
     } else {
-
+        res.status( 500 ).send( req.body );
     }
 
-    res.status( 200 ).send( req.body );
+
 };
 
 

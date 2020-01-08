@@ -30,7 +30,7 @@ const EditSpaceChallenges = ( props ) => {
                 payload: spaceInvites.data
             } );
         } ).catch( e => console.log( e ) );
-    }, [] );
+    }, [ madeRequest ] );
 
     //TODO: REFACTOR into a module (We call this in friendRequests as well)
     const submitAcceptOrDeclineRequest = ( id, accept ) => {
@@ -41,11 +41,12 @@ const EditSpaceChallenges = ( props ) => {
                 accept,
                 id
             }
+        } ).then( ( r ) => {
+            if ( r.status === 200 ) {
+                setMadeRequest( madeRequest + 1 );
+            }
         } );
         //TODO: Find a better way to make the component update (maybe a certain type of response from the server to determine)
-        setTimeout( () => {
-            setMadeRequest( madeRequest + 1 );
-        }, 500 );
     };
 
     const handleAcceptOrDecline = ( id, accept ) => {

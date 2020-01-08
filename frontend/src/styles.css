@@ -56,6 +56,25 @@ h3 {
   }
 }
 
+h4 {
+  transition: 0.5s ease-in-out;
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  color: #00cca3;
+  font-size: 18px;
+}
+@media (max-width: 980px) {
+  h4 {
+    font-size: 14px;
+  }
+}
+@media (max-width: 476px) {
+  h4 {
+    font-size: 12px;
+  }
+}
+
 input::placeholder {
   color: #00cca3;
 }
@@ -111,7 +130,13 @@ a:hover {
   vertical-align: top;
 }
 
-#registration #right-column input, #login #loginForm input, #create-space .form-container #challengers-button, #create-space input {
+#registration, #login, #account #double-box-container, #account #double-section-container #right-section .right-section-box-container .right-section-box, #account #double-section-container #right-section .right-section-box-container, #account #double-section-container, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container, #create-task, #create-space .create-space-box-container .modal .friend-container, #create-space, .top-bar .top-bar-link-container a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#registration #right-column input, #login #loginForm input, #create-task #checkbox-form .right-column .right-container input, #create-space .form-container #challengers-button, #create-space input {
   margin: 15px auto 15px auto;
   box-shadow: 0 0 3px 0 #00cca3;
   color: #00cca3;
@@ -260,17 +285,11 @@ a:hover {
 .top-bar .top-bar-link-container a {
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #create-space {
   background: url("./images/deer-3219872_1920.jpg") center no-repeat;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 #create-space .create-space-box-container {
   padding: 0 40px;
@@ -294,9 +313,6 @@ a:hover {
   color: #00cca3;
 }
 #create-space .create-space-box-container .modal .friend-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   height: 100%;
   width: 100%;
@@ -335,6 +351,129 @@ a:hover {
   height: 80%;
   width: 80%;
   background: #fff;
+}
+
+#create-task {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+#create-task #checkbox-form {
+  height: 80%;
+  width: 80%;
+  z-index: -1;
+  position: relative;
+}
+#create-task #checkbox-form #start-over {
+  margin: 0;
+  height: 100px;
+  width: 20%;
+  border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+#create-task #checkbox-form .right-column {
+  height: 50%;
+  width: 100%;
+  background: #00cca3;
+}
+#create-task #checkbox-form .right-column .right-container {
+  width: 50%;
+  height: 100%;
+  vertical-align: top;
+  float: left;
+  flex-wrap: wrap;
+}
+#create-task #checkbox-form .right-column .right-container .task-form {
+  width: 100%;
+  margin-top: -150px;
+}
+#create-task #checkbox-form .right-column .right-container .task-form-heading {
+  width: 100%;
+  text-align: center;
+}
+#create-task #checkbox-form .right-column h2, #create-task #checkbox-form .right-column h3 {
+  margin: 0;
+  color: #fff;
+}
+#create-task #checkbox-form .right-column p {
+  color: #fff;
+}
+#create-task #checkbox-form .right-column button {
+  background: #fff;
+  color: #00cca3;
+}
+#create-task #checkbox-form .left-column {
+  height: 50%;
+  width: 100%;
+  background: url("./images/the-polygon-1562743_1280.jpg") center no-repeat;
+  position: relative;
+  flex-wrap: wrap;
+  background-size: cover;
+}
+#create-task #checkbox-form .left-column > div {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+}
+#create-task #checkbox-form .left-column .circle-container {
+  width: 100%;
+}
+#create-task #checkbox-form .left-column .circle-icon {
+  width: calc(28% / 3);
+  height: 100px;
+  display: inline-block;
+  border-radius: 400px;
+}
+#create-task #checkbox-form .left-column .circle-icon svg {
+  width: 100%;
+  height: 50%;
+  z-index: 999;
+  color: #fff;
+}
+#create-task #checkbox-form .left-column .circle-icon .circle-heading-container {
+  text-align: center;
+}
+#create-task #checkbox-form .left-column h2 {
+  margin: 0;
+}
+#create-task .creation-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+#create-task .creation-container .creation-modal {
+  height: 80%;
+  width: 80%;
+}
+#create-task .creation-container .inside-modal {
+  width: 80%;
+  height: 80%;
+  background: white;
+  flex-wrap: wrap;
+}
+#create-task .creation-container .inside-modal .left-column {
+  width: 100%;
+}
+#create-task .creation-container .inside-modal .right-column {
+  width: 100%;
+  flex-wrap: wrap;
+}
+#create-task .creation-container .inside-modal .right-column .right-heading {
+  width: 100%;
+}
+#create-task .creation-container .inside-modal .right-column .right-column-form {
+  width: 100%;
+}
+#create-task .creation-container .inside-modal h2 {
+  text-align: center;
 }
 
 #admin {
@@ -394,9 +533,6 @@ a:hover {
   height: 80%;
   width: 10%;
   background-color: #00cca3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 @media (max-width: 767px) {
   #admin #admin-sideMenu {
@@ -441,10 +577,6 @@ a:hover {
   }
 }
 #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
   width: 100%;
   z-index: 999;
 }
@@ -460,9 +592,6 @@ a:hover {
   width: 80%;
   height: 80%;
   background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-flow: wrap;
 }
 #admin #admin-box-container .admin-box-link {
@@ -491,9 +620,6 @@ a:hover {
   display: block;
 }
 #account #double-section-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 20px;
   min-height: 600px;
 }
@@ -541,17 +667,11 @@ a:hover {
 #account #double-section-container #right-section .right-section-box-container {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
 }
 #account #double-section-container #right-section .right-section-box-container .right-section-box {
   width: 33%;
   min-height: 230px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 #account #double-section-container #right-section .right-section-box-container .right-section-box h3 {
   text-align: center;
@@ -568,8 +688,6 @@ a:hover {
   top: 45px;
 }
 #account #double-box-container {
-  display: flex;
-  justify-content: center;
   margin-top: 150px;
 }
 #account .account-box {
@@ -609,9 +727,6 @@ a:hover {
   background-image: url("./images/login_wallpaper.jpg");
   position: fixed;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: -1;
 }
 #login #not-login {
@@ -705,9 +820,6 @@ a:hover {
   left: 0;
   height: 100vh;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-size: cover;
   background: url("./images/deer-background.jpg") center;
   background-size: cover;

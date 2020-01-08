@@ -23,7 +23,7 @@ exports.acceptFriend = async ( req, res, next ) => {
         User.acceptOrDeclineFriend( req.user.email, friendEmail.email, friendEmail.accept, req.user._id, friend._id );
     } );
 
-    res.status( 200 ).send( "Accepting friend" );
+    res.status( 200 ).send( { message: "Added" } );
 };
 
 exports.getFriends = async ( req, res, next ) => {

@@ -5,7 +5,7 @@ ObjectId = require( "mongodb" ).ObjectID;
 class Space {
 
     challengers = [];
-    taskChallenges = [];
+    tasks = [];
 
     constructor( owner, name, description ) {
         this.owner = owner;
@@ -34,6 +34,12 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
     }
 
+    //TODO: THIS IS THE CORRECT PROJECTION WAY
+    static getSpacesFromUser = async ( token ) => {
+        const db = getDb();
+        const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { fields: { spaces: 1 } } ).then( r => r ).catch( e => e );
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).project( { "name": 1 } ).toArray();
+    };
 
     //TODO: Add if statement checking if accepted or declined just like in the users
     static acceptSpaceInvite = ( space, user ) => {
@@ -45,9 +51,9 @@ class Space {
         db.collection( process.env.SPACECOLLECTION ).updateOne( { name: space.name }, { $push: { challengers: user._id } } );
     };
 
-    static findSpacePerCreatedName( createdName ) {
+    static findSpacePerCreatedName( createdName, callback ) {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => r );
+        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => callback( r ) );
     }
 
     static findSpacePerId( spaceId ) {
@@ -55,12 +61,17 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } );
     }
 
-    static inviteUsersToSpace( spaceName, friends, callback ) {
+    //TODO: Not optimal, check other solution for $in
+    static inviteUsersToSpace = async ( spaceName, friends, callback ) => {
+        console.log( friends );
         const db = getDb();
-        friends.map( ( friend ) => {
-            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
-        } );
-    }
+        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+    };
+
+    static addSpaceToCreator = ( userId, spaceId, callback ) => {
+        const db = getDb();
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+    };
 
     save() {
         const db = getDb();

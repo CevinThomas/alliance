@@ -107,7 +107,7 @@ class User {
 
     };
 
-    //TODO: SO THIS WORKS (PROJECTION)
+    //TODO: SO THIS WORKS (PROJECTION) (ONLY FIND)
     static getCurrentFriends = async ( email ) => {
         const db = getDb();
         const frientsId = await db.collection( process.env.USERSCOLLECTION ).findOne( { email }, { email: 1 } ).then( r => r ).catch( e => console.log( e ) );

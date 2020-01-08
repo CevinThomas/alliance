@@ -48,6 +48,18 @@ h3
   @media (max-width: $phoneSize)
     font-size: 14px
 
+h4
+  transition: $overlayTransition
+  -webkit-transition: $overlayTransition
+  -moz-transition: $overlayTransition
+  -o-transition: $overlayTransition
+  color: $mainColor
+  font-size: 18px
+  @media(max-width: $ipadSize)
+    font-size: 14px
+  @media (max-width: $phoneSize)
+    font-size: 12px
+
 button
   @extend %buttonStyling
 
@@ -104,6 +116,11 @@ a:hover
   background-size: cover
   background-position: center
   vertical-align: top
+
+%flexStandard
+  display: flex
+  justify-content: center
+  align-items: center
 
 %inputStyling
   margin: 15px auto 15px auto
@@ -246,18 +263,14 @@ a:hover
     a
       height: 100%
       width: 100%
-      display: flex
-      justify-content: center
-      align-items: center
+      @extend %flexStandard
 
 
 #create-space
   background: url("./images/deer-3219872_1920.jpg") center no-repeat
   background-size: cover
-  display: flex
-  justify-content: center
-  align-items: center
   @extend %fullCoverPageBackground
+  @extend %flexStandard
 
   .create-space-box-container
     padding: 0 40px
@@ -281,13 +294,11 @@ a:hover
         color: $mainColor
 
       .friend-container
-        display: flex
-        justify-content: center
-        align-items: center
         position: relative
         height: 100%
         width: 100%
         padding: 20px
+        @extend %flexStandard
 
         label
           color: $whiteColor
@@ -324,6 +335,140 @@ a:hover
     height: 80%
     width: 80%
     background: $whiteColor
+
+#create-task
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  @extend %flexStandard
+
+  #checkbox-form
+    height: 80%
+    width: 80%
+    z-index: -1
+    position: relative
+
+    #start-over
+      margin: 0
+      height: 100px
+      width: 20%
+      border-radius: 0
+      position: absolute
+      top: 0
+      left: 0
+      z-index: 999
+
+    .right-column
+      height: 50%
+      width: 100%
+      background: $mainColor
+
+      .right-container
+        width: 50%
+        height: 100%
+        vertical-align: top
+        float: left
+        @extend %flexStandard
+        flex-wrap: wrap
+
+        input
+          @extend %inputStyling
+
+        .task-form
+          width: 100%
+          margin-top: -150px
+
+        .task-form-heading
+          width: 100%
+          text-align: center
+
+      h2, h3
+        margin: 0
+        color: $whiteColor
+
+      p
+        color: $whiteColor
+
+      button
+        background: $whiteColor
+        color: $mainColor
+
+    .left-column
+      height: 50%
+      width: 100%
+      background: url("./images/the-polygon-1562743_1280.jpg") center no-repeat
+      position: relative
+      flex-wrap: wrap
+      background-size: cover
+      @extend %flexStandard
+
+      > div
+        width: 100%
+        display: block
+        text-align: center
+        margin-top: 50px
+
+      .circle-container
+        width: 100%
+        @extend %flexStandard
+
+      .circle-icon
+        width: calc(28% / 3)
+        height: 100px
+        display: inline-block
+        border-radius: 400px
+
+        svg
+          width: 100%
+          height: 50%
+          z-index: 999
+          color: $whiteColor
+
+        .circle-heading-container
+          text-align: center
+
+      h2
+        margin: 0
+
+  .creation-container
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    @extend %flexStandard
+
+    .creation-modal
+      height: 80%
+      width: 80%
+      @extend %flexStandard
+
+    .inside-modal
+      width: 80%
+      height: 80%
+      background: white
+      flex-wrap: wrap
+      @extend %flexStandard
+
+      .left-column
+        width: 100%
+        @extend %flexStandard
+
+      .right-column
+        width: 100%
+        @extend %flexStandard
+        flex-wrap: wrap
+
+        .right-heading
+          width: 100%
+
+        .right-column-form
+          width: 100%
+
+      h2
+        text-align: center
 
 #admin
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat
@@ -385,9 +530,7 @@ a:hover
     height: 80%
     width: 10%
     background-color: $mainColor
-    display: flex
-    justify-content: center
-    align-items: center
+    @extend %flexStandard
     @media (max-width: $largePhoneSize)
       position: absolute
       top: 92px
@@ -425,12 +568,9 @@ a:hover
             z-index: -1
 
         a
-          display: flex
-          align-items: center
-          text-align: center
-          justify-content: center
           width: 100%
           z-index: 999
+          @extend %flexStandard
           @media (max-width: $largePhoneSize)
             height: 100%
 
@@ -441,9 +581,7 @@ a:hover
     width: 80%
     height: 80%
     background: $whiteColor
-    display: flex
-    justify-content: center
-    align-items: center
+    @extend %flexStandard
     flex-flow: wrap
 
     .admin-box-link
@@ -472,11 +610,9 @@ a:hover
   display: block
 
   #double-section-container
-    display: flex
-    justify-content: center
-    align-items: center
     margin-top: 20px
     min-height: 600px
+    @extend %flexStandard
 
     #left-section
       width: 30%
@@ -525,17 +661,13 @@ a:hover
       .right-section-box-container
         width: 100%
         height: 100%
-        display: flex
-        justify-content: center
-        align-items: center
+        @extend %flexStandard
         flex-wrap: wrap
 
         .right-section-box
           width: 33%
           min-height: 230px
-          display: flex
-          align-items: center
-          justify-content: center
+          @extend %flexStandard
 
           h3
             text-align: center
@@ -552,8 +684,7 @@ a:hover
           top: 45px
 
   #double-box-container
-    display: flex
-    justify-content: center
+    @extend %flexStandard
     margin-top: 150px
 
   .account-box
@@ -595,9 +726,7 @@ a:hover
   background-image: url("./images/login_wallpaper.jpg")
   position: fixed
   top: 0
-  display: flex
-  align-items: center
-  justify-content: center
+  @extend %flexStandard
   z-index: -1
 
   #not-login
@@ -684,9 +813,7 @@ a:hover
   left: 0
   height: 100vh
   width: 100%
-  display: flex
-  justify-content: center
-  align-items: center
+  @extend %flexStandard
   background-size: cover
   background: url("./images/deer-background.jpg") center
   background-size: cover

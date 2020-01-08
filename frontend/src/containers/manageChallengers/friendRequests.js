@@ -39,11 +39,8 @@ const FriendRequests = ( props ) => {
                 accept,
                 email
             }
-        } );
+        } ).then( r => setMadeRequest( madeRequest + 1 ) );
         //TODO: Find a better way to make the component update (maybe a certain type of response from the server to determine)
-        setTimeout( () => {
-            setMadeRequest( madeRequest + 1 );
-        }, 500 );
     };
 
     const handleAcceptOrDecline = ( email, accept ) => {
