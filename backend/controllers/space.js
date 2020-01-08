@@ -29,8 +29,14 @@ exports.createSpace = async ( req, res, next ) => {
 };
 
 exports.getSingleSpace = async ( req, res, next ) => {
-    const space = await Space.findSpacePerId( req.body.spaceId );
-    res.status( 200 ).send( space );
+    if ( req.body.spaceId.length !== 12 ) {
+        res.status( 200 ).send( { message: "Wrong amount of characters" } );
+    } else {
+        const space = await Space.findSpacePerId( req.body.spaceId );
+        console.log( space );
+        res.status( 200 ).send( space );
+    }
+
 };
 
 //TODO: Error checking

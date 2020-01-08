@@ -13,6 +13,7 @@ const ViewSpace = ( props ) => {
     const [ selectedSpaceId, setSelectedSpaceId ] = useState( "" );
     const [ responseSpace, setResponseSpace ] = useState( null );
     const [ startDisplayingData, setStartDisplayingData ] = useState( false );
+    const [ requestFailed, setRequestFailed ] = useState( false );
 
     useEffect( () => {
         const spaceId = queryString.parse( props.history.location.search );
@@ -28,34 +29,46 @@ const ViewSpace = ( props ) => {
                     spaceId: selectedSpaceId.toString()
                 }
             } ).then( ( response ) => {
-                setResponseSpace( response.data );
-                setStartDisplayingData( true );
-            } ).catch( e => console.log( e ) );
+                if ( response.data.message ) {
+                    setRequestFailed( true );
+                } else {
+                    setResponseSpace( response.data );
+                    setStartDisplayingData( true );
+                }
+            } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
 
     let viewUI;
-    if ( startDisplayingData === true ) {
-        if ( responseSpace.length !== 0 ) {
-            viewUI = (
-                <div>
-                    <Heading title={responseSpace.name} type={"h2"}/>
-                    <Paragraph title={responseSpace.description}/>
+    if ( requestFailed !== true ) {
+        if ( startDisplayingData === true ) {
+            if ( responseSpace !== null ) {
+                viewUI = (
                     <div>
-                        <Heading title={"Members"} type={"h3"}/>
-                        {responseSpace.challengers.map( ( challenger ) => {
-                            return <div key={challenger}><Heading title={challenger} type={"h4"}/></div>;
-                        } )}
+                        <Heading title={responseSpace.name} type={"h2"}/>
+                        <Paragraph title={responseSpace.description}/>
+                        <div>
+                            <Heading title={"Members"} type={"h3"}/>
+                            {responseSpace.challengers.map( ( challenger ) => {
+                                return <div key={challenger}><Heading title={challenger} type={"h4"}/></div>;
+                            } )}
+                        </div>
                     </div>
-                </div>
-            );
-        } else {
-            viewUI = (
-                <div>
-                    <Heading title={"Sorry, no space was found"} type={"h1"}/>
-                </div>
-            );
+                );
+            } else {
+                viewUI = (
+                    <div>
+                        <Heading title={"Sorry, no space was found"} type={"h1"}/>
+                    </div>
+                );
+            }
         }
+    } else {
+        return viewUI = (
+            <div>
+                <Heading title={"Sorry, the space id is incorrect"} type={"h1"}/>
+            </div>
+        );
     }
 
     return (
