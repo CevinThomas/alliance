@@ -3,7 +3,7 @@ import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
 import Heading from "../../components/textElements/heading";
 import Paragraph from "../../components/textElements/paragraph";
-import Button from "../../components/general/button";
+import {Link} from "react-router-dom";
 
 const CurrentSpaces = () => {
 
@@ -31,7 +31,7 @@ const CurrentSpaces = () => {
                     <div key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
-                        <Button title={"Edit"}/>
+                        <Link to={""}>Edit</Link>
                     </div>
                 );
             } else {
@@ -39,7 +39,7 @@ const CurrentSpaces = () => {
                     <div key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
-                        <Button title={"View"}/>
+                        <Link to={"/admin/view-space/?spaceId=" + space._id}>View</Link>
                     </div>
                 );
             }

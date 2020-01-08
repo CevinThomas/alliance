@@ -7,7 +7,7 @@ const SideMenuBar = ( props ) => {
 
     const links = Object.entries( props.links ).map( ( link ) => {
         return (
-            <div className={"side-menu-link-container"}>
+            <div key={link[1].path} className={"side-menu-link-container"}>
                 <OverlayTransition/>
                 <Link to={link[1].path}>{link[1].text}</Link>
             </div>
