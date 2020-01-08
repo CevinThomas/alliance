@@ -79,7 +79,8 @@ function rootReducer( state = initialState, action ) {
             ...state,
             chosenTaskType: "",
             chosenSpace: "",
-            checklistItems: []
+            checklistItems: [],
+            showThankYouModal: false
         };
     }
 

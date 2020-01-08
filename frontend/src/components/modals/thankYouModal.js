@@ -3,14 +3,14 @@ import Overlay from "../general/overlay";
 import Heading from "../textElements/heading";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import * as taskConstants from "../../constants/tasks";
 
 const ThankYouModal = ( props ) => {
-    console.log( props );
 
     useEffect( () => {
         setTimeout( () => {
             props.history.push( "/admin" );
-
+            props.dispatch( { type: taskConstants.RESET_TASK_CREATION } );
         }, 1500 );
     }, [] );
 
