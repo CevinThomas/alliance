@@ -15,8 +15,10 @@ exports.createSpace = async ( req, res, next ) => {
     Space.findSpacePerCreatedName( spaceName, ( createdSpace ) => {
         //TODO: Add the createSpace.name and the createSpace.owner/host also
         User.spaceFindUsers( usersToAdd, ( friends ) => {
-            Space.inviteUsersToSpace( createdSpace._id, friends, ( response ) => {
-                Space.addSpaceToCreator( requestUser._id, createdSpace._id );
+            Space.inviteUsersToSpace( createdSpace._id, usersToAdd, ( response ) => {
+                Space.addSpaceToCreator( requestUser._id, createdSpace._id, () => {
+
+                } );
                 //TODO: Some type of error checking
             } );
         } );

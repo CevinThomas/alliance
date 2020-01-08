@@ -62,16 +62,15 @@ class Space {
     }
 
     //TODO: Not optimal, check other solution for $in
-    static inviteUsersToSpace( spaceName, friends, callback ) {
+    static inviteUsersToSpace = async ( spaceName, friends, callback ) => {
+        console.log( friends );
         const db = getDb();
-        friends.map( ( friend ) => {
-            db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend.email }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
-        } );
-    }
+        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+    };
 
-    static addSpaceToCreator = ( userId, spaceId ) => {
+    static addSpaceToCreator = ( userId, spaceId, callback ) => {
         const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => r ).catch( e => e );
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     save() {
