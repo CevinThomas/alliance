@@ -12,6 +12,7 @@ import * as taskConstants from "../../constants/tasks";
 import * as urlConstants from "../../constants/urls";
 import Button from "../../components/general/button";
 import Axios from "axios";
+import ThankYouModal from "../../components/modals/thankYouModal";
 
 const mapStateToProps = state => {
     return {
@@ -19,7 +20,8 @@ const mapStateToProps = state => {
         showCheckModal: state.showCheckModal,
         checkListItems: state.checklistItems,
         chosenSpace: state.chosenSpace,
-        endDateTimeStamp: state.endDateTimeStamp
+        endDateTimeStamp: state.endDateTimeStamp,
+        showThankYouModal: state.showThankYouModal
     };
 };
 
@@ -76,7 +78,10 @@ const FinalFormStep = ( props ) => {
                     chosenSpace: props.chosenSpace,
                     listItems: props.checkListItems,
                 }
-            } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+            } ).then( r => props.dispatch( {
+                type: taskConstants.SHOW_THANK_YOU_MODAL,
+                payload: true
+            } ) ).catch( e => console.log( e ) );
         };
 
         let formUI;
@@ -166,6 +171,8 @@ const FinalFormStep = ( props ) => {
         let modalUI;
         if ( props.showCheckModal === true ) {
             modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"} rightTitle={"Bottom Side"}/>;
+        } else if ( props.showThankYouModal === true ) {
+            modalUI = <ThankYouModal/>;
         }
 
 

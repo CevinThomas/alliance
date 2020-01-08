@@ -52,12 +52,20 @@ const initialState = {
 
     showCheckModal: false,
     showChangeModal: false,
-    showViewModal: false
+    showViewModal: false,
+    showThankYouModal: false
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === taskConstants.SHOW_THANK_YOU_MODAL ) {
+        return {
+            ...state,
+            showThankYouModal: action.payload
+        };
+    }
 
     if ( action.type === taskConstants.END_DATE_CREATION ) {
         return {
