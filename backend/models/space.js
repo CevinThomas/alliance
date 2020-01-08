@@ -68,7 +68,7 @@ class Space {
 
     static findSpacePerId( spaceId ) {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } );
+        return db.collection( process.env.SPACECOLLECTION ).findOne( { _id: ObjectId( spaceId ) } ).then( r => r ).catch( e => e );
     }
 
     //TODO: Not optimal, check other solution for $in
