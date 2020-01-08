@@ -29,7 +29,8 @@ exports.createSpace = async ( req, res, next ) => {
 };
 
 exports.getSingleSpace = async ( req, res, next ) => {
-    res.status( 200 ).send( "Yo" );
+    const space = await Space.findSpacePerId( req.body.spaceId );
+    res.status( 200 ).send( space );
 };
 
 //TODO: Error checking

@@ -51,11 +51,12 @@ app.post( "/api/add-challenge", auth, challengeController.addChallenge );
 app.post( "/api/add-friends", auth, friendsController.addFriend );
 app.post( "/api/accept-friend", auth, friendsController.acceptFriend );
 app.post( "/api/accept-space", auth, spaceController.acceptSpaceInvite );
+app.post( "/api/get-single-space", auth, spaceController.getSingleSpace );
 app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 app.get( "/api/get-space-invites", auth, spaceController.getSpaceInvites );
 app.get( "/api/get-spaces-from-user", auth, spaceController.getSpacesFromUser );
-app.get( "/api/get-single-space", auth, spaceController.getSingleSpace );
+
 
 app.get( "/api/me", auth, userController.getInformation );
 
