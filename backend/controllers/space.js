@@ -32,7 +32,10 @@ exports.createSpace = async ( req, res, next ) => {
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );
-    res.status( 200 ).send( spaces );
+    await Space.checkIfUserIsOwnerOfSpace( req.user._id, ( ownerIds ) => {
+        res.status( 200 ).send( { allSpaces: spaces, ownerOf: ownerIds } );
+    } );
+
 };
 
 exports.acceptSpaceInvite = async ( req, res, next ) => {

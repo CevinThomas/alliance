@@ -41,8 +41,14 @@ class Space {
         return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).project( { "name": 1 } ).toArray();
     };
 
-    static checkIfUserIsOwnerOfSpace = async ( userId, spaceIds ) => {
+    static checkIfUserIsOwnerOfSpace = async ( userId, callback ) => {
+        let ownerOfTheseSpaces = [];
         const db = getDb();
+        const ownerIds = await db.collection( process.env.SPACECOLLECTION ).find( { owner: userId } ).toArray().then( r => r ).catch( e => e );
+        ownerIds.map( ( id ) => {
+            ownerOfTheseSpaces.push( id._id );
+        } );
+        return callback( ownerOfTheseSpaces );
     };
 
     //TODO: Add if statement checking if accepted or declined just like in the users
