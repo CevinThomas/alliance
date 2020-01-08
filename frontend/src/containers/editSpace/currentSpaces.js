@@ -31,7 +31,7 @@ const CurrentSpaces = () => {
                     <div key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
-                        <Button title={"OWNER"}/>
+                        <Button title={"Edit"}/>
                     </div>
                 );
             } else {
@@ -39,6 +39,7 @@ const CurrentSpaces = () => {
                     <div key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
+                        <Button title={"View"}/>
                     </div>
                 );
             }
