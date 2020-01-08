@@ -21,6 +21,7 @@ const EditOrViewSpace = ( props ) => {
     const [ requestFailed, setRequestFailed ] = useState( false );
     const [ editData, setEditData ] = useState( { name: "", description: "" } );
     const [ membersToRemove, setMembersToRemove ] = useState( [] );
+    const [ usersInSpace, setUsersInSpace ] = useState( [] );
 
     useEffect( () => {
         const spaceId = queryString.parse( props.history.location.search );
@@ -39,11 +40,13 @@ const EditOrViewSpace = ( props ) => {
                 if ( response.data.message ) {
                     setRequestFailed( true );
                 } else {
-                    setResponseSpace( response.data );
+                    console.log( response.data.users );
+                    setResponseSpace( response.data.space );
                     setEditData( {
-                        name: response.data.name,
-                        description: response.data.description
+                        name: response.data.space.name,
+                        description: response.data.space.description
                     } );
+                    setUsersInSpace( response.data.users );
                     setStartDisplayingData( true );
                 }
             } ).catch( e => setStartDisplayingData( true ) );
@@ -111,18 +114,18 @@ const EditOrViewSpace = ( props ) => {
                                                 value={editData.description}/> : null}
                         <div>
                             <Heading title={"Members"} type={"h3"}/>
-                            {responseSpace.challengers.map( ( challenger ) => {
+                            {usersInSpace.length !== 0 ? usersInSpace.map( ( challenger ) => {
                                 return (
-                                    <div key={challenger}>
-                                        <Heading title={challenger}
-                                                 type={"h4"}/> {membersToRemove.includes( challenger ) ?
-                                        <span>We will remove {challenger}</span> : null}
-                                        {props.isOwner ? <Button data={challenger}
-                                                                 title={membersToRemove.includes( challenger ) ? "Cancel" : "Remove"}
+                                    <div key={challenger.email}>
+                                        <Heading title={challenger.email}
+                                                 type={"h4"}/> {membersToRemove.includes( challenger.email ) ?
+                                        <span>We will remove {challenger.email}</span> : null}
+                                        {props.isOwner ? <Button data={challenger.email}
+                                                                 title={membersToRemove.includes( challenger.email ) ? "Cancel" : "Remove"}
                                                                  onclick={determineButtonState}/> : null}
                                     </div>
                                 );
-                            } )}
+                            } ) : null}
                         </div>
                         {props.isOwner ?
                             <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}

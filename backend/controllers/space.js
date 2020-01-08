@@ -33,14 +33,17 @@ exports.getSingleSpace = async ( req, res, next ) => {
         res.status( 200 ).send( { message: "Wrong amount of characters" } );
     } else {
         const space = await Space.findSpacePerId( req.body.spaceId );
-        console.log( space );
-        res.status( 200 ).send( space );
+        User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
+            res.status( 200 ).send( { space, users } );
+        } );
+
     }
 
 };
 
 exports.updateSpaceCredentials = async ( req, res, next ) => {
     const updatedSpace = await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
+    const removedMembers = await Space.removeMembersFromSpace( req.body.removeMembers, req.body.spaceId );
     res.status( 200 ).send( req.body );
 };
 
@@ -49,7 +52,7 @@ exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );
     await Space.checkIfUserIsOwnerOfSpace( req.user._id, ( ownerIds ) => {
-        console.log( spaces );
+
         res.status( 200 ).send( { allSpaces: spaces, ownerOf: ownerIds } );
     } );
 
