@@ -22,14 +22,14 @@ const ShowSpaceStep = ( props ) => {
             method: "GET",
             url: urlConstants.GET_SPACES_FROM_USER
         } ).then( ( response ) => {
-            props.dispatch( { type: spaceConstants.USERS_SPACES, payload: response.data } );
+            props.dispatch( { type: spaceConstants.USERS_SPACES, payload: response.data.allSpaces } );
         } );
     }, [] );
 
     let showSpacesUI;
     if ( props.usersSpace.length !== 0 ) {
-        props.usersSpace.map( ( singleSpace ) => {
-            showSpacesUI = (
+        showSpacesUI = props.usersSpace.map( ( singleSpace ) => {
+            return (
                 <div key={singleSpace._id}>
                     <h2 onClick={handleSpaceClick} data-space-id={singleSpace._id}>{singleSpace.name}</h2>
                 </div>

@@ -33,6 +33,7 @@ exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );
     await Space.checkIfUserIsOwnerOfSpace( req.user._id, ( ownerIds ) => {
+        console.log( spaces );
         res.status( 200 ).send( { allSpaces: spaces, ownerOf: ownerIds } );
     } );
 
