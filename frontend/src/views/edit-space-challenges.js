@@ -5,6 +5,7 @@ import * as userConstants from "../constants/user";
 import getToken from "../helperMethods/getToken";
 import {connect} from "react-redux";
 import Button from "../components/general/button";
+import CurrentSpaces from "../containers/editSpace/currentSpaces";
 
 const mapStateToProps = state => {
     return { spaceInvites: state.incomingSpaceInvites };
@@ -69,6 +70,7 @@ const EditSpaceChallenges = ( props ) => {
         <div>
             <h1>Space Invites</h1>
             {spaceInvitesUI}
+            <CurrentSpaces/>
         </div>
     );
 };

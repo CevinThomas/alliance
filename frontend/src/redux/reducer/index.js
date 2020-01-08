@@ -43,7 +43,7 @@ const initialState = {
     friendsList: [],
     incomingSpaceInvites: [],
     //TODO: Make typesOfTasks environment variables
-    typesOfTasks: [ "Checklist", "Single", "Big", "Small" ],
+    typesOfTasks: [ "Checklist" ],
     chosenTaskType: "",
     usersSpaces: [],
     chosenSpace: "",
