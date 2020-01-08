@@ -172,7 +172,7 @@ const FinalFormStep = ( props ) => {
         if ( props.showCheckModal === true ) {
             modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"} rightTitle={"Bottom Side"}/>;
         } else if ( props.showThankYouModal === true ) {
-            modalUI = <ThankYouModal/>;
+            modalUI = <ThankYouModal title={"Thank you for creating this task!"}/>;
         }
 
 
