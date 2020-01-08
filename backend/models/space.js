@@ -95,9 +95,19 @@ class Space {
         } );
     };
 
-    static removeMembersFromSpace = ( members, spaceId ) => {
+    static convertIdsToObjectIds = ( ids, callback ) => {
+        let idsAsObjectIds = [];
+        ids.map( ( id ) => {
+            let idConverted = ObjectId( id );
+            idsAsObjectIds.push( idConverted );
+        } );
+        callback( idsAsObjectIds );
+    };
+
+    static removeMembersFromSpace = ( membersId, spaceId ) => {
+        console.log( membersId );
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: spaceId }, { $pull: { challengers: { $in: [ members ] } } } );
+        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: { $in: membersId } } } );
     };
 
     save() {
