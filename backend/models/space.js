@@ -83,6 +83,16 @@ class Space {
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
+    static updateSpaceCredentials = ( updatedValues, spaceId ) => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
+            $set: {
+                name: updatedValues.name,
+                description: updatedValues.description
+            }
+        } );
+    };
+
     save() {
         const db = getDb();
         return db.collection( "spaces" ).insertOne( this );

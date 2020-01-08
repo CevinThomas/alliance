@@ -39,7 +39,8 @@ exports.getSingleSpace = async ( req, res, next ) => {
 
 };
 
-exports.updateSpaceCredentials = ( req, res, next ) => {
+exports.updateSpaceCredentials = async ( req, res, next ) => {
+    const updatedSpace = await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
     res.status( 200 ).send( req.body );
 };
 
