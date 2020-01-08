@@ -31,7 +31,7 @@ const CurrentSpaces = () => {
                     <div key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
-                        <Link to={""}>Edit</Link>
+                        <Link to={"/admin/edit-space/?spaceId=" + space._id}>Edit</Link>
                     </div>
                 );
             } else {
