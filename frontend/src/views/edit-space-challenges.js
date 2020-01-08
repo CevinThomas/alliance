@@ -46,17 +46,15 @@ const EditSpaceChallenges = ( props ) => {
                 setMadeRequest( madeRequest + 1 );
             }
         } );
-        //TODO: Find a better way to make the component update (maybe a certain type of response from the server to determine)
     };
 
+    //TODO: WTF Is this doing here?
     const handleAcceptOrDecline = ( id, accept ) => {
         submitAcceptOrDeclineRequest( id, accept );
     };
 
     let spaceInvitesUI;
-
     spaceInvitesUI = props.spaceInvites.map( ( invite ) => {
-        console.log( invite );
         return (
             <div key={invite._id}>
                 <h2>{invite.name}</h2>
