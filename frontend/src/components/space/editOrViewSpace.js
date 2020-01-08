@@ -8,7 +8,13 @@ import Paragraph from "../../components/textElements/paragraph";
 import {withRouter} from "react-router-dom";
 import Input from "../forms/input";
 import Button from "../general/button";
+import {connect} from "react-redux";
+import * as taskConstants from "../../constants/tasks";
+import ThankYouModal from "../modals/thankYouModal";
 
+const mapStateToProps = state => {
+    return { showThankYouModal: state.showThankYouModal };
+};
 
 const EditOrViewSpace = ( props ) => {
     //TODO: REFRACTOR INTO CONTAINERS
@@ -62,7 +68,11 @@ const EditOrViewSpace = ( props ) => {
                 updatedText: editData,
                 spaceId: responseSpace._id
             }
-        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        } ).then( ( response ) => {
+            if ( response.data.updated === true ) {
+                props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } );
+            }
+        } ).catch( e => console.log( e ) );
     } );
 
     const handleInputChange = ( e ) => {
@@ -101,6 +111,10 @@ const EditOrViewSpace = ( props ) => {
     };
 
     let viewUI;
+    if ( props.showThankYouModal === true ) {
+        return viewUI = <ThankYouModal title={"You have updated the space!"}/>;
+    }
+
     if ( requestFailed !== true ) {
         if ( startDisplayingData === true ) {
             if ( responseSpace !== null ) {
@@ -118,10 +132,10 @@ const EditOrViewSpace = ( props ) => {
                                 return (
                                     <div key={challenger.email}>
                                         <Heading title={challenger.email}
-                                                 type={"h4"}/> {membersToRemove.includes( challenger.email ) ?
+                                                 type={"h4"}/> {membersToRemove.includes( challenger._id ) ?
                                         <span>We will remove {challenger.email}</span> : null}
-                                        {props.isOwner ? <Button data={challenger.email}
-                                                                 title={membersToRemove.includes( challenger.email ) ? "Cancel" : "Remove"}
+                                        {props.isOwner ? <Button data={challenger._id}
+                                                                 title={membersToRemove.includes( challenger._id ) ? "Cancel" : "Remove"}
                                                                  onclick={determineButtonState}/> : null}
                                     </div>
                                 );
@@ -154,4 +168,4 @@ const EditOrViewSpace = ( props ) => {
     );
 };
 
-export default withRouter( EditOrViewSpace );
+export default withRouter( connect( mapStateToProps )( EditOrViewSpace ) );

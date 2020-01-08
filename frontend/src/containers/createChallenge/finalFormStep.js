@@ -103,12 +103,6 @@ const FinalFormStep = ( props ) => {
                     </div>
                 </div>
             );
-        } else if ( props.chosenTask === "Single" ) {
-
-        } else if ( props.chosenTask === "Big" ) {
-
-        } else {
-
         }
 
         const showSpecificModal = ( e ) => {

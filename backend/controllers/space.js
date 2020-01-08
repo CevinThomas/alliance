@@ -44,7 +44,7 @@ exports.getSingleSpace = async ( req, res, next ) => {
 exports.updateSpaceCredentials = async ( req, res, next ) => {
     const updatedSpace = await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
     const removedMembers = await Space.removeMembersFromSpace( req.body.removeMembers, req.body.spaceId );
-    res.status( 200 ).send( req.body );
+    res.status( 200 ).send( { updated: true } );
 };
 
 //TODO: Error checking

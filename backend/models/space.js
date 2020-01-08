@@ -76,7 +76,6 @@ class Space {
 
     //TODO: Not optimal, check other solution for $in
     static inviteUsersToSpace = async ( spaceName, friends, callback ) => {
-        console.log( friends );
         const db = getDb();
         db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
@@ -97,7 +96,6 @@ class Space {
     };
 
     static removeMembersFromSpace = ( members, spaceId ) => {
-        console.log( members );
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: spaceId }, { $pull: { challengers: { $in: [ members ] } } } );
     };
