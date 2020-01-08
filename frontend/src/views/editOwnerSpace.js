@@ -1,10 +1,11 @@
 import React from "react";
+import Edit from "../containers/editOwnerSpace/edit";
 
 const EditOwnerSpace = () => {
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+            <Edit/>
+        </React.Fragment>
     );
 };
 

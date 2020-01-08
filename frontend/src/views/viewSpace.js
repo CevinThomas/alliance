@@ -1,79 +1,10 @@
-import React, {useEffect, useState} from "react";
-import queryString from "query-string";
-import Heading from "../components/textElements/heading";
-import Axios from "axios";
-import * as urlConstants from "../constants/urls";
-import getToken from "../helperMethods/getToken";
-import Paragraph from "../components/textElements/paragraph";
+import React from "react";
+import EditOrViewSpace from "../components/space/editOrViewSpace";
 
-const ViewSpace = ( props ) => {
-
-    getToken();
-
-    const [ selectedSpaceId, setSelectedSpaceId ] = useState( "" );
-    const [ responseSpace, setResponseSpace ] = useState( null );
-    const [ startDisplayingData, setStartDisplayingData ] = useState( false );
-    const [ requestFailed, setRequestFailed ] = useState( false );
-
-    useEffect( () => {
-        const spaceId = queryString.parse( props.history.location.search );
-        setSelectedSpaceId( spaceId.spaceId );
-    }, [] );
-
-    useEffect( () => {
-        if ( selectedSpaceId !== "" ) {
-            Axios( {
-                method: "POST",
-                url: urlConstants.GET_SINGLE_SPACE,
-                data: {
-                    spaceId: selectedSpaceId.toString()
-                }
-            } ).then( ( response ) => {
-                if ( response.data.message ) {
-                    setRequestFailed( true );
-                } else {
-                    setResponseSpace( response.data );
-                    setStartDisplayingData( true );
-                }
-            } ).catch( e => setStartDisplayingData( true ) );
-        }
-    }, [ selectedSpaceId ] );
-
-    let viewUI;
-    if ( requestFailed !== true ) {
-        if ( startDisplayingData === true ) {
-            if ( responseSpace !== null ) {
-                viewUI = (
-                    <div>
-                        <Heading title={responseSpace.name} type={"h2"}/>
-                        <Paragraph title={responseSpace.description}/>
-                        <div>
-                            <Heading title={"Members"} type={"h3"}/>
-                            {responseSpace.challengers.map( ( challenger ) => {
-                                return <div key={challenger}><Heading title={challenger} type={"h4"}/></div>;
-                            } )}
-                        </div>
-                    </div>
-                );
-            } else {
-                viewUI = (
-                    <div>
-                        <Heading title={"Sorry, no space was found"} type={"h1"}/>
-                    </div>
-                );
-            }
-        }
-    } else {
-        return viewUI = (
-            <div>
-                <Heading title={"Sorry, the space id is incorrect"} type={"h1"}/>
-            </div>
-        );
-    }
-
+const ViewSpace = () => {
     return (
         <div>
-            {viewUI}
+            <EditOrViewSpace/>
         </div>
     );
 };
