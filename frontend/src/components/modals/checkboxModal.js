@@ -19,6 +19,7 @@ const CheckboxModal = ( props ) => {
 
     const handleCreateItem = () => {
         props.dispatch( { type: taskConstants.CREATE_TASK_ITEM, payload: itemData } );
+        props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: false } );
     };
 
     const handleCloseModal = () => {
