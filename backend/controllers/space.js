@@ -41,12 +41,13 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
         const space = await Space.findSpacePerId( req.body.id );
         User.findUserInDatabase( "email", req.user.email, ( user ) => {
             Space.acceptSpaceInvite( space, user );
+            res.status( 200 ).send( req.body );
         } );
     } else {
-
+        res.status( 500 ).send( req.body );
     }
 
-    res.status( 200 ).send( req.body );
+
 };
 
 
