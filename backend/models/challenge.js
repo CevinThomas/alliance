@@ -13,7 +13,7 @@ class Challenge {
         this.goal = goal;
         this.chosenSpace = chosenSpace;
         this.challengeData = challengeData;
-        this.startDate = Date();
+        this.startDate = Date.now();
         this.endDate = endDate;
         this.completed = false;
 
