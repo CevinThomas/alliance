@@ -55,6 +55,7 @@ app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 app.get( "/api/get-space-invites", auth, spaceController.getSpaceInvites );
 app.get( "/api/get-spaces-from-user", auth, spaceController.getSpacesFromUser );
+app.get( "/api/get-single-space", auth, spaceController.getSingleSpace );
 
 app.get( "/api/me", auth, userController.getInformation );
 
