@@ -4,6 +4,12 @@ import {withRouter} from "react-router-dom";
 import getToken from "../../helperMethods/getToken";
 import Axios from "axios";
 import {GET_FRIEND_INFO} from "../../constants/urls";
+import {connect} from "react-redux";
+import {VIEW_FRIEND} from "../../constants/friends";
+
+const mapStateToProps = state => {
+    return { friend: state.viewFriend };
+};
 
 const Friend = ( props ) => {
 
@@ -19,10 +25,12 @@ const Friend = ( props ) => {
                     friendId
                 }
             } );
-            console.log( response );
+            props.dispatch( { type: VIEW_FRIEND, payload: response.data } );
         };
         fetchFriend();
     }, [] );
+
+    console.log( props.friend );
 
     return (
         <div>
@@ -31,4 +39,4 @@ const Friend = ( props ) => {
     );
 };
 
-export default withRouter( Friend );
+export default withRouter( connect( mapStateToProps )( Friend ) );
