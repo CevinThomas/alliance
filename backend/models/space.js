@@ -20,7 +20,6 @@ class Space {
     }
 
     static getSpaceInformationFromInvite = async spaceId => {
-        console.log( spaceId );
         const db = getDb();
         return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaceId } } ).project( {
             "name": 1,
@@ -81,6 +80,7 @@ class Space {
 
     static addSpaceToCreator = ( userId, spaceId, callback ) => {
         const db = getDb();
+        db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $push: { challengers: ObjectId( userId ) } } );
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { spaces: ObjectId( spaceId ) } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
