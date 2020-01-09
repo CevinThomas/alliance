@@ -114,6 +114,11 @@ class Space {
         return db.collection( process.env.USERSCOLLECTION ).updateMany( { _id: { $in: usersId } }, { $pull: { spaces: ObjectId( spaceId ) } } );
     };
 
+    static saveAndCheck = ( instance ) => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).insertOne( instance ).then( r => r ).catch( e => e );
+    };
+
     save() {
         const db = getDb();
         return db.collection( "spaces" ).insertOne( this );
