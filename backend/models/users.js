@@ -53,7 +53,14 @@ class User {
         db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: searchParam } } ).project( { "email": 1 } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
+    static getUserInDatabase = ( userId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) } );
+
+    };
+
     //TODO: PROJECTION SYNTAX FOR THE REST OF THE APPLICATION
+    //TODO: REBUILD THIS LIKE ABOVE
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {

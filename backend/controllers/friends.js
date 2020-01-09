@@ -32,6 +32,11 @@ exports.getFriends = async ( req, res, next ) => {
 };
 
 exports.getFriend = async ( req, res, next ) => {
-    console.log( req.body.friendId.id );
-    res.status( 200 ).send( "HEY" );
+    const friend = await User.getUserInDatabase( req.body.friendId.id );
+    if ( friend !== null ) {
+        res.status( 200 ).send( friend );
+    } else {
+        res.status( 200 ).send( { message: "Did not find a friend with that ID" } );
+    }
+
 };
