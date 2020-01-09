@@ -64,7 +64,7 @@ class Space {
 
     static findSpacePerCreatedName( createdName, callback ) {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => callback( r ) );
+        db.collection( process.env.SPACECOLLECTION ).findOne( { name: createdName } ).then( r => callback( r ) );
     }
 
     static findSpacePerId( spaceId ) {
@@ -73,9 +73,9 @@ class Space {
     }
 
     //TODO: Not optimal, check other solution for $in
-    static inviteUsersToSpace = async ( spaceName, friends, callback ) => {
+    static inviteUsersToSpace = async ( spaceId, friends, callback ) => {
         const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceName } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceId } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     static addSpaceToCreator = ( userId, spaceId, callback ) => {
