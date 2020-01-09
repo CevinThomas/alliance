@@ -87,7 +87,7 @@ const EditOrViewSpace = ( props ) => {
 
     const leaveSpaceHandler = () => {
         Axios( {
-            method: "GET",
+            method: "POST",
             url: urlConstants.LEAVE_SPACE,
             data: {
                 spaceId: responseSpace._id

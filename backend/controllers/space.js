@@ -29,18 +29,25 @@ exports.createSpace = async ( req, res, next ) => {
 };
 
 exports.getSingleSpace = async ( req, res, next ) => {
-    if ( req.body.spaceId.length !== 24 ) {
-        res.status( 200 ).send( { message: "Wrong amount of characters" } );
-    } else {
-        const space = await Space.findSpacePerId( req.body.spaceId );
-        if ( space === null ) {
-            res.status( 200 ).send( { message: "Could not find space" } );
+    const isMember = await Space.isUserInSpace( req.body.spaceId, req.user._id );
+    console.log( isMember );
+    if ( isMember !== null ) {
+        if ( req.body.spaceId.length !== 24 ) {
+            res.status( 200 ).send( { message: "Wrong amount of characters" } );
         } else {
-            User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
-                res.status( 200 ).send( { space, users } );
-            } );
+            const space = await Space.findSpacePerId( req.body.spaceId );
+            if ( space === null ) {
+                res.status( 200 ).send( { message: "Could not find space" } );
+            } else {
+                User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
+                    res.status( 200 ).send( { space, users } );
+                } );
+            }
         }
+    } else {
+        res.status( 200 ).send( { message: "Not a part of this one" } );
     }
+
 };
 
 exports.updateSpaceCredentials = async ( req, res, next ) => {
@@ -66,6 +73,8 @@ exports.deleteSpace = async ( req, res, next ) => {
 };
 
 exports.leaveSpace = async ( req, res, next ) => {
+    const didLeave = await Space.leaveSpace( req.body.spaceId, req.user._id );
+    console.log( didLeave );
     res.status( 200 ).send();
 };
 
@@ -91,8 +100,6 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
     } else {
         res.status( 500 ).send( req.body );
     }
-
-
 };
 
 

@@ -78,6 +78,11 @@ class Space {
         db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceId } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
+    static isUserInSpace = ( spaceId, userId ) => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).findOne( { challengers: userId } );
+    };
+
     static addSpaceToCreator = ( userId, spaceId, callback ) => {
         const db = getDb();
         db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $push: { challengers: ObjectId( userId ) } } );
@@ -92,6 +97,14 @@ class Space {
                 description: updatedValues.description
             }
         } );
+    };
+
+    static leaveSpace = ( spaceId, userId ) => {
+        const db = getDb();
+        return Promise.all( [
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: ObjectId( userId ) } } ),
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { spaces: ObjectId( spaceId ) } } )
+        ] );
     };
 
     static convertIdsToObjectIds = ( ids, callback ) => {
