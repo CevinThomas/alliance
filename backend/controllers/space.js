@@ -48,8 +48,6 @@ exports.updateSpaceCredentials = async ( req, res, next ) => {
         const removedSpaceFromUser = Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
         res.status( 200 ).send( { updated: true } );
     } );
-
-
 };
 
 //TODO: Error checking

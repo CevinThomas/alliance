@@ -73,7 +73,17 @@ const EditOrViewSpace = ( props ) => {
                 props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } );
             }
         } ).catch( e => console.log( e ) );
-    } );
+    }, [] );
+
+    const deleteSpaceHandler = useCallback( () => {
+        Axios( {
+            method: "DELETE",
+            url: urlConstants.DELETE_SPACE,
+            data: {
+                spaceId: responseSpace._id
+            }
+        }.then( r => console.log( r ) ) ).catch( e => console.log( e ) );
+    }, [] );
 
     const handleInputChange = ( e ) => {
         setEditData( {
@@ -143,6 +153,8 @@ const EditOrViewSpace = ( props ) => {
                         </div>
                         {props.isOwner ?
                             <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}
+                        {props.isOwner ?
+                            <Button onclick={deleteSpaceHandler} title={"Delete Space"} type={"h3"}/> : null}
                     </div>
                 );
             } else {

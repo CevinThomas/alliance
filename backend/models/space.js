@@ -19,7 +19,6 @@ class Space {
         } );
     }
 
-    //TODO: Maybe add so we can see who the owner is?
     static getSpaceInformationFromInvite = async spaceId => {
         console.log( spaceId );
         const db = getDb();
