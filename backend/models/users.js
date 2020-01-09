@@ -55,8 +55,7 @@ class User {
 
     static getUserInDatabase = ( userId ) => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) } );
-
+        return db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) }, { projection: { name: 1 } } );
     };
 
     //TODO: PROJECTION SYNTAX FOR THE REST OF THE APPLICATION

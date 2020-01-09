@@ -3,7 +3,7 @@ import Friend from "../containers/friends/friend";
 
 const ViewFriend = () => {
     return (
-        <div>
+        <div id={"view-friend-container"}>
             <Friend/>
         </div>
     );

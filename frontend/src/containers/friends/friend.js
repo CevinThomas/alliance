@@ -6,10 +6,7 @@ import Axios from "axios";
 import {GET_FRIEND_INFO} from "../../constants/urls";
 import {connect} from "react-redux";
 import {VIEW_FRIEND} from "../../constants/friends";
-
-const mapStateToProps = state => {
-    return { friend: state.viewFriend };
-};
+import ShowFriend from "../../components/friends/showFriend";
 
 const Friend = ( props ) => {
 
@@ -30,13 +27,12 @@ const Friend = ( props ) => {
         fetchFriend();
     }, [] );
 
-    console.log( props.friend );
 
     return (
-        <div>
-            <h1>Viewing Friend</h1>
+        <div id={"view-friend"}>
+            <ShowFriend id={"friend"}/>
         </div>
     );
 };
 
-export default withRouter( connect( mapStateToProps )( Friend ) );
+export default withRouter( connect()( Friend ) );

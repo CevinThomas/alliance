@@ -130,7 +130,7 @@ a:hover {
   vertical-align: top;
 }
 
-#registration, #login, #account #double-box-container, #account #double-section-container #right-section .right-section-box-container .right-section-box, #account #double-section-container #right-section .right-section-box-container, #account #double-section-container, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container, #create-task, #create-space .create-space-box-container .modal .friend-container, #create-space, .top-bar .top-bar-link-container a {
+#registration, #login, #account #double-box-container, #account #double-section-container #right-section .right-section-box-container .right-section-box, #account #double-section-container #right-section .right-section-box-container, #account #double-section-container, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container, #create-task, #view-friend-container, #create-space .create-space-box-container .modal .friend-container, #create-space, .top-bar .top-bar-link-container a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -351,6 +351,27 @@ a:hover {
   height: 80%;
   width: 80%;
   background: #fff;
+}
+
+#view-friend-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url("./images/small-poly-3350169_1920.jpg") center no-repeat;
+  background-size: cover;
+}
+#view-friend-container #view-friend {
+  height: 80%;
+  width: 80%;
+  background-color: #fff;
+}
+#view-friend-container #view-friend #main-heading {
+  text-align: center;
+  border-bottom: 1px solid #00cca3;
+  width: 80%;
+  margin: 40px auto auto auto;
 }
 
 #create-task {

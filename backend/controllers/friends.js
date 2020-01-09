@@ -38,5 +38,4 @@ exports.getFriend = async ( req, res, next ) => {
     } else {
         res.status( 200 ).send( { message: "Did not find a friend with that ID" } );
     }
-
 };
