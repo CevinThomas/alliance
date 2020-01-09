@@ -5,7 +5,7 @@ import CurrentFriends from "../containers/manageChallengers/currentFriends";
 
 const ManageChallengers = () => {
 
-
+    
     return (
         <div>
             <div>

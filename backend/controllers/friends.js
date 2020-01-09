@@ -30,3 +30,8 @@ exports.getFriends = async ( req, res, next ) => {
     const friendsToRetrieve = await User.getCurrentFriends( req.user.email );
     res.status( 200 ).send( friendsToRetrieve );
 };
+
+exports.getFriend = async ( req, res, next ) => {
+    console.log( req.body.friendId.id );
+    res.status( 200 ).send( "HEY" );
+};
