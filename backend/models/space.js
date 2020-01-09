@@ -119,6 +119,11 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).deleteOne( { _id: ObjectId( spaceId ) } );
     };
 
+    static removeTasksWhenDeletingSpace = ( taskId ) => {
+        const db = getDb();
+
+    };
+
     static saveAndCheck = ( instance ) => {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).insertOne( instance ).then( r => r ).catch( e => e );

@@ -24,10 +24,7 @@ class Challenge {
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { tasks: ObjectId( taskId ) } } );
         db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
             $push: {
-                tasks: {
-                    owner: ObjectId( userId ),
-                    task: ObjectId( taskId )
-                }
+                tasks: ObjectId( taskId )
             }
         } );
     };
