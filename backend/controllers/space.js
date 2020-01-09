@@ -10,29 +10,82 @@ exports.createSpace = async ( req, res, next ) => {
     const usersToAdd = Space.validateUsersEmail( req.body.friendsToInvite );
 
     const space = new Space( requestUser._id, req.body.name, req.body.desc );
-    space.save();
+    const didSave = await Space.saveAndCheck( space );
 
-    Space.findSpacePerCreatedName( spaceName, ( createdSpace ) => {
-        //TODO: Add the createSpace.name and the createSpace.owner/host also
-        User.spaceFindUsers( usersToAdd, ( friends ) => {
-            Space.inviteUsersToSpace( createdSpace._id, usersToAdd, ( response ) => {
-                Space.addSpaceToCreator( requestUser._id, createdSpace._id, () => {
+    if ( didSave.result.ok === 1 ) {
+        Space.findSpacePerCreatedName( spaceName, ( createdSpace ) => {
+            //TODO: Add the createSpace.name and the createSpace.owner/host also
+            User.spaceFindUsers( usersToAdd, ( friends ) => {
+                Space.inviteUsersToSpace( createdSpace._id, usersToAdd, ( response ) => {
+                    Space.addSpaceToCreator( requestUser._id, createdSpace._id, () => {
 
+                    } );
+                    //TODO: Some type of error checking
                 } );
-                //TODO: Some type of error checking
             } );
         } );
-    } );
-
-
+    }
     res.status( 200 ).send( "Space created" );
+};
+
+exports.getSingleSpace = async ( req, res, next ) => {
+    const isMember = await Space.isUserInSpace( req.body.spaceId, req.user._id );
+    if ( isMember !== null ) {
+        if ( req.body.spaceId.length !== 24 ) {
+            res.status( 200 ).send( { message: "Wrong amount of characters" } );
+        } else {
+            const space = await Space.findSpacePerId( req.body.spaceId );
+            if ( space === null ) {
+                res.status( 200 ).send( { message: "Could not find space" } );
+            } else {
+                User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
+                    res.status( 200 ).send( { space, users } );
+                } );
+            }
+        }
+    } else {
+        res.status( 200 ).send( { message: "Not a part of this one" } );
+    }
+
+};
+
+exports.updateSpaceCredentials = async ( req, res, next ) => {
+    await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
+    Space.convertIdsToObjectIds( req.body.removeMembers, ( convertedIds ) => {
+        const removedUsers = Space.removeUsersFromSpace( convertedIds, req.body.spaceId );
+        const removedSpaceFromUser = Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
+        res.status( 200 ).send( { updated: true } );
+    } );
+};
+
+exports.deleteSpace = async ( req, res, next ) => {
+    const space = await Space.findSpacePerId( req.body.spaceId );
+
+    Space.convertIdsToObjectIds( space.tasks, ( convertedIds ) => {
+        const tasksRemoved = Space.removeTasksWhenDeletingSpace( convertedIds );
+        tasksRemoved.then( r => r );
+        Space.removeSpaceFromUser( space.challengers, req.body.spaceId );
+        Space.removeUsersFromSpace( space.challengers, req.body.spaceId );
+        Space.deleteSpace( req.body.spaceId, space.owner );
+        res.status( 200 ).send();
+    } );
+};
+
+exports.leaveSpace = async ( req, res, next ) => {
+    const didLeave = await Space.leaveSpace( req.body.spaceId, req.user._id );
+    console.log( didLeave );
+    res.status( 200 ).send();
 };
 
 //TODO: Error checking
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );
-    res.status( 200 ).send( spaces );
+    await Space.checkIfUserIsOwnerOfSpace( req.user._id, ( ownerIds ) => {
+
+        res.status( 200 ).send( { allSpaces: spaces, ownerOf: ownerIds } );
+    } );
+
 };
 
 exports.acceptSpaceInvite = async ( req, res, next ) => {
@@ -46,8 +99,6 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
     } else {
         res.status( 500 ).send( req.body );
     }
-
-
 };
 
 

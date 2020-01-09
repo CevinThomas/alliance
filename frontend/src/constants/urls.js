@@ -9,3 +9,7 @@ export const GET_CURRENT_FRIENDS = address + "/get-friends-list";
 export const GET_SPACE_INVITES = address + "/get-space-invites";
 export const GET_SPACES_FROM_USER = address + "/get-spaces-from-user";
 export const CREATE_CHALLENGE = address + "/add-challenge";
+export const GET_SINGLE_SPACE = address + "/get-single-space";
+export const UPDATE_SPACE_CREDENTIALS = address + "/update-space-credentials";
+export const DELETE_SPACE = address + "/delete-space";
+export const LEAVE_SPACE = address + "/leave-space";

@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Button = ( props ) => {
-    return <button onClick={props.onclick} id={props.id} className={props.class}>{props.title}</button>;
+    return <button data-set={props.data ? props.data : ""} onClick={props.onclick} id={props.id}
+                   className={props.class}>{props.title}</button>;
 };
 
 Button.propTypes = {

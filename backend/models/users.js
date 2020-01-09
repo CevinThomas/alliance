@@ -48,11 +48,9 @@ class User {
         } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
-    static findMultipleUsersInDatabase = ( method, searchParam, callback ) => {
+    static findMultipleUsersInDatabase = ( searchParam, callback ) => {
         const db = getDb();
-        searchParam.map( ( email ) => {
-            db.collection( process.env.USERSCOLLECTION ).findOne( { email } ).then( user => callback( user ) ).catch( e => callback( e ) );
-        } );
+        db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: searchParam } } ).project( { "email": 1 } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     //TODO: PROJECTION SYNTAX FOR THE REST OF THE APPLICATION
