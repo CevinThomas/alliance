@@ -30,7 +30,6 @@ exports.createSpace = async ( req, res, next ) => {
 
 exports.getSingleSpace = async ( req, res, next ) => {
     const isMember = await Space.isUserInSpace( req.body.spaceId, req.user._id );
-    console.log( isMember );
     if ( isMember !== null ) {
         if ( req.body.spaceId.length !== 24 ) {
             res.status( 200 ).send( { message: "Wrong amount of characters" } );
