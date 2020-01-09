@@ -116,12 +116,15 @@ class Space {
     static deleteSpace = ( spaceId, owner ) => {
         const db = getDb();
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( owner ) }, { $pull: { spaces: ObjectId( spaceId ) } } );
-        return db.collection( process.env.SPACECOLLECTION ).deleteOne( { _id: ObjectId( spaceId ) } );
+        return db.collection( process.env.SPACECOLLECTION ).deleteOne( { _id: ObjectId( spaceId ) } ).then( r => r ).catch( e => e );
     };
 
-    static removeTasksWhenDeletingSpace = ( taskId ) => {
+    static removeTasksWhenDeletingSpace = ( taskIds ) => {
+        console.log( taskIds );
         const db = getDb();
-
+        db.collection( process.env.CHALLENGECOLLECTION ).find( { _id: { $in: taskIds } } ).toArray().then( r => console.log( r ) );
+        db.collection( process.env.USERSCOLLECTION ).updateMany( { tasks: { $in: taskIds } }, { $pull: { tasks: { $in: taskIds } } } );
+        return db.collection( process.env.CHALLENGECOLLECTION ).deleteMany( { _id: { $in: taskIds } } );
     };
 
     static saveAndCheck = ( instance ) => {
