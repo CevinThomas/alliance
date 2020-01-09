@@ -42,9 +42,10 @@ exports.getSingleSpace = async ( req, res, next ) => {
 };
 
 exports.updateSpaceCredentials = async ( req, res, next ) => {
-    const updatedSpace = await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
-    const updatedMembersIds = Space.convertIdsToObjectIds( req.body.removeMembers, ( convertedIds ) => {
-        const removedMembers = Space.removeMembersFromSpace( convertedIds, req.body.spaceId );
+    await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
+    Space.convertIdsToObjectIds( req.body.removeMembers, ( convertedIds ) => {
+        const removedUsers = Space.removeUsersFromSpace( convertedIds, req.body.spaceId );
+        const removedSpaceFromUser = Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
         res.status( 200 ).send( { updated: true } );
     } );
 

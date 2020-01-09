@@ -104,10 +104,14 @@ class Space {
         callback( idsAsObjectIds );
     };
 
-    static removeMembersFromSpace = ( membersId, spaceId ) => {
-        console.log( membersId );
+    static removeUsersFromSpace = ( usersId, spaceId ) => {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: { $in: membersId } } } );
+        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: { $in: usersId } } } );
+    };
+
+    static removeSpaceFromUser = ( usersId, spaceId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).updateMany( { _id: { $in: usersId } }, { $pull: { spaces: ObjectId( spaceId ) } } );
     };
 
     save() {
