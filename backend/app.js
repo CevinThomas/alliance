@@ -59,6 +59,7 @@ app.get( "/api/get-spaces-from-user", auth, spaceController.getSpacesFromUser );
 
 app.put( "/api/update-space-credentials", auth, spaceController.updateSpaceCredentials );
 
+app.delete( "/api/delete-space", auth, spaceController.deleteSpace );
 
 app.get( "/api/me", auth, userController.getInformation );
 

@@ -50,6 +50,10 @@ exports.updateSpaceCredentials = async ( req, res, next ) => {
     } );
 };
 
+exports.deleteSpace = async ( req, res, next ) => {
+    res.status( 200 ).send();
+};
+
 //TODO: Error checking
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
