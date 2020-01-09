@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import queryString from "query-string";
 import Heading from "../../components/textElements/heading";
 import Axios from "axios";
@@ -58,8 +58,8 @@ const EditOrViewSpace = ( props ) => {
             } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
-
-    const submitUpdatedChanges = useCallback( () => {
+    
+    const submitUpdatedChanges = () => {
         Axios( {
             method: "PUT",
             url: urlConstants.UPDATE_SPACE_CREDENTIALS,
@@ -73,17 +73,17 @@ const EditOrViewSpace = ( props ) => {
                 props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } );
             }
         } ).catch( e => console.log( e ) );
-    }, [] );
+    };
 
-    const deleteSpaceHandler = useCallback( () => {
+    const deleteSpaceHandler = () => {
         Axios( {
             method: "DELETE",
             url: urlConstants.DELETE_SPACE,
             data: {
                 spaceId: responseSpace._id
             }
-        }.then( r => console.log( r ) ) ).catch( e => console.log( e ) );
-    }, [] );
+        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+    };
 
     const handleInputChange = ( e ) => {
         setEditData( {

@@ -33,12 +33,14 @@ exports.getSingleSpace = async ( req, res, next ) => {
         res.status( 200 ).send( { message: "Wrong amount of characters" } );
     } else {
         const space = await Space.findSpacePerId( req.body.spaceId );
-        User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
-            res.status( 200 ).send( { space, users } );
-        } );
-
+        if ( space === null ) {
+            res.status( 200 ).send( { message: "Could not find space" } );
+        } else {
+            User.findMultipleUsersInDatabase( space.challengers, ( users ) => {
+                res.status( 200 ).send( { space, users } );
+            } );
+        }
     }
-
 };
 
 exports.updateSpaceCredentials = async ( req, res, next ) => {
@@ -51,6 +53,11 @@ exports.updateSpaceCredentials = async ( req, res, next ) => {
 };
 
 exports.deleteSpace = async ( req, res, next ) => {
+    const space = await Space.findSpacePerId( req.body.spaceId );
+    await Space.removeSpaceFromUser( space.challengers, req.body.spaceId );
+    await Space.removeUsersFromSpace( space.challengers, req.body.spaceId );
+    await Space.deleteSpace( req.body.spaceId, space.owner );
+
     res.status( 200 ).send();
 };
 

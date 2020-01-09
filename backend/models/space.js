@@ -113,6 +113,12 @@ class Space {
         return db.collection( process.env.USERSCOLLECTION ).updateMany( { _id: { $in: usersId } }, { $pull: { spaces: ObjectId( spaceId ) } } );
     };
 
+    static deleteSpace = ( spaceId, owner ) => {
+        const db = getDb();
+        db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( owner ) }, { $pull: { spaces: ObjectId( spaceId ) } } );
+        return db.collection( process.env.SPACECOLLECTION ).deleteOne( { _id: ObjectId( spaceId ) } );
+    };
+
     static saveAndCheck = ( instance ) => {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).insertOne( instance ).then( r => r ).catch( e => e );
