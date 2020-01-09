@@ -52,6 +52,7 @@ app.post( "/api/add-friends", auth, friendsController.addFriend );
 app.post( "/api/accept-friend", auth, friendsController.acceptFriend );
 app.post( "/api/accept-space", auth, spaceController.acceptSpaceInvite );
 app.post( "/api/get-single-space", auth, spaceController.getSingleSpace );
+app.post( "/api/leave-space", auth, spaceController.leaveSpace );
 app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 app.get( "/api/get-space-invites", auth, spaceController.getSpaceInvites );

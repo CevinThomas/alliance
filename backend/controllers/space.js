@@ -58,12 +58,14 @@ exports.deleteSpace = async ( req, res, next ) => {
     Space.convertIdsToObjectIds( space.tasks, ( convertedIds ) => {
         const tasksRemoved = Space.removeTasksWhenDeletingSpace( convertedIds );
         tasksRemoved.then( r => r );
-        /*await Space.removeSpaceFromUser( space.challengers, req.body.spaceId );
-        await Space.removeUsersFromSpace( space.challengers, req.body.spaceId );
-        await Space.deleteSpace( req.body.spaceId, space.owner );*/
+        Space.removeSpaceFromUser( space.challengers, req.body.spaceId );
+        Space.removeUsersFromSpace( space.challengers, req.body.spaceId );
+        Space.deleteSpace( req.body.spaceId, space.owner );
+        res.status( 200 ).send();
     } );
+};
 
-
+exports.leaveSpace = async ( req, res, next ) => {
     res.status( 200 ).send();
 };
 

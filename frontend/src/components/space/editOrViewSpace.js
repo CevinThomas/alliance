@@ -58,7 +58,7 @@ const EditOrViewSpace = ( props ) => {
             } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
-    
+
     const submitUpdatedChanges = () => {
         Axios( {
             method: "PUT",
@@ -79,6 +79,16 @@ const EditOrViewSpace = ( props ) => {
         Axios( {
             method: "DELETE",
             url: urlConstants.DELETE_SPACE,
+            data: {
+                spaceId: responseSpace._id
+            }
+        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+    };
+
+    const leaveSpaceHandler = () => {
+        Axios( {
+            method: "GET",
+            url: urlConstants.LEAVE_SPACE,
             data: {
                 spaceId: responseSpace._id
             }
@@ -151,6 +161,8 @@ const EditOrViewSpace = ( props ) => {
                                 );
                             } ) : null}
                         </div>
+                        {!props.isOwner ?
+                            <Button title={"Leave Space"} type={"h3"} onclick={leaveSpaceHandler}/> : null}
                         {props.isOwner ?
                             <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}
                         {props.isOwner ?
