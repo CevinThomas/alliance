@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import Heading from "../textElements/heading";
-import Button from "../general/button";
 import {withRouter} from "react-router";
 import Paragraph from "../textElements/paragraph";
 import GoBack from "../general/goBack";
+import RemoveFriend from "./removeFriend";
 
 
 const mapStateToProps = state => {
@@ -26,7 +26,7 @@ const ShowFriend = ( props ) => {
                         <div id={"friend-details"}>
                             <Heading title={props.friend.name} type={"h3"}/>
                             <Paragraph title={"Stockholm, Tyresö"}/>
-                            <Button title={"Remove Friend"}/>
+                            <RemoveFriend type={"h3"}/>
                         </div>
                     </div>
                 </div>
