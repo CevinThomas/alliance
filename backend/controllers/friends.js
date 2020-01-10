@@ -17,7 +17,10 @@ exports.addFriend = async ( req, res, next ) => {
 
 exports.removeFriend = async ( req, res, next ) => {
     const success = await User.removeFriend( req.body.friendId, req.user._id );
-    success ? res.status( 200 ).send( { message: "We removed your friend" } ) : res.status( 200 ).send( { message: "Something went wrong" } );
+    success ? res.status( 200 ).send( {
+        message: "We removed your friend",
+        success: true
+    } ) : res.status( 200 ).send( { message: "Something went wrong", success: false } );
     res.status( 200 ).send();
 };
 
