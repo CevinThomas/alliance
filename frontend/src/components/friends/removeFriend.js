@@ -10,9 +10,7 @@ const mapStateToProps = state => {
 };
 
 const RemoveFriend = ( props ) => {
-
-    console.log( props );
-
+    
     const removeFriendHandler = async () => {
         const response = await Axios( {
             method: "POST",
@@ -21,8 +19,8 @@ const RemoveFriend = ( props ) => {
                 friendId: props.friend._id
             }
         } );
-        console.log( response.data );
         if ( response.data.success ) return props.history.push( "/admin/manage-challengers" );
+        //TODO: HANDLE ERROR
     };
 
     return <Button onclick={removeFriendHandler} title={"Remove Friend"} type={props.type}/>;

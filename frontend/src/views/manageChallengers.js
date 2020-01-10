@@ -3,9 +3,8 @@ import FriendRequests from "../containers/manageChallengers/friendRequests";
 import AddFriends from "../containers/manageChallengers/addFriends";
 import CurrentFriends from "../containers/manageChallengers/currentFriends";
 
-const ManageChallengers = () => {
+const ManageChallengers = ( props ) => {
 
-    
     return (
         <div>
             <div>
