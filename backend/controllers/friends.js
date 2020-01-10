@@ -15,6 +15,12 @@ exports.addFriend = async ( req, res, next ) => {
     res.status( 200 ).send( "Friends added" );
 };
 
+exports.removeFriend = async ( req, res, next ) => {
+    const success = await User.removeFriend( req.body.friendId, req.user._id );
+    success ? res.status( 200 ).send( { message: "We removed your friend" } ) : res.status( 200 ).send( { message: "Something went wrong" } );
+    res.status( 200 ).send();
+};
+
 exports.acceptFriend = async ( req, res, next ) => {
 
     //TODO: This should be filtered out in the mongoDB process, not here, remove fields not used.
