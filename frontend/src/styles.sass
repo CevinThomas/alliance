@@ -352,6 +352,41 @@ a:hover
     width: 80%
     background-color: $whiteColor
 
+    #friend-information-container
+      background-color: red
+      height: 200px
+      @extend %flexStandard
+
+      #friend-inner-container
+        width: 80%
+        height: 100%
+        background-color: blue
+        @extend %flexStandard
+
+        #friend-information-left
+          width: 50%
+          height: 100%
+          background-color: orange
+          @extend %flexStandard
+
+          #friend-image
+            background-color: black
+            width: 160px
+            height: 160px
+            border-radius: 400px
+
+        #friend-information-right
+          height: 100%
+          width: 50%
+          background-color: green
+          padding: 20px
+          box-sizing: border-box
+          @extend %flexStandard
+
+          #friend-details
+            background-color: blue
+            width: 100%
+
     #friend-back
       border-radius: 0
       margin: -58px 0 0 0
