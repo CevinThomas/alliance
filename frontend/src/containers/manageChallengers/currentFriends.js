@@ -27,9 +27,8 @@ const CurrentFriends = ( props ) => {
 
     if ( props.friends.length !== 0 ) {
         friendsUI = props.friends.map( ( friend ) => {
-            console.log( friend );
             return (
-                <div>
+                <div key={friend._id}>
                     <h1>{friend.name}</h1>
                     <Link to={"/admin/friend/?id=" + friend._id}><Button title={"View"}/></Link>
                 </div>
