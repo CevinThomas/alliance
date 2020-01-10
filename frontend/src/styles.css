@@ -176,6 +176,7 @@ a:hover {
 }
 
 #registration #right-column button, #login #loginForm button, button {
+  cursor: pointer;
   width: 50%;
   margin: 50px auto 0 auto;
   color: #fff;
@@ -372,10 +373,15 @@ a:hover {
   margin: -58px 0 0 0;
   width: 20%;
   position: relative;
+  z-index: 999;
+  transition: 0.5s ease-in-out;
 }
 #view-friend-container #view-friend #friend-back:hover {
-  color: #00cca3;
   transition: 0.5s ease-in-out;
+  color: #00cca3;
+}
+#view-friend-container #view-friend #friend-back:hover:before {
+  width: 100%;
 }
 #view-friend-container #view-friend #friend-back:before {
   content: "";
@@ -386,9 +392,7 @@ a:hover {
   height: 100%;
   background-color: #fff;
   transition: 0.5s ease-in-out;
-}
-#view-friend-container #view-friend #friend-back:hover:before {
-  width: 100%;
+  z-index: -1;
 }
 #view-friend-container #view-friend #main-heading {
   text-align: center;

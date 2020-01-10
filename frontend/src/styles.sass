@@ -159,6 +159,7 @@ a:hover
   background-color: $whiteColor
 
 %buttonStyling
+  cursor: pointer
   width: 50%
   margin: 50px auto 0 auto
   color: $whiteColor
@@ -356,10 +357,15 @@ a:hover
       margin: -58px 0 0 0
       width: 20%
       position: relative
+      z-index: 999
+      transition: $overlayTransition
 
       &:hover
-        color: $mainColor
         transition: $overlayTransition
+        color: $mainColor
+
+      &:hover:before
+        width: 100%
 
       &:before
         content: ""
@@ -370,9 +376,7 @@ a:hover
         height: 100%
         background-color: $whiteColor
         transition: $overlayTransition
-
-      &:hover:before
-        width: 100%
+        z-index: -1
 
 
     #main-heading
