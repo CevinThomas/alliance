@@ -351,6 +351,30 @@ a:hover
     width: 80%
     background-color: $whiteColor
 
+    #friend-back
+      border-radius: 0
+      margin: -58px 0 0 0
+      width: 20%
+      position: relative
+
+      &:hover
+        color: $mainColor
+        transition: $overlayTransition
+
+      &:before
+        content: ""
+        position: absolute
+        left: 0
+        top: 0
+        width: 0
+        height: 100%
+        background-color: $whiteColor
+        transition: $overlayTransition
+
+      &:hover:before
+        width: 100%
+
+
     #main-heading
       text-align: center
       border-bottom: 1px solid $mainColor

@@ -367,6 +367,29 @@ a:hover {
   width: 80%;
   background-color: #fff;
 }
+#view-friend-container #view-friend #friend-back {
+  border-radius: 0;
+  margin: -58px 0 0 0;
+  width: 20%;
+  position: relative;
+}
+#view-friend-container #view-friend #friend-back:hover {
+  color: #00cca3;
+  transition: 0.5s ease-in-out;
+}
+#view-friend-container #view-friend #friend-back:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: #fff;
+  transition: 0.5s ease-in-out;
+}
+#view-friend-container #view-friend #friend-back:hover:before {
+  width: 100%;
+}
 #view-friend-container #view-friend #main-heading {
   text-align: center;
   border-bottom: 1px solid #00cca3;
