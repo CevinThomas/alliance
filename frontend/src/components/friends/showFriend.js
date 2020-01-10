@@ -4,6 +4,7 @@ import Heading from "../textElements/heading";
 import Button from "../general/button";
 import {withRouter} from "react-router";
 import Paragraph from "../textElements/paragraph";
+import GoBack from "../general/goBack";
 
 
 const mapStateToProps = state => {
@@ -12,13 +13,9 @@ const mapStateToProps = state => {
 
 const ShowFriend = ( props ) => {
 
-    const goBackButtonClickHandler = () => {
-        props.history.goBack();
-    };
-
     return (
         <div id={props.id}>
-            <Button onclick={goBackButtonClickHandler} id={"friend-back"} title={"Go Back"}/>
+            <GoBack id={"friend-back"} title={"Go Back"}/>
             <Heading id={"main-heading"} title={"Friend " + props.friend.name} type={"h1"}/>
             <div id={"friend-information-container"}>
                 <div id={"friend-inner-container"}>
@@ -27,9 +24,9 @@ const ShowFriend = ( props ) => {
                     </div>
                     <div id={"friend-information-right"}>
                         <div id={"friend-details"}>
-                            <Heading title={"Friend header"} type={"h3"}/>
+                            <Heading title={props.friend.name} type={"h3"}/>
                             <Paragraph title={"Stockholm, Tyresö"}/>
-                            <Paragraph title={"hhasuhdayhsdye hadsyayncyen"}/>
+                            <Button title={"Remove Friend"}/>
                         </div>
                     </div>
                 </div>
