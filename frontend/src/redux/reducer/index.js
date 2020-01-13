@@ -2,7 +2,7 @@ import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
-import {SEND_CURRENT_MEMBERS, SEND_CURRENT_SPACES} from "../../constants/space";
+import {SELECTED_SPACE, SEND_CURRENT_MEMBERS, SEND_CURRENT_SPACES} from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
@@ -59,12 +59,20 @@ const initialState = {
     viewFriend: {},
     updateFriendRequest: 0,
     currentSpaces: [],
-    currentMembers: []
+    currentMembers: [],
+    selectedSpace: ""
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === SELECTED_SPACE ) {
+        return {
+            ...state,
+            selectedSpace: action.payload
+        };
+    }
 
     if ( action.type === SEND_CURRENT_MEMBERS ) {
         return {

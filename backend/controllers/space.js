@@ -29,10 +29,10 @@ exports.createSpace = async ( req, res, next ) => {
 };
 
 exports.getSpaceWithLookup = async ( req, res, next ) => {
-    const spaces = await Space.getSingleSpaceWithLookup( req.body.spaceId );
-    console.log( spaces );
+    const space = await Space.getSingleSpaceWithLookup( req.body.spaceId );
+    console.log( space );
 
-    res.status( 200 ).send();
+    res.status( 200 ).send( space );
 };
 
 exports.getSingleSpace = async ( req, res, next ) => {
