@@ -2,6 +2,7 @@ import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
+import {SEND_CURRENT_SPACES} from "../../constants/space";
 import * as userConstants from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
@@ -56,12 +57,22 @@ const initialState = {
     showThankYouModal: false,
 
     viewFriend: {},
-    updateFriendRequest: 0
+    updateFriendRequest: 0,
+    currentSpaces: []
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === SEND_CURRENT_SPACES ) {
+
+
+        return {
+            ...state,
+            currentSpaces: action.payload
+        };
+    }
 
     if ( action.type === friendConstants.UPDATE_FRIEND_REQUEST ) {
 

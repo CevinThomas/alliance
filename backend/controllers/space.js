@@ -77,7 +77,14 @@ exports.leaveSpace = async ( req, res, next ) => {
     res.status( 200 ).send();
 };
 
+exports.getAllSpaces = async ( req, res, next ) => {
+    const token = getToken( req );
+    const spaces = await Space.getAllSpacesFromUser( token );
+    res.status( 200 ).send( spaces );
+};
+
 //TODO: Error checking
+//TODO: RENAME to getSpaceNameAndIdFromUser
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );

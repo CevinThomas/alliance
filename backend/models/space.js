@@ -32,6 +32,12 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
     }
 
+    static getAllSpacesFromUser = async ( token ) => {
+        const db = getDb();
+        const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { $fields: { spaces: 1 } } );
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).toArray();
+    };
+
     //TODO: THIS IS THE CORRECT PROJECTION WAY
     static getSpacesFromUser = async ( token ) => {
         const db = getDb();
@@ -133,7 +139,6 @@ class Space {
     };
 
     static removeTasksWhenDeletingSpace = ( taskIds ) => {
-        console.log( taskIds );
         const db = getDb();
         db.collection( process.env.CHALLENGECOLLECTION ).find( { _id: { $in: taskIds } } ).toArray().then( r => console.log( r ) );
         db.collection( process.env.USERSCOLLECTION ).updateMany( { tasks: { $in: taskIds } }, { $pull: { tasks: { $in: taskIds } } } );
