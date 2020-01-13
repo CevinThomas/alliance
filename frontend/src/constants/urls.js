@@ -17,3 +17,4 @@ export const GET_FRIEND_INFO = address + "/get-friend";
 export const REMOVE_FRIEND = address + "/remove-friend";
 export const GET_ALL_SPACES = address + "/get-all-spaces";
 export const GET_SPACE_WITH_LOOKUP = address + "/get-space-with-lookup";
+export const GET_USER_WITH_TASK_LOOKUP = address + "/get-user-task-lookup";

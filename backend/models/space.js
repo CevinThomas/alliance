@@ -91,11 +91,33 @@ class Space {
                         incomingFriendRequest: 0,
                         incomingSpaceInvites: 0,
                         spaces: 0
-                    }
+                    },
                 } ],
                 as: "members"
             }
         } ]) ).toArray();
+    };
+
+    static getUsersWithTasks = ( ids ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: { $in: ids } } },
+            {
+                $lookup: {
+                    from: "tasks",
+                    let: { tasks: "$tasks" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$tasks" ] },
+                                }
+                        },
+                    ],
+                    as: "newTasks"
+                }
+            }
+        ] ).toArray();
     };
 
     static getUserIdsFromSpace = async ( spaceObjects ) => {

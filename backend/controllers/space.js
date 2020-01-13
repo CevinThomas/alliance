@@ -30,9 +30,18 @@ exports.createSpace = async ( req, res, next ) => {
 
 exports.getSpaceWithLookup = async ( req, res, next ) => {
     const space = await Space.getSingleSpaceWithLookup( req.body.spaceId );
-    console.log( space );
 
     res.status( 200 ).send( space );
+};
+
+exports.getUserWithTaskLookup = async ( req, res, next ) => {
+    Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
+        Space.getUsersWithTasks( ids ).then( ( users ) => {
+            console.log( users );
+            res.status( 200 ).send();
+        } );
+    } );
+
 };
 
 exports.getSingleSpace = async ( req, res, next ) => {
