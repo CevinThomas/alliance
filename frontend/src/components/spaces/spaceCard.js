@@ -1,9 +1,12 @@
 import React from "react";
 
-const SpaceCard = () => {
+const SpaceCard = ( props ) => {
     return (
-        <div>
+        <div id={props.id} className={"space-card"}>
+            <div className={"space-card-image"}></div>
+            <div>
 
+            </div>
         </div>
     );
 };

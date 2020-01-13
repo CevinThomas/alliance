@@ -354,6 +354,17 @@ a:hover {
   background: #fff;
 }
 
+#spaces #all-spaces .space-card {
+  height: 500px;
+  width: 500px;
+  background-color: black;
+}
+#spaces #all-spaces .space-card .space-card-image {
+  width: 100%;
+  height: 40%;
+  background-color: red;
+}
+
 #view-friend-container {
   position: fixed;
   top: 0;

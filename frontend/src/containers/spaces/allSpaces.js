@@ -1,9 +1,10 @@
 import React from "react";
+import SpaceCard from "../../components/spaces/spaceCard";
 
-const AllSpaces = () => {
+const AllSpaces = ( props ) => {
     return (
-        <div>
-            
+        <div id={"all-spaces"}>
+            <SpaceCard/>
         </div>
     );
 };
