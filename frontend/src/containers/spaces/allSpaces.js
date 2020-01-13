@@ -30,8 +30,9 @@ const AllSpaces = ( props ) => {
                 method: "GET",
                 url: GET_ALL_SPACES
             } );
+            console.log( response );
             props.sendCurrentSpaces( response.data.spaces );
-            //props.sendCurrentMembers( response.data.members );
+            props.sendCurrentMembers( response.data.users );
         };
         fetchSpaces();
     }, [] );

@@ -28,6 +28,12 @@ class Space {
         } ).toArray();
     };
 
+    static getUserObjectsFromIds = ( ids, callback ) => {
+        let flattenedIds = ids.flat();
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: flattenedIds } } ).toArray().then( r => callback( r ) );
+    };
+
     static findSpacePerUser( userId ) {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
@@ -39,13 +45,48 @@ class Space {
         return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).toArray();
     };
 
+    static getSpacesWithMembers = () => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).aggregate( [
+            {
+                $lookup: {
+                    from: "users",
+                    let: { challengers: "$challengers" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$challengers" ] },
+                                }
+                        },
+                        {
+                            $project: {
+                                password: 0,
+                                tokens: 0,
+                                friends: 0,
+                                incomingFriendRequest: 0,
+                                incomingSpaceInvites: 0,
+                                spaces: 0
+                            }
+                        }
+                    ],
+                    as: "members"
+                }
+            }
+        ] ).toArray();
+    };
+
     static getUserIdsFromSpace = async ( spaceObjects ) => {
         let userIds = [];
+
         return new Promise( ( resolve, reject ) => {
             spaceObjects.map( ( space ) => {
                 userIds.push( space.challengers );
             } );
-            resolve( userIds );
+            Space.convertIdsToObjectIds( userIds, ( ids ) => {
+                resolve( ids );
+            } );
         } );
     };
 
@@ -135,8 +176,9 @@ class Space {
     };
 
     static convertIdsToObjectIds = ( ids, callback ) => {
+        let flattenedIds = ids.flat();
         let idsAsObjectIds = [];
-        ids.map( ( id ) => {
+        flattenedIds.map( ( id ) => {
             let idConverted = ObjectId( id );
             idsAsObjectIds.push( idConverted );
         } );

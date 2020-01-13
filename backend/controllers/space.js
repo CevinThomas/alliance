@@ -78,22 +78,14 @@ exports.leaveSpace = async ( req, res, next ) => {
 };
 
 exports.getAllSpaces = async ( req, res, next ) => {
-    const token = getToken( req );
-    const spaces = await Space.getAllSpacesFromUser( token );
-    const memberIdsArray = await Space.getUserIdsFromSpace( spaces );
-    let spacesWithMembers = [];
+    const spaces = await Space.getSpacesWithMembers();
+
     spaces.map( ( space ) => {
-        memberIdsArray.map( ( memberIds ) => {
-            memberIds.map( ( singleId ) => {
-                if ( space.challengers.includes( singleId ) ) {
-                    spacesWithMembers.push( space, singleId );
-                }
-            } );
-        } );
-        console.log( spaces );
+        console.log( space );
 
     } );
-    res.status( 200 ).send( { spaces, members } );
+
+    res.status( 200 ).send( spaces );
 };
 
 //TODO: Error checking
