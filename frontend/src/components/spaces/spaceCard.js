@@ -4,7 +4,6 @@ import Heading from "../textElements/heading";
 import Paragraph from "../textElements/paragraph";
 
 const SpaceCard = ( props ) => {
-    console.log( props );
 
     let showMembers = false;
     props.space.members.length !== 0 ? showMembers = true : showMembers = false;
@@ -12,11 +11,19 @@ const SpaceCard = ( props ) => {
     let membersUI;
     if ( showMembers ) {
         membersUI = props.space.members.map( ( member ) => {
-            return (
-                <div key={member._id}>
+            if ( props.space.owner === member._id ) {
+                return <div key={member._id}>
                     <Heading title={member.name} type={"h4"}/>
-                </div>
-            );
+                    <span>Owner</span>
+                </div>;
+            } else {
+                return (
+                    <div key={member._id}>
+                        <Heading title={member.name} type={"h4"}/>
+                    </div>
+                );
+            }
+
         } );
     }
 

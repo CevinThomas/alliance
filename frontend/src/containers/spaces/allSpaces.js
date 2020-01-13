@@ -28,17 +28,15 @@ const AllSpaces = ( props ) => {
                 method: "GET",
                 url: GET_ALL_SPACES
             } );
-            console.log( response );
             props.sendCurrentSpaces( response.data );
         };
         fetchSpaces();
     }, [] );
 
     let spacesUI;
-    let members = [];
     if ( props.currentSpaces.length !== 0 ) {
         spacesUI = props.currentSpaces.map( ( space ) => {
-            return <SpaceCard space={space}/>;
+            return <SpaceCard key={space._id} space={space}/>;
         } );
     }
 
