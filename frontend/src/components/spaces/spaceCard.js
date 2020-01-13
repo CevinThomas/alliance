@@ -7,11 +7,11 @@ const SpaceCard = ( props ) => {
     console.log( props );
 
     let showMembers = false;
-    props.members.length !== 0 ? showMembers = true : showMembers = false;
+    props.space.members.length !== 0 ? showMembers = true : showMembers = false;
 
     let membersUI;
     if ( showMembers ) {
-        membersUI = props.members.map( ( member ) => {
+        membersUI = props.space.members.map( ( member ) => {
             return (
                 <div key={member._id}>
                     <Heading title={member.name} type={"h4"}/>
