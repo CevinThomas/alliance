@@ -1,7 +1,7 @@
 import React from "react";
 import EditOrViewSpace from "../components/space/editOrViewSpace";
 
-const ViewSpace = () => {
+const InspectSpace = () => {
     return (
         <div>
             <EditOrViewSpace/>
@@ -9,4 +9,4 @@ const ViewSpace = () => {
     );
 };
 
-export default ViewSpace;
+export default InspectSpace;
