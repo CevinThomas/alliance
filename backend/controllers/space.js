@@ -31,6 +31,7 @@ exports.createSpace = async ( req, res, next ) => {
 exports.getSpaceWithLookup = async ( req, res, next ) => {
     const spaces = await Space.getSingleSpaceWithLookup( req.body.spaceId );
     console.log( spaces );
+
     res.status( 200 ).send();
 };
 
