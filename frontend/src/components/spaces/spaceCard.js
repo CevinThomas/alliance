@@ -5,7 +5,7 @@ import Paragraph from "../textElements/paragraph";
 
 const SpaceCard = ( props ) => {
     return (
-        <Link to={"/spaces/?id="}>
+        <Link to={"/spaces/?id=" + props.spaceId}>
             <div id={props.id} className={"space-card"}>
                 <div className={"space-card-image"}></div>
                 <div className={"space-card-text-container"}>
