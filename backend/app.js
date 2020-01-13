@@ -60,6 +60,7 @@ app.get( "/api/get-spaces-from-user", auth, spaceController.getSpacesFromUser );
 app.get( "/api/get-all-spaces", auth, spaceController.getAllSpaces );
 app.post( "/api/get-friend", auth, friendsController.getFriend );
 app.post( "/api/remove-friend", auth, friendsController.removeFriend );
+app.post( "/api/get-space-with-lookup", auth, spaceController.getSpaceWithLookup );
 
 app.put( "/api/update-space-credentials", auth, spaceController.updateSpaceCredentials );
 

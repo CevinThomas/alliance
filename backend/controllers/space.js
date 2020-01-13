@@ -28,6 +28,12 @@ exports.createSpace = async ( req, res, next ) => {
     res.status( 200 ).send( "Space created" );
 };
 
+exports.getSpaceWithLookup = async ( req, res, next ) => {
+    const spaces = await Space.getSingleSpaceWithLookup( req.body.spaceId );
+    console.log( spaces );
+    res.status( 200 ).send();
+};
+
 exports.getSingleSpace = async ( req, res, next ) => {
     const isMember = await Space.isUserInSpace( req.body.spaceId, req.user._id );
     if ( isMember !== null ) {

@@ -77,6 +77,38 @@ class Space {
         ] ).toArray();
     };
 
+    static getSingleSpaceWithLookup = ( spaceId ) => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).aggregate( [
+            {
+                $lookup: {
+                    from: "users",
+                    let: { challengers: "$challengers" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$challengers" ] },
+                                }
+                        },
+                        {
+                            $project: {
+                                password: 0,
+                                tokens: 0,
+                                friends: 0,
+                                incomingFriendRequest: 0,
+                                incomingSpaceInvites: 0,
+                                spaces: 0
+                            }
+                        }
+                    ],
+                    as: "members"
+                }
+            }
+        ] ).toArray();
+    };
+
     static getUserIdsFromSpace = async ( spaceObjects ) => {
         let userIds = [];
 
