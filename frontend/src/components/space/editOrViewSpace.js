@@ -29,6 +29,7 @@ const EditOrViewSpace = ( props ) => {
     const [ membersToRemove, setMembersToRemove ] = useState( [] );
     const [ usersInSpace, setUsersInSpace ] = useState( [] );
 
+
     useEffect( () => {
         const spaceId = queryString.parse( props.history.location.search );
         setSelectedSpaceId( spaceId.spaceId );
@@ -82,7 +83,9 @@ const EditOrViewSpace = ( props ) => {
             data: {
                 spaceId: responseSpace._id
             }
-        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        } ).then( response => {
+            props.history.push( "/admin/edit-space-challenges" );
+        } ).catch( e => console.log( e ) );
     };
 
     const leaveSpaceHandler = () => {
@@ -92,7 +95,9 @@ const EditOrViewSpace = ( props ) => {
             data: {
                 spaceId: responseSpace._id
             }
-        } ).then( r => console.log( r ) ).catch( e => console.log( e ) );
+        } ).then( r => {
+            props.history.push( "/admin/edit-space-challenges" );
+        } ).catch( e => console.log( e ) );
     };
 
     const handleInputChange = ( e ) => {

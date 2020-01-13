@@ -10,6 +10,7 @@ const mapStateToProps = state => {
     return { friends: state.friendsList, updatedFriendRequests: state.updateFriendRequest };
 };
 
+
 const CurrentFriends = ( props ) => {
 
     //TODO: Send error message to Redux
@@ -22,7 +23,7 @@ const CurrentFriends = ( props ) => {
             props.dispatch( { type: friendsConstants.CURRENT_FRIENDS, payload: friends.data } );
         } ).catch( e => console.log( e ) );
     }, [ props.updatedFriendRequests ] );
-    
+
     let friendsUI;
 
     if ( props.friends.length !== 0 ) {
