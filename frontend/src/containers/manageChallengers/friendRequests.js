@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Axios from "axios";
 import getToken from "../../helperMethods/getToken";
 import Button from "../../components/general/button";
 import * as friendConstants from "../../constants/friends";
+import {UPDATE_FRIEND_REQUEST} from "../../constants/friends";
 
 const mapStateToProps = state => {
-    return { friendRequests: state.friendRequests };
+    return { friendRequests: state.friendRequests, updateFriendRequest: state.updateFriendRequest };
 };
 
 const FriendRequests = ( props ) => {
-
-    const [ madeRequest, setMadeRequest ] = useState( 0 );
 
     getToken();
 
@@ -22,13 +21,12 @@ const FriendRequests = ( props ) => {
             method: "GET",
             url: "http://localhost:8000/api/get-friends-invites",
         } ).then( ( r ) => {
-            console.log( r.data );
             props.dispatch( {
                 type: friendConstants.FRIEND_REQUESTS,
                 payload: r.data
             } );
         } ).catch( e => console.log( e ) );
-    }, [ madeRequest ] );
+    }, [ props.updateFriendRequest ] );
 
     //TODO: Change url to constant
     const submitAcceptOrDeclineRequest = ( email, accept ) => {
@@ -39,8 +37,9 @@ const FriendRequests = ( props ) => {
                 accept,
                 email
             }
-        } ).then( r => setMadeRequest( madeRequest + 1 ) );
-        //TODO: Find a better way to make the component update (maybe a certain type of response from the server to determine)
+        } ).then( ( response ) => {
+            props.dispatch( { type: UPDATE_FRIEND_REQUEST } );
+        } ).catch( e => console.log( e ) );
     };
 
     const handleAcceptOrDecline = ( email, accept ) => {

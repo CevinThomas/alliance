@@ -7,8 +7,9 @@ import * as friendsConstants from "../../constants/friends";
 import Button from "../../components/general/button";
 
 const mapStateToProps = state => {
-    return { friends: state.friendsList };
+    return { friends: state.friendsList, updatedFriendRequests: state.updateFriendRequest };
 };
+
 
 const CurrentFriends = ( props ) => {
 
@@ -21,15 +22,14 @@ const CurrentFriends = ( props ) => {
         } ).then( ( friends ) => {
             props.dispatch( { type: friendsConstants.CURRENT_FRIENDS, payload: friends.data } );
         } ).catch( e => console.log( e ) );
-    }, [] );
+    }, [ props.updatedFriendRequests ] );
 
     let friendsUI;
 
     if ( props.friends.length !== 0 ) {
         friendsUI = props.friends.map( ( friend ) => {
-            console.log( friend );
             return (
-                <div>
+                <div key={friend._id}>
                     <h1>{friend.name}</h1>
                     <Link to={"/admin/friend/?id=" + friend._id}><Button title={"View"}/></Link>
                 </div>

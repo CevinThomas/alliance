@@ -13,6 +13,7 @@ import EditSpaceChallenges from "./views/edit-space-challenges";
 import CreateChallenge from "./views/createTask";
 import ViewSpace from "./views/viewSpace";
 import EditOwnerSpace from "./views/editOwnerSpace";
+import ViewFriend from "./views/viewFriend";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                 <Route exact path={"/admin/create-challenges"} component={CreateChallenge}/>
                 <Route path={"/admin/view-space/"} component={ViewSpace}/>
                 <Route path={"/admin/edit-space/"} component={EditOwnerSpace}/>
+                <Route path={"/admin/friend/"} component={ViewFriend}/>
             </Switch>
         </React.Fragment>
     );

@@ -53,7 +53,22 @@ class User {
         db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: searchParam } } ).project( { "email": 1 } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
+    static getUserInDatabase = ( userId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) }, { projection: { name: 1 } } );
+    };
+
+    static removeFriend = async ( friendId, userId ) => {
+        const db = getDb();
+        const bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
+        bulk.find( { _id: ObjectId( userId ) } ).updateOne( { $pull: { friends: ObjectId( friendId ) } } );
+        bulk.find( { _id: ObjectId( friendId ) } ).updateOne( { $pull: { friends: ObjectId( userId ) } } );
+        const response = await bulk.execute();
+        return (response.result.ok === 1 && response.result.nModified === 2);
+    };
+
     //TODO: PROJECTION SYNTAX FOR THE REST OF THE APPLICATION
+    //TODO: REBUILD THIS LIKE ABOVE
     static findUserInDatabase = ( method, searchParam, callback ) => {
         const db = getDb();
         if ( method === "email" ) {

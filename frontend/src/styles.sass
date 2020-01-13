@@ -159,6 +159,7 @@ a:hover
   background-color: $whiteColor
 
 %buttonStyling
+  cursor: pointer
   width: 50%
   margin: 50px auto 0 auto
   color: $whiteColor
@@ -335,6 +336,96 @@ a:hover
     height: 80%
     width: 80%
     background: $whiteColor
+
+#view-friend-container
+  @extend %flexStandard
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background: url("./images/small-poly-3350169_1920.jpg") center no-repeat
+  background-size: cover
+
+  #view-friend
+    height: 80%
+    width: 80%
+    background-color: $whiteColor
+
+    #friend-information-container
+      height: 200px
+      margin: 50px auto 0 auto
+      border-bottom: 1px solid $mainColor
+      border-radius: 10px
+      width: 80%
+      padding-bottom: 50px
+      @extend %flexStandard
+
+      #friend-inner-container
+        width: 50%
+        height: 100%
+        @extend %flexStandard
+
+        #friend-information-left
+          width: 50%
+          height: 100%
+          @extend %flexStandard
+
+          #friend-image
+            width: 160px
+            height: 160px
+            border-radius: 400px
+            background: url("./images/cevin.JPG") center no-repeat
+            background-size: cover
+
+        #friend-information-right
+          height: 100%
+          width: 50%
+          padding: 20px
+          box-sizing: border-box
+          @extend %flexStandard
+
+          #friend-details
+            width: 100%
+            text-align: center
+
+            button
+              width: 100%
+              margin: 0 auto
+
+    #friend-back
+      border-radius: 0
+      margin: -58px 0 0 0
+      width: 20%
+      position: relative
+      z-index: 999
+      transition: $overlayTransition
+
+      &:hover
+        transition: $overlayTransition
+        color: $mainColor
+
+      &:hover:before
+        width: 100%
+
+      &:before
+        content: ""
+        position: absolute
+        left: 0
+        top: 0
+        width: 0
+        height: 100%
+        background-color: $whiteColor
+        transition: $overlayTransition
+        z-index: -1
+
+
+    #main-heading
+      text-align: center
+      border-bottom: 1px solid $mainColor
+      width: 80%
+      margin: 40px auto auto auto
+
 
 #create-task
   position: fixed

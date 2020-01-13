@@ -53,12 +53,32 @@ const initialState = {
     showCheckModal: false,
     showChangeModal: false,
     showViewModal: false,
-    showThankYouModal: false
+    showThankYouModal: false,
+
+    viewFriend: {},
+    updateFriendRequest: 0
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === friendConstants.UPDATE_FRIEND_REQUEST ) {
+
+        const incremented = state.updateFriendRequest + 1;
+
+        return {
+            ...state,
+            updateFriendRequest: incremented
+        };
+    }
+
+    if ( action.type === friendConstants.VIEW_FRIEND ) {
+        return {
+            ...state,
+            viewFriend: action.payload
+        };
+    }
 
     if ( action.type === taskConstants.SHOW_THANK_YOU_MODAL ) {
         return {

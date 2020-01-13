@@ -13,3 +13,5 @@ export const GET_SINGLE_SPACE = address + "/get-single-space";
 export const UPDATE_SPACE_CREDENTIALS = address + "/update-space-credentials";
 export const DELETE_SPACE = address + "/delete-space";
 export const LEAVE_SPACE = address + "/leave-space";
+export const GET_FRIEND_INFO = address + "/get-friend";
+export const REMOVE_FRIEND = address + "/remove-friend";
