@@ -1,6 +1,7 @@
 const getDb = require( "../database/index" ).getDb;
 ObjectId = require( "mongodb" ).ObjectID;
 
+const User = require( "./users" );
 
 class Space {
 
@@ -36,6 +37,26 @@ class Space {
         const db = getDb();
         const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { $fields: { spaces: 1 } } );
         return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).toArray();
+    };
+
+    static getUserIdsFromSpace = async ( spaceObjects ) => {
+        let userIds = [];
+        return new Promise( ( resolve, reject ) => {
+            spaceObjects.map( ( space ) => {
+                userIds.push( space.challengers );
+            } );
+            resolve( userIds );
+        } );
+    };
+
+
+    static getUsersFromSpace = async ( token ) => {
+        const db = getDb();
+        const user = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { $fields: { spaces: 1 } } );
+        const spaces = await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: user.spaces } } ).toArray();
+
+        const userIds = await Space.getUserIdsFromSpace( spaces );
+        return await User.getAllUsersFieldsFromDatabase( userIds );
     };
 
     //TODO: THIS IS THE CORRECT PROJECTION WAY

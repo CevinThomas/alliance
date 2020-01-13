@@ -339,6 +339,11 @@ a:hover
 
 #spaces
   #all-spaces
+    @extend %flexStandard
+    flex-wrap: wrap
+    justify-content: space-evenly
+    padding: 0 5%
+
     .space-card
       height: 500px
       width: 500px
@@ -352,6 +357,10 @@ a:hover
 
       .space-card-text-container
         padding: 5%
+
+        .space-card-text-inner
+          h3
+            text-align: center
 
 #view-friend-container
   @extend %flexStandard

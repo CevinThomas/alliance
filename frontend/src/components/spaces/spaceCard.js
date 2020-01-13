@@ -7,16 +7,19 @@ const SpaceCard = ( props ) => {
     console.log( props );
 
     let showMembers = false;
-    props.space.challengers.length !== 0 ? showMembers = true : showMembers = false;
+    props.members.length !== 0 ? showMembers = true : showMembers = false;
 
     let membersUI;
     if ( showMembers ) {
-        membersUI = (
-            <div>
-
-            </div>
-        );
+        membersUI = props.members.map( ( member ) => {
+            return (
+                <div key={member._id}>
+                    <Heading title={member.name} type={"h4"}/>
+                </div>
+            );
+        } );
     }
+
 
     return (
         <Link to={"/spaces/?id=" + props.space._id}>
@@ -25,7 +28,13 @@ const SpaceCard = ( props ) => {
                 <div className={"space-card-text-container"}>
                     <div className={"space-card-text-inner"}>
                         <Heading title={props.space.name} type={"h3"}/>
-                        <Paragraph title={"Members"}/>
+                        {showMembers ?
+                            <div>
+                                <Paragraph title={"Members"}/>
+                                {membersUI}
+                            </div> : null
+                        }
+
                     </div>
                 </div>
             </div>

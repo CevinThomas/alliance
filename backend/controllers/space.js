@@ -80,7 +80,20 @@ exports.leaveSpace = async ( req, res, next ) => {
 exports.getAllSpaces = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getAllSpacesFromUser( token );
-    res.status( 200 ).send( spaces );
+    const memberIdsArray = await Space.getUserIdsFromSpace( spaces );
+    let spacesWithMembers = [];
+    spaces.map( ( space ) => {
+        memberIdsArray.map( ( memberIds ) => {
+            memberIds.map( ( singleId ) => {
+                if ( space.challengers.includes( singleId ) ) {
+                    spacesWithMembers.push( space, singleId );
+                }
+            } );
+        } );
+        console.log( spaces );
+
+    } );
+    res.status( 200 ).send( { spaces, members } );
 };
 
 //TODO: Error checking
