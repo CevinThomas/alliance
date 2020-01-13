@@ -362,12 +362,10 @@ a:hover {
 #spaces #all-spaces .space-card {
   height: 500px;
   width: 500px;
-  background-color: black;
 }
 #spaces #all-spaces .space-card .space-card-image {
   width: 100%;
   height: 40%;
-  background-color: red;
   background: url("./images/small-poly-3350169_1920.jpg") center no-repeat;
 }
 #spaces #all-spaces .space-card .space-card-text-container {
@@ -375,6 +373,13 @@ a:hover {
 }
 #spaces #all-spaces .space-card .space-card-text-container .space-card-text-inner h3 {
   text-align: center;
+}
+#spaces #all-spaces .space-card .space-card-text-container .space-card-text-inner span {
+  color: #00cca3;
+}
+#spaces #all-spaces .space-card .space-card-text-container .space-card-text-inner .member-name {
+  padding-right: 10px;
+  display: inline-block;
 }
 
 #view-friend-container {

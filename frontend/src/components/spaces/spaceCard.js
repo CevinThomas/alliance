@@ -13,7 +13,7 @@ const SpaceCard = ( props ) => {
         membersUI = props.space.members.map( ( member ) => {
             if ( props.space.owner === member._id ) {
                 return <div key={member._id}>
-                    <Heading title={member.name} type={"h4"}/>
+                    <Heading class={"member-name"} title={member.name} type={"h4"}/>
                     <span>Owner</span>
                 </div>;
             } else {
