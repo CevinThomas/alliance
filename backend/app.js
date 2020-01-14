@@ -12,6 +12,7 @@ const mongoConnect = require( "./database/index" ).mongoConnect;
 const app = express();
 const http = require( "http" ).createServer( app );
 const io = require( "socket.io" )( http );
+require( "./javascriptSandbox" );
 require( "dotenv" ).config();
 
 io.on( "connection", ( socket ) => {
