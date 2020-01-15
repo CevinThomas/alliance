@@ -157,7 +157,7 @@ a:hover {
   background-color: #fff;
 }
 
-.navbar {
+.navbar-dark, .navbar {
   background-color: transparent;
   text-align: center;
   padding: 20px 0;
@@ -267,6 +267,36 @@ a:hover {
   font-weight: 700;
 }
 .navbar .link-item a:hover {
+  color: #00cca3;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.navbar-dark {
+  background: #00cca3;
+}
+.navbar-dark #avatar_icon {
+  color: #fff;
+  font-size: 30px;
+  margin-bottom: -5px;
+}
+.navbar-dark #avatar_icon #avatar_not_logged_in {
+  color: #740e17;
+  font-size: 30px;
+  margin-bottom: -5px;
+}
+.navbar-dark .link-item {
+  display: inline-block;
+  padding: 0 20px;
+}
+.navbar-dark .link-item a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.navbar-dark .link-item a:hover {
   color: #00cca3;
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;

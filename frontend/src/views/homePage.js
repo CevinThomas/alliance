@@ -5,7 +5,7 @@ import Navbar from "../components/nav/nav";
 const HomePage = () => {
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div>
                 <GoToSpaces/>
             </div>

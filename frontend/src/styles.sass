@@ -251,6 +251,37 @@ a:hover
         -o-transition: $transition
         transition: $transition
 
+.navbar-dark
+  background: $mainColor
+  @extend %navBarStyling
+
+  #avatar_icon
+    color: $whiteColor
+    font-size: 30px
+    margin-bottom: -5px
+
+    #avatar_not_logged_in
+      color: $redColor
+      font-size: 30px
+      margin-bottom: -5px
+
+
+  .link-item
+    display: inline-block
+    padding: 0 20px
+
+    a
+      color: $whiteColor
+      text-decoration: none
+      font-weight: 700
+
+      &:hover
+        color: $mainColor
+        -webkit-transition: $transition
+        -moz-transition: $transition
+        -o-transition: $transition
+        transition: $transition
+
 
 .top-bar
   height: 15%
