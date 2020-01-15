@@ -48,6 +48,17 @@ class User {
         } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
+    static getAllUsersFieldsFromDatabase = ( ids ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: ids[0] } }, {
+            projection: {
+                name: 1,
+                email: 1,
+                spaces: 1
+            }
+        } ).toArray();
+    };
+
     static findMultipleUsersInDatabase = ( searchParam, callback ) => {
         const db = getDb();
         db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: searchParam } } ).project( { "email": 1 } ).toArray().then( r => callback( r ) ).catch( e => callback( e ) );

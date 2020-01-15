@@ -12,6 +12,7 @@ const mongoConnect = require( "./database/index" ).mongoConnect;
 const app = express();
 const http = require( "http" ).createServer( app );
 const io = require( "socket.io" )( http );
+require( "./javascriptSandbox" );
 require( "dotenv" ).config();
 
 io.on( "connection", ( socket ) => {
@@ -57,8 +58,11 @@ app.get( "/api/get-friends-invites", auth, friendsController.getFriendInvites );
 app.get( "/api/get-friends-list", auth, friendsController.getFriends );
 app.get( "/api/get-space-invites", auth, spaceController.getSpaceInvites );
 app.get( "/api/get-spaces-from-user", auth, spaceController.getSpacesFromUser );
+app.get( "/api/get-all-spaces", auth, spaceController.getAllSpaces );
 app.post( "/api/get-friend", auth, friendsController.getFriend );
 app.post( "/api/remove-friend", auth, friendsController.removeFriend );
+app.post( "/api/get-space-with-lookup", auth, spaceController.getSpaceWithLookup );
+app.post( "/api/get-user-task-lookup", auth, spaceController.getUserWithTaskLookup );
 
 app.put( "/api/update-space-credentials", auth, spaceController.updateSpaceCredentials );
 

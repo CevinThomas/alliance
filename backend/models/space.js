@@ -1,6 +1,7 @@
 const getDb = require( "../database/index" ).getDb;
 ObjectId = require( "mongodb" ).ObjectID;
 
+const User = require( "./users" );
 
 class Space {
 
@@ -27,10 +28,164 @@ class Space {
         } ).toArray();
     };
 
+    static getUserObjectsFromIds = ( ids, callback ) => {
+        let flattenedIds = ids.flat();
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: flattenedIds } } ).toArray().then( r => callback( r ) );
+    };
+
     static findSpacePerUser( userId ) {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).find( { owner: ObjectId( userId ) } ).toArray().then( r => r );
     }
+
+    static getAllSpacesFromUser = async ( token ) => {
+        const db = getDb();
+        const spaces = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { $fields: { spaces: 1 } } );
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).toArray();
+    };
+
+    static getSingleUserWithTasks = ( userId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: ObjectId( userId ) } },
+            {
+                $project: {
+                    password: 0,
+                    tokens: 0,
+                    spaces: 0,
+                    incomingSpaceInvites: 0,
+                    incomingFriendRequest: 0,
+                    friends: 0
+                }
+            },
+            {
+                $lookup: {
+                    from: "challenges",
+                    let: { tasks: "$tasks" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$tasks" ] },
+                                }
+                        },
+                    ],
+                    as: "populatedTasks"
+                }
+            }
+        ] ).toArray();
+
+
+    };
+
+    static getSpacesWithMembers = () => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).aggregate( [
+            {
+                $lookup: {
+                    from: "users",
+                    let: { challengers: "$challengers" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$challengers" ] },
+                                }
+                        },
+                        {
+                            $project: {
+                                password: 0,
+                                tokens: 0,
+                                friends: 0,
+                                incomingFriendRequest: 0,
+                                incomingSpaceInvites: 0,
+                                spaces: 0
+                            }
+                        }
+                    ],
+                    as: "members"
+                }
+            }
+        ] ).toArray();
+    };
+
+    static getSingleSpaceWithLookup = ( spaceId ) => {
+        const db = getDb();
+        return db.collection( process.env.SPACECOLLECTION ).aggregate( ([ { $match: { _id: ObjectId( spaceId ) } }, {
+            $lookup: {
+                from: "users",
+                let: { challengers: "$challengers" },
+                pipeline: [ { $match: { $expr: { $in: [ "$_id", "$$challengers" ] } } }, {
+                    $project: {
+                        password: 0,
+                        tokens: 0,
+                        friends: 0,
+                        incomingFriendRequest: 0,
+                        incomingSpaceInvites: 0,
+                        spaces: 0
+                    },
+                } ],
+                as: "members"
+            }
+        } ]) ).toArray();
+    };
+
+    static getUsersWithTasks = ( ids ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: { $in: ids } } },
+            {
+                $project: {
+                    password: 0,
+                    tokens: 0,
+                    spaces: 0,
+                    incomingSpaceInvites: 0,
+                    incomingFriendRequest: 0,
+                    friends: 0
+                }
+            },
+            {
+                $lookup: {
+                    from: "challenges",
+                    let: { tasks: "$tasks" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$tasks" ] },
+                                }
+                        },
+                    ],
+                    as: "populatedTasks"
+                }
+            }
+        ] ).toArray();
+    };
+
+    static getUserIdsFromSpace = async ( spaceObjects ) => {
+        let userIds = [];
+
+        return new Promise( ( resolve, reject ) => {
+            spaceObjects.map( ( space ) => {
+                userIds.push( space.challengers );
+            } );
+            Space.convertIdsToObjectIds( userIds, ( ids ) => {
+                resolve( ids );
+            } );
+        } );
+    };
+
+
+    static getUsersFromSpace = async ( token ) => {
+        const db = getDb();
+        const user = await db.collection( process.env.USERSCOLLECTION ).findOne( { tokens: token }, { $fields: { spaces: 1 } } );
+        const spaces = await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: user.spaces } } ).toArray();
+
+        const userIds = await Space.getUserIdsFromSpace( spaces );
+        return await User.getAllUsersFieldsFromDatabase( userIds );
+    };
 
     //TODO: THIS IS THE CORRECT PROJECTION WAY
     static getSpacesFromUser = async ( token ) => {
@@ -108,8 +263,9 @@ class Space {
     };
 
     static convertIdsToObjectIds = ( ids, callback ) => {
+        let flattenedIds = ids.flat();
         let idsAsObjectIds = [];
-        ids.map( ( id ) => {
+        flattenedIds.map( ( id ) => {
             let idConverted = ObjectId( id );
             idsAsObjectIds.push( idConverted );
         } );
@@ -133,7 +289,6 @@ class Space {
     };
 
     static removeTasksWhenDeletingSpace = ( taskIds ) => {
-        console.log( taskIds );
         const db = getDb();
         db.collection( process.env.CHALLENGECOLLECTION ).find( { _id: { $in: taskIds } } ).toArray().then( r => console.log( r ) );
         db.collection( process.env.USERSCOLLECTION ).updateMany( { tasks: { $in: taskIds } }, { $pull: { tasks: { $in: taskIds } } } );

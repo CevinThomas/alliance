@@ -33,9 +33,15 @@ const Navbar = ( props ) => {
         isOnlineElement = "";
     }
 
+    let darkClass;
+    props.dark ? darkClass = " navbar-dark" : darkClass = "";
+
 
     return (
-        <div className={"navbar"}>
+        <div className={"navbar" + darkClass}>
+            <li className={"link-item"}>
+                <Link to={"/"}>Home</Link>
+            </li>
             <li className={"link-item"}>
                 <Link to={"/login"}>Login</Link>
             </li>
@@ -45,7 +51,7 @@ const Navbar = ( props ) => {
             <li className={"link-item"}>
                 <Link to={"/logout"}>Logout</Link>
             </li>
-            
+
             {isOnlineElement}
 
         </div>

@@ -21,7 +21,6 @@ class Challenge {
 
     static addToSpaceAndUser = ( taskId, userId, spaceId ) => {
         const db = getDb();
-        console.log( taskId );
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { tasks: ObjectId( taskId ) } } );
         db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
             $push: {
@@ -30,9 +29,9 @@ class Challenge {
         } );
     };
 
-    static findTaskByName = ( name, callback ) => {
+    static findTaskById = ( id, callback ) => {
         const db = getDb();
-        db.collection( process.env.CHALLENGECOLLECTION ).findOne( { name } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        db.collection( process.env.CHALLENGECOLLECTION ).findOne( { _id: id } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     save = ( callback ) => {

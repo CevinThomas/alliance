@@ -28,6 +28,30 @@ exports.createSpace = async ( req, res, next ) => {
     res.status( 200 ).send( "Space created" );
 };
 
+exports.getSpaceWithLookup = async ( req, res, next ) => {
+    if ( req.body.spaceId.length !== 24 ) return res.status( 200 ).send( "Invalid Space ID" );
+
+    const space = await Space.getSingleSpaceWithLookup( req.body.spaceId );
+
+    res.status( 200 ).send( space );
+};
+
+exports.getUserWithTaskLookup = async ( req, res, next ) => {
+    if ( typeof req.body.userIds === "string" ) {
+        if ( req.body.userIds.length !== 24 ) return res.status( 200 ).send( "Invalid User ID" );
+        const user = await Space.getSingleUserWithTasks( req.body.userIds );
+        res.status( 200 ).send( user );
+    } else {
+        Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
+            Space.getUsersWithTasks( ids ).then( ( users ) => {
+                res.status( 200 ).send( users );
+            } );
+        } );
+    }
+
+
+};
+
 exports.getSingleSpace = async ( req, res, next ) => {
     const isMember = await Space.isUserInSpace( req.body.spaceId, req.user._id );
     if ( isMember !== null ) {
@@ -73,11 +97,22 @@ exports.deleteSpace = async ( req, res, next ) => {
 
 exports.leaveSpace = async ( req, res, next ) => {
     const didLeave = await Space.leaveSpace( req.body.spaceId, req.user._id );
-    console.log( didLeave );
     res.status( 200 ).send();
 };
 
+exports.getAllSpaces = async ( req, res, next ) => {
+    const spaces = await Space.getSpacesWithMembers();
+
+    spaces.map( ( space ) => {
+        console.log( space );
+
+    } );
+
+    res.status( 200 ).send( spaces );
+};
+
 //TODO: Error checking
+//TODO: RENAME to getSpaceNameAndIdFromUser
 exports.getSpacesFromUser = async ( req, res, next ) => {
     const token = getToken( req );
     const spaces = await Space.getSpacesFromUser( token );

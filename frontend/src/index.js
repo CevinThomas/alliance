@@ -7,12 +7,10 @@ import "./redux/index";
 import {Provider} from "react-redux";
 import store from "./redux/store/index";
 import {BrowserRouter as Router} from "react-router-dom";
-import Navbar from "./components/nav/nav";
 
 const app = (
     <Provider store={store}>
         <Router>
-            <Navbar/>
             <App/>
         </Router>
     </Provider>

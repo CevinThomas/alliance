@@ -2,7 +2,9 @@ import * as registrationConstants from "../../constants/registration";
 import * as loginConstants from "../../constants/login";
 import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
+import {SELECTED_SPACE, SEND_CURRENT_MEMBERS, SEND_CURRENT_SPACES} from "../../constants/space";
 import * as userConstants from "../../constants/user";
+import {SINGLE_USER_POPULATED_TASKS, USER_WITH_POPULATED_TASKS} from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
 import * as taskConstants from "../../constants/tasks";
@@ -56,12 +58,87 @@ const initialState = {
     showThankYouModal: false,
 
     viewFriend: {},
-    updateFriendRequest: 0
+    updateFriendRequest: 0,
+    currentSpaces: [],
+    currentMembers: [],
+    selectedSpace: "",
+    usersWithPopulatedTasks: [],
+    singleUserPopulatedWithTasks: ""
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === SINGLE_USER_POPULATED_TASKS ) {
+
+        let userObject = {};
+        let newState;
+        if ( typeof action.payload !== "string" ) {
+            action.payload.forEach( ( user ) => {
+                userObject = user;
+            } );
+            newState = {
+                ...state,
+                singleUserPopulatedWithTasks: userObject
+            };
+        } else {
+            newState = {
+                ...state,
+                singleUserPopulatedWithTasks: action.payload
+            };
+        }
+
+        return newState;
+    }
+
+    if ( action.type === USER_WITH_POPULATED_TASKS ) {
+        return {
+            ...state,
+            usersWithPopulatedTasks: action.payload
+        };
+    }
+
+    if ( action.type === SELECTED_SPACE ) {
+
+        let spaceObject = {};
+        let newState;
+
+        if ( typeof action.payload !== "string" ) {
+            action.payload.forEach( ( space ) => {
+                spaceObject = space;
+            } );
+            newState = {
+                ...state,
+                selectedSpace: spaceObject
+            };
+        } else {
+            newState = {
+                ...state,
+                selectedSpace: action.payload
+            };
+        }
+
+        return newState;
+
+
+    }
+
+    if ( action.type === SEND_CURRENT_MEMBERS ) {
+        return {
+            ...state,
+            currentMembers: action.payload
+        };
+    }
+
+    if ( action.type === SEND_CURRENT_SPACES ) {
+
+
+        return {
+            ...state,
+            currentSpaces: action.payload
+        };
+    }
 
     if ( action.type === friendConstants.UPDATE_FRIEND_REQUEST ) {
 
@@ -164,7 +241,6 @@ function rootReducer( state = initialState, action ) {
     }
 
     if ( action.type === userConstants.USER_INCOMING_SPACE_INVITES ) {
-        console.log( action.payload );
         let spaceInvites = [];
         action.payload.map( ( invite ) => {
             spaceInvites.push( invite );
