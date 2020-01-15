@@ -6,6 +6,7 @@ import getToken from "../helperMethods/getToken";
 import {connect} from "react-redux";
 import Button from "../components/general/button";
 import CurrentSpaces from "../containers/editSpace/currentSpaces";
+import Navbar from "../components/nav/nav";
 
 const mapStateToProps = state => {
     return { spaceInvites: state.incomingSpaceInvites };
@@ -67,11 +68,14 @@ const EditSpaceChallenges = ( props ) => {
     } );
 
     return (
-        <div>
-            <h1>Space Invites</h1>
-            {spaceInvitesUI}
-            <CurrentSpaces/>
-        </div>
+        <React.Fragment>
+            <Navbar/>
+            <div>
+                <h1>Space Invites</h1>
+                {spaceInvitesUI}
+                <CurrentSpaces/>
+            </div>
+        </React.Fragment>
     );
 };
 

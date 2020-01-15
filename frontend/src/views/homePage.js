@@ -1,11 +1,15 @@
 import React from "react";
 import GoToSpaces from "../containers/homePage/goToSpaces";
+import Navbar from "../components/nav/nav";
 
 const HomePage = () => {
     return (
-        <div>
-            <GoToSpaces/>
-        </div>
+        <React.Fragment>
+            <Navbar/>
+            <div>
+                <GoToSpaces/>
+            </div>
+        </React.Fragment>
     );
 };
 

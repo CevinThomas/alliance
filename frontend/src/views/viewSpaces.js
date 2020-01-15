@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import AllSpaces from "../containers/spaces/allSpaces";
 import queryString from "query-string";
 import ShowSingleSpace from "../containers/spaces/showSingleSpace";
+import Navbar from "../components/nav/nav";
 
 const ViewSpaces = ( props ) => {
 
@@ -28,16 +29,15 @@ const ViewSpaces = ( props ) => {
     useEffect( () => {
         setQueryParams( params );
     }, [ reloadQuery ] );
-
-
-    console.log( queryParams );
-
-    console.log( "RERUN" );
+    
 
     return (
-        <div id={"spaces"}>
-            {spacesUI}
-        </div>
+        <React.Fragment>
+            <Navbar/>
+            <div id={"spaces"}>
+                {spacesUI}
+            </div>
+        </React.Fragment>
     );
 };
 

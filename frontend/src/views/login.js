@@ -1,11 +1,15 @@
 import React from "react";
 import LoginBox from "../containers/login/loginBox";
+import Navbar from "../components/nav/nav";
 
 const Login = () => {
     return (
-        <div id={"login"}>
-            <LoginBox id={"login-box"}/>
-        </div>
+        <React.Fragment>
+            <Navbar/>
+            <div id={"login"}>
+                <LoginBox id={"login-box"}/>
+            </div>
+        </React.Fragment>
     );
 };
 

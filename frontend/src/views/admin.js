@@ -5,21 +5,25 @@ import BoxTwo from "../containers/admin/boxTwo";
 import BoxThree from "../containers/admin/boxThree";
 import BoxFour from "../containers/admin/boxFour";
 import SideMenu from "../containers/admin/sideMenu";
+import Navbar from "../components/nav/nav";
 
 const Admin = () => {
     return (
-        <div id={"admin"}>
-            <Overlay/>
-            <div id={"admin-sideMenu"}>
-                <SideMenu/>
+        <React.Fragment>
+            <Navbar/>
+            <div id={"admin"}>
+                <Overlay/>
+                <div id={"admin-sideMenu"}>
+                    <SideMenu/>
+                </div>
+                <div id={"admin-box-container"}>
+                    <BoxOne/>
+                    <BoxTwo/>
+                    <BoxThree/>
+                    <BoxFour/>
+                </div>
             </div>
-            <div id={"admin-box-container"}>
-                <BoxOne/>
-                <BoxTwo/>
-                <BoxThree/>
-                <BoxFour/>
-            </div>
-        </div>
+        </React.Fragment>
     );
 };
 
