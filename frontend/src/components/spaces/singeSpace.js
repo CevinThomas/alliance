@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {userPopulatedWithTasks} from "../../redux/actions";
 import Heading from "../textElements/heading";
 import Paragraph from "../textElements/paragraph";
+import {Link, withRouter} from "react-router-dom";
 
 const mapStateToProps = state => {
     return {
@@ -32,18 +33,20 @@ const SingleSpace = ( props ) => {
             fetchUsersWithTasks();
         }
     }, [ props.space ] );
-
+    
 
     let spaceUI;
     spaceUI = props.usersWithPopulatedTasks.map( ( user ) => (
-        <div key={user._id}>
-            <Heading title={user.name} type={"h3"}/>
-            <Paragraph title={"Tasks"}/>
-            {user.populatedTasks.map( ( task ) => {
-                if ( task.chosenSpace === props.selectedSpace._id ) return < Paragraph key={task._id}
-                                                                                       title={task.name}/>;
-            } )}
-        </div>
+        <Link to={props.history.location.pathname + props.history.location.search + "&&userId?=" + user._id}>
+            <div key={user._id}>
+                <Heading title={user.name} type={"h3"}/>
+                <Paragraph title={"Tasks"}/>
+                {user.populatedTasks.map( ( task ) => {
+                    if ( task.chosenSpace === props.selectedSpace._id ) return < Paragraph key={task._id}
+                                                                                           title={task.name}/>;
+                } )}
+            </div>
+        </Link>
     ) );
 
     return (
@@ -53,4 +56,4 @@ const SingleSpace = ( props ) => {
     );
 };
 
-export default connect( mapStateToProps, null )( SingleSpace );
+export default connect( mapStateToProps, null )( withRouter( SingleSpace ) );
