@@ -77,9 +77,15 @@ function rootReducer( state = initialState, action ) {
     }
 
     if ( action.type === SELECTED_SPACE ) {
+
+        let spaceObject = {};
+
+        action.payload.forEach( ( space ) => {
+            spaceObject = space;
+        } );
         return {
             ...state,
-            selectedSpace: action.payload
+            selectedSpace: spaceObject
         };
     }
 

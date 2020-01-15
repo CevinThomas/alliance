@@ -29,9 +29,9 @@ class Challenge {
         } );
     };
 
-    static findTaskByName = ( name, callback ) => {
+    static findTaskById = ( id, callback ) => {
         const db = getDb();
-        db.collection( process.env.CHALLENGECOLLECTION ).findOne( { name } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        db.collection( process.env.CHALLENGECOLLECTION ).findOne( { _id: id } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     save = ( callback ) => {
