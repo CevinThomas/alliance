@@ -108,6 +108,7 @@ class Space {
                     spaces: 0,
                     incomingSpaceInvites: 0,
                     incomingFriendRequest: 0,
+                    friends: 0
                 }
             },
             {
