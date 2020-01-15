@@ -7,7 +7,9 @@ export default ChildComponent => {
 
         componentDidMount() {
             if ( localStorage.getItem( "TOKEN" ) ) {
-                this.props.dispatch( { type: LOGGED_IN, payload: true } );
+                if ( this.props.isLoggedIn !== true ) {
+                    this.props.dispatch( { type: LOGGED_IN, payload: true } );
+                }
             } else {
                 this.props.dispatch( { type: LOGGED_IN, payload: false } );
                 this.props.history.push( "/login" );
@@ -16,7 +18,9 @@ export default ChildComponent => {
 
         componentWillUnmount() {
             if ( localStorage.getItem( "TOKEN" ) ) {
-                this.props.dispatch( { type: LOGGED_IN, payload: true } );
+                if ( this.props.isLoggedIn !== true ) {
+                    this.props.dispatch( { type: LOGGED_IN, payload: true } );
+                }
             } else {
                 this.props.dispatch( { type: LOGGED_IN, payload: false } );
                 this.props.history.push( "/login" );
@@ -24,12 +28,17 @@ export default ChildComponent => {
         }
 
         render() {
-            console.log( "HIGHER ORDER COMPONENT YALL" );
             return (
                 <ChildComponent {...this.props} />
             );
         }
     }
 
-    return connect()( IsLoggedIn );
+    const mapStateToProps = state => {
+        return {
+            isLoggedIn: state.userIsOnline
+        };
+    };
+
+    return connect( mapStateToProps )( IsLoggedIn );
 };
