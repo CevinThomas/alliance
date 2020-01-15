@@ -102,6 +102,15 @@ class Space {
         const db = getDb();
         return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: { $in: ids } } },
             {
+                $project: {
+                    password: 0,
+                    tokens: 0,
+                    spaces: 0,
+                    incomingSpaceInvites: 0,
+                    incomingFriendRequest: 0,
+                }
+            },
+            {
                 $lookup: {
                     from: "challenges",
                     let: { tasks: "$tasks" },
