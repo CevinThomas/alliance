@@ -38,7 +38,7 @@ exports.getUserWithTaskLookup = async ( req, res, next ) => {
     Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
         Space.getUsersWithTasks( ids ).then( ( users ) => {
             console.log( users );
-            res.status( 200 ).send();
+            res.status( 200 ).send( users );
         } );
     } );
 

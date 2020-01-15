@@ -21,7 +21,6 @@ class Challenge {
 
     static addToSpaceAndUser = ( taskId, userId, spaceId ) => {
         const db = getDb();
-        console.log( taskId );
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { tasks: ObjectId( taskId ) } } );
         db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
             $push: {
