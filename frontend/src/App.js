@@ -15,12 +15,14 @@ import InspectSpace from "./views/inspectSpace";
 import EditOwnerSpace from "./views/editOwnerSpace";
 import ViewFriend from "./views/viewFriend";
 import ViewSpaces from "./views/viewSpaces";
+import HomePage from "./views/homePage";
 
 function App() {
     return (
         //TODO: Look into Switch, also exact path. Also if page not found, show login component or a 404 component.
         <React.Fragment>
             <Switch>
+                <Route path={"/"} exact component={HomePage}/>
                 <Route path={"/registration"} component={Registration}/>
                 <Route path={"/login"} component={Login}/>
                 <Route path={"/logout"} component={Logout}/>

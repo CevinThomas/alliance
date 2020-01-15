@@ -37,6 +37,9 @@ const Navbar = ( props ) => {
     return (
         <div className={"navbar"}>
             <li className={"link-item"}>
+                <Link to={"/"}>Home</Link>
+            </li>
+            <li className={"link-item"}>
                 <Link to={"/login"}>Login</Link>
             </li>
             <li className={"link-item"}>
@@ -45,7 +48,7 @@ const Navbar = ( props ) => {
             <li className={"link-item"}>
                 <Link to={"/logout"}>Logout</Link>
             </li>
-            
+
             {isOnlineElement}
 
         </div>
