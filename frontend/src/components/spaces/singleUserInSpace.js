@@ -14,10 +14,6 @@ const mapStateToProps = state => {
 
 const SingleUserInSpace = ( props ) => {
 
-    console.log( props.userId );
-
-    console.log( "RELOAD" );
-
     useEffect( () => {
         Axios( {
             method: "POST",
@@ -26,7 +22,6 @@ const SingleUserInSpace = ( props ) => {
                 userIds: props.userId
             }
         } ).then( ( r ) => {
-            console.log( r.data );
             props.dispatch( singleUserPopulatedWithTasks( r.data ) );
         } ).catch( e => console.log( e ) );
     }, [] );
