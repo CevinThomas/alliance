@@ -3,6 +3,8 @@ import FriendRequests from "../containers/manageChallengers/friendRequests";
 import AddFriends from "../containers/manageChallengers/addFriends";
 import CurrentFriends from "../containers/manageChallengers/currentFriends";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const ManageChallengers = ( props ) => {
 
@@ -24,4 +26,4 @@ const ManageChallengers = ( props ) => {
     );
 };
 
-export default ManageChallengers;
+export default checkLoggedIn( ManageChallengers );

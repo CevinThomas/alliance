@@ -1,6 +1,8 @@
 import React from "react";
 import Friend from "../containers/friends/friend";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const ViewFriend = () => {
     return (
@@ -13,4 +15,4 @@ const ViewFriend = () => {
     );
 };
 
-export default ViewFriend;
+export default checkLoggedIn( ViewFriend );

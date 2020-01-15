@@ -2,6 +2,8 @@ import React from "react";
 import CreateBox from "../containers/createSpace/createBox";
 import Overlay from "../components/general/overlay";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const CreateSpace = () => {
     return (
@@ -15,4 +17,4 @@ const CreateSpace = () => {
     );
 };
 
-export default CreateSpace;
+export default checkLoggedIn( CreateSpace );

@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import ShowSpaceStep from "../containers/createChallenge/showSpaceStep";
 import FinalFormStep from "../containers/createChallenge/finalFormStep";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const mapStateToProps = state => {
     return { chosenTaskType: state.chosenTaskType, chosenSpace: state.chosenSpace };
@@ -31,4 +33,4 @@ const CreateChallenge = ( props ) => {
     );
 };
 
-export default connect( mapStateToProps )( CreateChallenge );
+export default connect( mapStateToProps )( checkLoggedIn( CreateChallenge ) );

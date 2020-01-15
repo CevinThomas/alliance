@@ -6,6 +6,8 @@ import BoxThree from "../containers/admin/boxThree";
 import BoxFour from "../containers/admin/boxFour";
 import SideMenu from "../containers/admin/sideMenu";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const Admin = () => {
     return (
@@ -27,4 +29,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default checkLoggedIn( Admin );
