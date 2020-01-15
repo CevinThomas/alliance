@@ -5,6 +5,7 @@ import LeftSection from "../containers/account/leftSection";
 import RightSection from "../containers/account/rightSection";
 import Overlay from "../components/general/overlay";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
 
 const Account = () => {
     return (
@@ -26,4 +27,4 @@ const Account = () => {
     );
 };
 
-export default Account;
+export default checkLoggedIn( Account );

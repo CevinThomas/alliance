@@ -3,6 +3,8 @@ import AllSpaces from "../containers/spaces/allSpaces";
 import queryString from "query-string";
 import ShowSingleSpace from "../containers/spaces/showSingleSpace";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const ViewSpaces = ( props ) => {
 
@@ -41,4 +43,4 @@ const ViewSpaces = ( props ) => {
     );
 };
 
-export default ViewSpaces;
+export default checkLoggedIn( ViewSpaces );

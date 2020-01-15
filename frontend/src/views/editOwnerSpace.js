@@ -1,6 +1,8 @@
 import React from "react";
 import Edit from "../containers/editOwnerSpace/edit";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const EditOwnerSpace = () => {
     return (
@@ -11,4 +13,4 @@ const EditOwnerSpace = () => {
     );
 };
 
-export default EditOwnerSpace;
+export default checkLoggedIn( EditOwnerSpace );

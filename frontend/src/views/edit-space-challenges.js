@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import Button from "../components/general/button";
 import CurrentSpaces from "../containers/editSpace/currentSpaces";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const mapStateToProps = state => {
     return { spaceInvites: state.incomingSpaceInvites };
@@ -79,4 +81,4 @@ const EditSpaceChallenges = ( props ) => {
     );
 };
 
-export default connect( mapStateToProps )( EditSpaceChallenges );
+export default connect( mapStateToProps )( checkLoggedIn( EditSpaceChallenges ) );

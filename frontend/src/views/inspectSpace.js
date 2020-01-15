@@ -1,6 +1,8 @@
 import React from "react";
 import EditOrViewSpace from "../components/space/editOrViewSpace";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const InspectSpace = () => {
     return (
@@ -13,4 +15,4 @@ const InspectSpace = () => {
     );
 };
 
-export default InspectSpace;
+export default checkLoggedIn( InspectSpace );

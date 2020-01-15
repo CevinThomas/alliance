@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import LOGGED_IN from "../../constants/token";
 import AvatarIcon from "../misc/svgLogin";
 
 const mapStateToProps = state => {
@@ -9,16 +8,7 @@ const mapStateToProps = state => {
 };
 
 const Navbar = ( props ) => {
-
-    useEffect( () => {
-        if ( localStorage.getItem( "TOKEN" ) ) {
-            props.dispatch( { type: LOGGED_IN, payload: true } );
-        } else {
-            props.dispatch( { type: LOGGED_IN, payload: false } );
-        }
-    }, [] );
-
-
+    
     //TODO: This flickers, will need to be changed the way we check the state. We always get false first render
     let isOnlineElement;
     if ( props.isOnline === true ) {
