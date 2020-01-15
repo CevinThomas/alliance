@@ -3,6 +3,8 @@ import Heading from "../textElements/heading";
 import Paragraph from "../textElements/paragraph";
 import Axios from "axios";
 import {GET_USER_WITH_TASK_LOOKUP} from "../../constants/urls";
+import {connect} from "react-redux";
+import {userPopulatedWithTasks} from "../../redux/actions";
 
 const SingleSpace = ( props ) => {
 
@@ -15,7 +17,7 @@ const SingleSpace = ( props ) => {
                 userIds: props.space[0].challengers
             }
         } );
-        console.log( response );
+        props.dispatch( userPopulatedWithTasks( response.data ) );
     };
 
     if ( props.space.length !== 0 ) {
@@ -45,4 +47,4 @@ const SingleSpace = ( props ) => {
     );
 };
 
-export default SingleSpace;
+export default connect()( SingleSpace );
