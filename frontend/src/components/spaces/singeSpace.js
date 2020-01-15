@@ -33,8 +33,7 @@ const SingleSpace = ( props ) => {
             fetchUsersWithTasks();
         }
     }, [ props.space ] );
-
-
+    
     let spaceUI;
     spaceUI = props.usersWithPopulatedTasks.map( ( user ) => (
         <Link onClick={props.reloadQuery} key={user._id}

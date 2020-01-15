@@ -14,6 +14,8 @@ const mapStateToProps = state => {
 
 const SingleUserInSpace = ( props ) => {
 
+    console.log( "RELOAD" );
+
     useEffect( () => {
         Axios( {
             method: "POST",
