@@ -1,10 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import SingleSpace from "../../components/spaces/singeSpace";
 import Axios from "axios";
 import getToken from "../../helperMethods/getToken";
 import {GET_SPACE_WITH_LOOKUP} from "../../constants/urls";
 import {connect} from "react-redux";
 import {SELECTED_SPACE} from "../../constants/space";
+import queryString from "query-string";
+import {withRouter} from "react-router-dom";
+import SingleUserInSpace from "../../components/spaces/singleUserInSpace";
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -19,6 +22,14 @@ const mapStateToProps = state => {
 };
 
 const ShowSingleSpace = ( props ) => {
+
+    const [ queryParams, setQueryParams ] = useState( "" );
+    const [ reloadQuery, setReloadQuery ] = useState( 0 );
+
+    const reloadQueryHandler = () => {
+        setReloadQuery( reloadQuery + 1 );
+    };
+
 
     getToken();
 
@@ -36,11 +47,28 @@ const ShowSingleSpace = ( props ) => {
         fetchSpace();
     }, [] );
 
+    useEffect( () => {
+        const params = queryString.parse( props.history.location.search );
+        setQueryParams( params );
+    }, [ reloadQuery ] );
+
+
+    useEffect( () => {
+        if ( typeof queryParams !== "string" ) {
+            if ( queryParams.userId !== undefined ) {
+                console.log( queryParams.userId );
+            }
+        }
+    }, [ queryParams ] );
+
     return (
         <div>
-            <SingleSpace space={props.selectedSpace}/>
+            {
+                queryParams.userId !== undefined ? <SingleUserInSpace/> :
+                    <SingleSpace reloadQuery={reloadQueryHandler} space={props.selectedSpace}/>
+            }
         </div>
     );
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( ShowSingleSpace );
+export default connect( mapStateToProps, mapDispatchToProps )( withRouter( ShowSingleSpace ) );

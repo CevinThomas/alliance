@@ -33,12 +33,13 @@ const SingleSpace = ( props ) => {
             fetchUsersWithTasks();
         }
     }, [ props.space ] );
-    
+
 
     let spaceUI;
     spaceUI = props.usersWithPopulatedTasks.map( ( user ) => (
-        <Link to={props.history.location.pathname + props.history.location.search + "&&userId?=" + user._id}>
-            <div key={user._id}>
+        <Link onClick={props.reloadQuery} key={user._id}
+              to={props.history.location.pathname + props.history.location.search + "&&userId=" + user._id}>
+            <div>
                 <Heading title={user.name} type={"h3"}/>
                 <Paragraph title={"Tasks"}/>
                 {user.populatedTasks.map( ( task ) => {
