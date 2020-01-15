@@ -4,7 +4,7 @@ import LOGGED_IN from "../../constants/token";
 import * as spaceConstants from "../../constants/space";
 import {SELECTED_SPACE, SEND_CURRENT_MEMBERS, SEND_CURRENT_SPACES} from "../../constants/space";
 import * as userConstants from "../../constants/user";
-import {USER_WITH_POPULATED_TASKS} from "../../constants/user";
+import {SINGLE_USER_POPULATED_TASKS, USER_WITH_POPULATED_TASKS} from "../../constants/user";
 import * as generalConstants from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
 import * as taskConstants from "../../constants/tasks";
@@ -62,12 +62,25 @@ const initialState = {
     currentSpaces: [],
     currentMembers: [],
     selectedSpace: "",
-    usersWithPopulatedTasks: []
+    usersWithPopulatedTasks: [],
+    singleUserPopulatedWithTasks: ""
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === SINGLE_USER_POPULATED_TASKS ) {
+
+        let userObject = {};
+        action.payload.forEach( ( user ) => {
+            userObject = user;
+        } );
+        return {
+            ...state,
+            singleUserPopulatedWithTasks: userObject
+        };
+    }
 
     if ( action.type === USER_WITH_POPULATED_TASKS ) {
         return {

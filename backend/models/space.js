@@ -45,6 +45,40 @@ class Space {
         return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaces.spaces } } ).toArray();
     };
 
+    static getSingleUserWithTasks = ( userId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: ObjectId( userId ) } },
+            {
+                $project: {
+                    password: 0,
+                    tokens: 0,
+                    spaces: 0,
+                    incomingSpaceInvites: 0,
+                    incomingFriendRequest: 0,
+                    friends: 0
+                }
+            },
+            {
+                $lookup: {
+                    from: "challenges",
+                    let: { tasks: "$tasks" },
+                    pipeline: [
+                        {
+                            $match:
+                                {
+                                    $expr:
+                                        { $in: [ "$_id", "$$tasks" ] },
+                                }
+                        },
+                    ],
+                    as: "populatedTasks"
+                }
+            }
+        ] ).toArray();
+
+
+    };
+
     static getSpacesWithMembers = () => {
         const db = getDb();
         return db.collection( process.env.SPACECOLLECTION ).aggregate( [

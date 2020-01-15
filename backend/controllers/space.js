@@ -35,12 +35,18 @@ exports.getSpaceWithLookup = async ( req, res, next ) => {
 };
 
 exports.getUserWithTaskLookup = async ( req, res, next ) => {
-    Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
-        Space.getUsersWithTasks( ids ).then( ( users ) => {
-            console.log( users );
-            res.status( 200 ).send( users );
+    if ( typeof req.body.userIds === "string" ) {
+        const user = await Space.getSingleUserWithTasks( req.body.userIds );
+        res.status( 200 ).send( user );
+    } else {
+        Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
+            Space.getUsersWithTasks( ids ).then( ( users ) => {
+                console.log( users );
+                res.status( 200 ).send( users );
+            } );
         } );
-    } );
+    }
+
 
 };
 

@@ -53,18 +53,11 @@ const ShowSingleSpace = ( props ) => {
     }, [ reloadQuery ] );
 
 
-    useEffect( () => {
-        if ( typeof queryParams !== "string" ) {
-            if ( queryParams.userId !== undefined ) {
-                console.log( queryParams.userId );
-            }
-        }
-    }, [ queryParams ] );
-
     return (
         <div>
             {
-                queryParams.userId !== undefined ? <SingleUserInSpace/> :
+                queryParams.userId !== undefined ?
+                    <SingleUserInSpace spaceId={queryParams.id} userId={queryParams.userId}/> :
                     <SingleSpace reloadQuery={reloadQueryHandler} space={props.selectedSpace}/>
             }
         </div>
