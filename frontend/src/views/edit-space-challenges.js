@@ -8,10 +8,12 @@ import Button from "../components/general/button";
 import CurrentSpaces from "../containers/editSpace/currentSpaces";
 import Navbar from "../components/nav/nav";
 import checkLoggedIn from "../HOC/checkLoggedIn";
+import {isLoading} from "../redux/actions";
+import Loader from "../components/loader/loader";
 
 
 const mapStateToProps = state => {
-    return { spaceInvites: state.incomingSpaceInvites };
+    return { spaceInvites: state.incomingSpaceInvites, loading: state.isLoading };
 };
 
 const EditSpaceChallenges = ( props ) => {
@@ -24,20 +26,22 @@ const EditSpaceChallenges = ( props ) => {
 
     //TODO: Unit checking
     useEffect( () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "GET",
             url: urlConstants.GET_SPACE_INVITES
         } ).then( ( spaceInvites ) => {
-            console.log( spaceInvites );
             props.dispatch( {
                 type: userConstants.USER_INCOMING_SPACE_INVITES,
                 payload: spaceInvites.data
             } );
+            props.dispatch( isLoading( false ) );
         } ).catch( e => console.log( e ) );
     }, [ madeRequest ] );
 
     //TODO: REFACTOR into a module (We call this in friendRequests as well)
     const submitAcceptOrDeclineRequest = ( id, accept ) => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "POST",
             url: "http://localhost:8000/api/accept-space",
@@ -49,6 +53,7 @@ const EditSpaceChallenges = ( props ) => {
             if ( r.status === 200 ) {
                 setMadeRequest( madeRequest + 1 );
             }
+            props.dispatch( isLoading( false ) );
         } );
     };
 
@@ -72,6 +77,7 @@ const EditSpaceChallenges = ( props ) => {
     return (
         <React.Fragment>
             <Navbar dark/>
+            {props.loading ? <Loader/> : null}
             <div>
                 <h1>Space Invites</h1>
                 {spaceInvitesUI}

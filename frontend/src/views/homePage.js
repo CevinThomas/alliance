@@ -23,6 +23,7 @@ const HomePage = ( props ) => {
     return (
         <React.Fragment>
             <Navbar dark/>
+            
             <div>
                 <GoToSpaces/>
             </div>

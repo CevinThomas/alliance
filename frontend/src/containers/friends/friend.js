@@ -7,6 +7,14 @@ import {GET_FRIEND_INFO} from "../../constants/urls";
 import {connect} from "react-redux";
 import {VIEW_FRIEND} from "../../constants/friends";
 import ShowFriend from "../../components/friends/showFriend";
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
+
+const mapStateToProps = state => {
+    return {
+        loading: state.isLoading
+    };
+};
 
 const Friend = ( props ) => {
 
@@ -15,6 +23,7 @@ const Friend = ( props ) => {
 
     useEffect( () => {
         const fetchFriend = async () => {
+            props.dispatch( isLoading( true ) );
             const response = await Axios( {
                 method: "POST",
                 url: GET_FRIEND_INFO,
@@ -23,6 +32,7 @@ const Friend = ( props ) => {
                 }
             } );
             props.dispatch( { type: VIEW_FRIEND, payload: response.data } );
+            props.dispatch( isLoading( false ) );
         };
         fetchFriend();
     }, [] );
@@ -30,9 +40,10 @@ const Friend = ( props ) => {
 
     return (
         <div id={"view-friend"}>
+            {props.loading ? <Loader/> : null}
             <ShowFriend id={"friend"}/>
         </div>
     );
 };
 
-export default withRouter( connect()( Friend ) );
+export default withRouter( connect( mapStateToProps )( Friend ) );
