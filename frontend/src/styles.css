@@ -275,10 +275,10 @@ a:hover {
 }
 
 .navbar-dark {
-  background: #00cca3;
+  background: #fff;
 }
 .navbar-dark #avatar_icon {
-  color: #fff;
+  color: #00cca3;
   font-size: 30px;
   margin-bottom: -5px;
 }
@@ -292,12 +292,12 @@ a:hover {
   padding: 0 20px;
 }
 .navbar-dark .link-item a {
-  color: #fff;
+  color: #00cca3;
   text-decoration: none;
   font-weight: 700;
 }
 .navbar-dark .link-item a:hover {
-  color: #00cca3;
+  color: #740e17;
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -o-transition: 0.2s ease-in-out;

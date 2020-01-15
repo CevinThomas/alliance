@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {SELECTED_SPACE} from "../../constants/space";
 import {withRouter} from "react-router-dom";
 import SingleUserInSpace from "../../components/spaces/singleUserInSpace";
+import Heading from "../../components/textElements/heading";
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -26,6 +27,7 @@ const ShowSingleSpace = ( props ) => {
     getToken();
 
     useEffect( () => {
+        console.log( "RUNNING" );
         const fetchSpace = async () => {
             const response = await Axios( {
                 method: "POST",
@@ -39,13 +41,24 @@ const ShowSingleSpace = ( props ) => {
         fetchSpace();
     }, [] );
 
+    let UI;
+    if ( props.selectedSpace === "Invalid Space ID" ) {
+        UI = (
+            <div>
+                <Heading title={"No Space Found"} type={"h1"}/>
+            </div>
+        );
+    } else {
+        if ( props.userId !== undefined ) {
+            UI = <SingleUserInSpace spaceId={props.spaceId} userId={props.userId}/>;
+        } else {
+            UI = <SingleSpace reloadQuery={props.reloadQueryHandler} space={props.selectedSpace}/>;
+        }
+    }
+
     return (
         <div>
-            {
-                props.userId !== undefined ?
-                    <SingleUserInSpace spaceId={props.spaceId} userId={props.userId}/> :
-                    <SingleSpace reloadQuery={props.reloadQueryHandler} space={props.selectedSpace}/>
-            }
+            {UI}
         </div>
     );
 };

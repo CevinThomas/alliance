@@ -29,6 +29,8 @@ exports.createSpace = async ( req, res, next ) => {
 };
 
 exports.getSpaceWithLookup = async ( req, res, next ) => {
+    if ( req.body.spaceId.length !== 24 ) return res.status( 200 ).send( "Invalid Space ID" );
+
     const space = await Space.getSingleSpaceWithLookup( req.body.spaceId );
 
     res.status( 200 ).send( space );
@@ -36,12 +38,12 @@ exports.getSpaceWithLookup = async ( req, res, next ) => {
 
 exports.getUserWithTaskLookup = async ( req, res, next ) => {
     if ( typeof req.body.userIds === "string" ) {
+        if ( req.body.userIds.length !== 24 ) return res.status( 200 ).send( "Invalid User ID" );
         const user = await Space.getSingleUserWithTasks( req.body.userIds );
         res.status( 200 ).send( user );
     } else {
         Space.convertIdsToObjectIds( req.body.userIds, ( ids ) => {
             Space.getUsersWithTasks( ids ).then( ( users ) => {
-                console.log( users );
                 res.status( 200 ).send( users );
             } );
         } );
@@ -95,7 +97,6 @@ exports.deleteSpace = async ( req, res, next ) => {
 
 exports.leaveSpace = async ( req, res, next ) => {
     const didLeave = await Space.leaveSpace( req.body.spaceId, req.user._id );
-    console.log( didLeave );
     res.status( 200 ).send();
 };
 

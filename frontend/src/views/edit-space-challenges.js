@@ -69,7 +69,7 @@ const EditSpaceChallenges = ( props ) => {
 
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div>
                 <h1>Space Invites</h1>
                 {spaceInvitesUI}

@@ -5,7 +5,7 @@ import Navbar from "../components/nav/nav";
 const EditOwnerSpace = () => {
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <Edit/>
         </React.Fragment>
     );

@@ -29,11 +29,11 @@ const ViewSpaces = ( props ) => {
     useEffect( () => {
         setQueryParams( params );
     }, [ reloadQuery ] );
-    
+
 
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div id={"spaces"}>
                 {spacesUI}
             </div>

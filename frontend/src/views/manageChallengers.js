@@ -8,7 +8,7 @@ const ManageChallengers = ( props ) => {
 
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div>
                 <div>
                     <FriendRequests/>

@@ -5,7 +5,7 @@ import Navbar from "../components/nav/nav";
 const InspectSpace = () => {
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div>
                 <EditOrViewSpace/>
             </div>

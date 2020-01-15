@@ -14,6 +14,8 @@ const mapStateToProps = state => {
 
 const SingleUserInSpace = ( props ) => {
 
+    console.log( props.userId );
+
     console.log( "RELOAD" );
 
     useEffect( () => {
@@ -23,41 +25,50 @@ const SingleUserInSpace = ( props ) => {
             data: {
                 userIds: props.userId
             }
-        } ).then( r => props.dispatch( singleUserPopulatedWithTasks( r.data ) ) ).catch( e => console.log( e ) );
+        } ).then( ( r ) => {
+            console.log( r.data );
+            props.dispatch( singleUserPopulatedWithTasks( r.data ) );
+        } ).catch( e => console.log( e ) );
     }, [] );
 
-    console.log( props.singleUserWithPopulatedTasks.populatedTasks );
-
     let userUI;
-    if ( props.singleUserWithPopulatedTasks.populatedTasks !== undefined ) {
+    if ( props.singleUserWithPopulatedTasks === "Invalid User ID" ) {
         userUI = (
             <div>
-                <Heading title={props.singleUserWithPopulatedTasks.name} type={"h2"}/>
-                <div>
-                    <Heading title={"Tasks"} type={"h3"}/>
-                    {props.singleUserWithPopulatedTasks.populatedTasks.map( ( task ) => {
-                        if ( task.chosenSpace === props.spaceId ) {
-                            return (
-                                <div key={task._id}>
-                                    <Heading title={task.name} type={"h3"}/>
-                                    {task.challengeData.length !== 0 ? task.challengeData.map( ( challenge ) => {
-                                        return (
-                                            <div key={challenge._id}>
-                                                <Paragraph title={challenge.name}/>
-                                                <Paragraph title={challenge.description}/>
-                                                {challenge.completed ? <span>Completed</span> :
-                                                    <span>Not Completed</span>}
-                                            </div>
-                                        );
-                                    } ) : <Paragraph title={"This task does not have any challenges"}/>}
-                                </div>
-                            );
-                        }
-                    } )}
-                </div>
-
+                <Heading title={"Invalid User ID"} type={"h1"}/>
             </div>
         );
+    } else {
+        if ( props.singleUserWithPopulatedTasks.populatedTasks !== undefined ) {
+            userUI = (
+                <div>
+                    <Heading title={props.singleUserWithPopulatedTasks.name} type={"h2"}/>
+                    <div>
+                        <Heading title={"Tasks"} type={"h3"}/>
+                        {props.singleUserWithPopulatedTasks.populatedTasks.map( ( task ) => {
+                            if ( task.chosenSpace === props.spaceId ) {
+                                return (
+                                    <div key={task._id}>
+                                        <Heading title={task.name} type={"h3"}/>
+                                        {task.challengeData.length !== 0 ? task.challengeData.map( ( challenge ) => {
+                                            return (
+                                                <div key={challenge._id}>
+                                                    <Paragraph title={challenge.name}/>
+                                                    <Paragraph title={challenge.description}/>
+                                                    {challenge.completed ? <span>Completed</span> :
+                                                        <span>Not Completed</span>}
+                                                </div>
+                                            );
+                                        } ) : <Paragraph title={"This task does not have any challenges"}/>}
+                                    </div>
+                                );
+                            }
+                        } )}
+                    </div>
+
+                </div>
+            );
+        }
     }
 
 

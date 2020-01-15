@@ -23,7 +23,7 @@ const CreateChallenge = ( props ) => {
 
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div id={"create-task"}>
                 {stepsUI}
             </div>

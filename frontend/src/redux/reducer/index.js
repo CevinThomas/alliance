@@ -73,13 +73,23 @@ function rootReducer( state = initialState, action ) {
     if ( action.type === SINGLE_USER_POPULATED_TASKS ) {
 
         let userObject = {};
-        action.payload.forEach( ( user ) => {
-            userObject = user;
-        } );
-        return {
-            ...state,
-            singleUserPopulatedWithTasks: userObject
-        };
+        let newState;
+        if ( typeof action.payload !== "string" ) {
+            action.payload.forEach( ( user ) => {
+                userObject = user;
+            } );
+            newState = {
+                ...state,
+                singleUserPopulatedWithTasks: userObject
+            };
+        } else {
+            newState = {
+                ...state,
+                singleUserPopulatedWithTasks: action.payload
+            };
+        }
+
+        return newState;
     }
 
     if ( action.type === USER_WITH_POPULATED_TASKS ) {
@@ -92,14 +102,26 @@ function rootReducer( state = initialState, action ) {
     if ( action.type === SELECTED_SPACE ) {
 
         let spaceObject = {};
+        let newState;
 
-        action.payload.forEach( ( space ) => {
-            spaceObject = space;
-        } );
-        return {
-            ...state,
-            selectedSpace: spaceObject
-        };
+        if ( typeof action.payload !== "string" ) {
+            action.payload.forEach( ( space ) => {
+                spaceObject = space;
+            } );
+            newState = {
+                ...state,
+                selectedSpace: spaceObject
+            };
+        } else {
+            newState = {
+                ...state,
+                selectedSpace: action.payload
+            };
+        }
+
+        return newState;
+
+
     }
 
     if ( action.type === SEND_CURRENT_MEMBERS ) {
