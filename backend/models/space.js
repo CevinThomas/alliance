@@ -103,7 +103,7 @@ class Space {
         return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: { $in: ids } } },
             {
                 $lookup: {
-                    from: "tasks",
+                    from: "challenges",
                     let: { tasks: "$tasks" },
                     pipeline: [
                         {
@@ -114,7 +114,7 @@ class Space {
                                 }
                         },
                     ],
-                    as: "newTasks"
+                    as: "populatedTasks"
                 }
             }
         ] ).toArray();
