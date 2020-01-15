@@ -11,6 +11,9 @@ export default ChildComponent => {
                     this.props.dispatch( { type: LOGGED_IN, payload: true } );
                 }
             } else {
+                if ( this.props.isLoggedIn !== true ) {
+                    this.props.history.push( "/login" );
+                }
                 this.props.dispatch( { type: LOGGED_IN, payload: false } );
                 this.props.history.push( "/login" );
             }

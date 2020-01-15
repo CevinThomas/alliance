@@ -18,7 +18,6 @@ import ViewSpaces from "./views/viewSpaces";
 import HomePage from "./views/homePage";
 
 function App() {
-    console.log( "APP" );
     return (
         //TODO: Look into Switch, also exact path. Also if page not found, show login component or a 404 component.
         <React.Fragment>
