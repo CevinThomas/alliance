@@ -1,6 +1,8 @@
 import React from "react";
 import LoginBox from "../containers/login/loginBox";
 import Navbar from "../components/nav/nav";
+import checkLoggedIn from "../HOC/checkLoggedIn";
+
 
 const Login = () => {
     return (
@@ -13,4 +15,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default checkLoggedIn( Login );
