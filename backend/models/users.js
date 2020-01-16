@@ -75,6 +75,7 @@ class User {
         bulk.find( { _id: ObjectId( userId ) } ).updateOne( { $pull: { friends: ObjectId( friendId ) } } );
         bulk.find( { _id: ObjectId( friendId ) } ).updateOne( { $pull: { friends: ObjectId( userId ) } } );
         const response = await bulk.execute();
+        db.collection( process.env.SPACECOLLECTION ).updateMany( { challengers: ObjectId( friendId ) }, { $pull: friendId } );
         return (response.result.ok === 1 && response.result.nModified === 2);
     };
 

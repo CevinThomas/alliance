@@ -272,9 +272,30 @@ class Space {
         callback( idsAsObjectIds );
     };
 
-    static removeUsersFromSpace = ( usersId, spaceId ) => {
+    static retrieveTaskIdsFromUsers = async ( usersArray ) => {
+        return new Promise( ( resolve, reject ) => {
+            let taskIds = [];
+            usersArray.forEach( ( user ) => {
+                user.tasks.forEach( ( task ) => {
+                    taskIds.push( task );
+                } );
+            } );
+            resolve( taskIds );
+        } );
+
+    };
+
+    static removeUsersFromSpace = async ( usersId, spaceId ) => {
         const db = getDb();
-        return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: { $in: usersId } } } );
+        const users = await db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: usersId } } ).project( {
+            "tasks": 1
+        } ).toArray();
+        const taskIdsToRemove = await Space.retrieveTaskIdsFromUsers( users );
+        return Promise.all( [
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { tasks: { $in: taskIdsToRemove } } } ),
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { challengers: { $in: usersId } } } )
+        ] );
+
     };
 
     static removeSpaceFromUser = ( usersId, spaceId ) => {
