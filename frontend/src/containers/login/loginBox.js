@@ -5,7 +5,6 @@ import AvatarIcon from "../../components/misc/svgLogin";
 import Heading from "../../components/textElements/heading";
 import Input from "../../components/forms/input";
 import Button from "../../components/general/button";
-import Overlay from "../../components/general/overlay";
 import NotMember from "../../components/misc/notMember";
 import ResponseMessage from "../../components/misc/responseMessage";
 import Axios from "axios";
@@ -53,7 +52,6 @@ const LoginBox = ( props ) => {
 
     return (
         <div id={props.id}>
-            <Overlay/>
             <AvatarIcon id={"avatar_icon"}/>
             <Heading class={"login-header"} title={"Login"}/>
             <ResponseMessage class={"error-div"} errorMessage={props.loginCredentials.response.message}/>

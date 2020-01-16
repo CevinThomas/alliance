@@ -76,8 +76,8 @@ exports.getSingleSpace = async ( req, res, next ) => {
 exports.updateSpaceCredentials = async ( req, res, next ) => {
     await Space.updateSpaceCredentials( req.body.updatedText, req.body.spaceId );
     Space.convertIdsToObjectIds( req.body.removeMembers, ( convertedIds ) => {
-        const removedUsers = Space.removeUsersFromSpace( convertedIds, req.body.spaceId );
-        //const removedSpaceFromUser = Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
+        Space.removeUsersFromSpace( convertedIds, req.body.spaceId );
+        Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
         res.status( 200 ).send( { updated: true } );
     } );
 };

@@ -940,6 +940,7 @@ a:hover {
 #login #loginForm #form-inner {
   height: 100%;
   width: 50%;
+  margin: 0 auto;
 }
 @media (max-width: 980px) {
   #login #loginForm #form-inner {
@@ -974,8 +975,10 @@ a:hover {
 }
 #login #login-box .login-header h1 {
   width: fit-content;
+  text-align: center;
+  margin: 0 auto;
   border-bottom: 8px solid #fff;
-  margin-top: 20px;
+  margin-top: 25px;
   color: #fff;
   text-transform: uppercase;
 }
