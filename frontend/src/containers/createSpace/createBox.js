@@ -12,6 +12,8 @@ import * as friendConstants from "../../constants/friends";
 import * as taskConstants from "../../constants/tasks";
 import getToken from "../../helperMethods/getToken";
 import ThankYouModal from "../../components/modals/thankYouModal";
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
 
 const mapStateToProps = state => ({
     user: state.MainUserCredentials,
@@ -19,7 +21,8 @@ const mapStateToProps = state => ({
     showModal: state.showChallengerModal,
     space: state.spaceCredentials,
     friendsToInvite: state.friendsToInvite,
-    showThankYouModal: state.showThankYouModal
+    showThankYouModal: state.showThankYouModal,
+    loading: state.isLoading
 });
 
 const CreateBox = ( props ) => {
@@ -38,6 +41,7 @@ const CreateBox = ( props ) => {
     getToken();
 
     useEffect( () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "GET",
             url: urlConstants.GET_CURRENT_FRIENDS
@@ -45,11 +49,13 @@ const CreateBox = ( props ) => {
             console.log( response );
             //TODO: Unit checking
             props.dispatch( { type: friendConstants.CURRENT_FRIENDS, payload: response.data } );
+            props.dispatch( isLoading( false ) );
         } );
     }, [] );
 
     //TODO: Refactor this into a single helper method
     const sendDataToEndpoint = () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "POST",
             url: urlConstants.CREATE_SPACE_URL,
@@ -58,7 +64,10 @@ const CreateBox = ( props ) => {
                 desc: props.space.desc,
                 friendsToInvite: props.friendsToInvite
             }
-        } ).then( r => props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } ) );
+        } ).then( ( r ) => {
+            props.dispatch( { type: taskConstants.SHOW_THANK_YOU_MODAL, payload: true } );
+            props.dispatch( isLoading( false ) );
+        } );
     };
 
     //TODO: Refactor this into a single helper method
@@ -112,6 +121,7 @@ const CreateBox = ( props ) => {
 
     return (
         <div className={"create-space-box"}>
+            {props.loading ? <Loader/> : null}
             <TopBar links={topBarObject}/>
             <div className={"create-space-box-container"}>
                 <Heading title={"Create your space"} type={"h2"}/>

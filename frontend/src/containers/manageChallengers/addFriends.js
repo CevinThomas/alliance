@@ -4,9 +4,11 @@ import Input from "../../components/forms/input";
 import Button from "../../components/general/button";
 import Axios from "axios";
 import * as friendConstants from "../../constants/friends";
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
 
 const mapStateToProps = state => {
-    return { friend: state.addFriend };
+    return { friend: state.addFriend, loading: state.isLoading };
 };
 
 const AddFriends = ( props ) => {
@@ -17,17 +19,21 @@ const AddFriends = ( props ) => {
 
     //TODO: Change URL to constant
     const addFriendRequest = () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "POST",
             url: "http://localhost:8000/api/add-friends",
             data: {
                 friend: props.friend
             }
+        } ).then( ( r ) => {
+            props.dispatch( isLoading( false ) );
         } );
     };
 
     return (
         <div>
+            {props.loading ? <Loader/> : null}
             <h1>Add Friends</h1>
             <div>
                 <Input onchange={handleInputChange} placeholder={"Email"} name={"email"}/>

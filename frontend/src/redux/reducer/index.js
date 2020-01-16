@@ -6,6 +6,7 @@ import {SELECTED_SPACE, SEND_CURRENT_MEMBERS, SEND_CURRENT_SPACES} from "../../c
 import * as userConstants from "../../constants/user";
 import {SINGLE_USER_POPULATED_TASKS, USER_WITH_POPULATED_TASKS} from "../../constants/user";
 import * as generalConstants from "../../constants/general";
+import {IS_LOADING} from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
 import * as taskConstants from "../../constants/tasks";
 
@@ -63,12 +64,20 @@ const initialState = {
     currentMembers: [],
     selectedSpace: "",
     usersWithPopulatedTasks: [],
-    singleUserPopulatedWithTasks: ""
+    singleUserPopulatedWithTasks: "",
+    isLoading: false
 
 };
 
 //TODO: Create seperate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === IS_LOADING ) {
+        return {
+            ...state,
+            isLoading: action.payload
+        };
+    }
 
     if ( action.type === SINGLE_USER_POPULATED_TASKS ) {
 

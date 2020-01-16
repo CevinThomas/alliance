@@ -11,9 +11,11 @@ import Button from "../general/button";
 import {connect} from "react-redux";
 import * as taskConstants from "../../constants/tasks";
 import ThankYouModal from "../modals/thankYouModal";
+import {isLoading} from "../../redux/actions";
+import Loader from "../loader/loader";
 
 const mapStateToProps = state => {
-    return { showThankYouModal: state.showThankYouModal };
+    return { showThankYouModal: state.showThankYouModal, loading: state.isLoading };
 };
 
 const EditOrViewSpace = ( props ) => {
@@ -37,6 +39,7 @@ const EditOrViewSpace = ( props ) => {
 
     useEffect( () => {
         if ( selectedSpaceId !== "" ) {
+            props.dispatch( isLoading( true ) );
             Axios( {
                 method: "POST",
                 url: urlConstants.GET_SINGLE_SPACE,
@@ -46,6 +49,7 @@ const EditOrViewSpace = ( props ) => {
             } ).then( ( response ) => {
                 if ( response.data.message ) {
                     setRequestFailed( true );
+                    props.dispatch( isLoading( false ) );
                 } else {
                     console.log( response.data.users );
                     setResponseSpace( response.data.space );
@@ -55,6 +59,7 @@ const EditOrViewSpace = ( props ) => {
                     } );
                     setUsersInSpace( response.data.users );
                     setStartDisplayingData( true );
+                    props.dispatch( isLoading( false ) );
                 }
             } ).catch( e => setStartDisplayingData( true ) );
         }
@@ -192,6 +197,7 @@ const EditOrViewSpace = ( props ) => {
 
     return (
         <div>
+            {props.loading ? <Loader/> : null}
             {viewUI}
         </div>
     );

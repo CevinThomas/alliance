@@ -5,9 +5,11 @@ import * as urlConstants from "../../constants/urls";
 import * as taskConstants from "../../constants/tasks";
 import * as spaceConstants from "../../constants/space";
 import getToken from "../../helperMethods/getToken";
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
 
 const mapStateToProps = state => {
-    return { chosenTaskType: state.chosenTaskType, usersSpace: state.usersSpaces };
+    return { chosenTaskType: state.chosenTaskType, usersSpace: state.usersSpaces, loading: state.isLoading };
 };
 const ShowSpaceStep = ( props ) => {
 
@@ -18,11 +20,13 @@ const ShowSpaceStep = ( props ) => {
     getToken();
 
     useEffect( () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "GET",
             url: urlConstants.GET_SPACES_FROM_USER
         } ).then( ( response ) => {
             props.dispatch( { type: spaceConstants.USERS_SPACES, payload: response.data.allSpaces } );
+            props.dispatch( isLoading( false ) );
         } );
     }, [] );
 
@@ -39,6 +43,7 @@ const ShowSpaceStep = ( props ) => {
 
     return (
         <div>
+            {props.loading ? <Loader/> : null}
             <h2>{`You chose ${props.chosenTaskType}`}</h2>
             <h3>Please choose a Space to add challenge to</h3>
             <div>

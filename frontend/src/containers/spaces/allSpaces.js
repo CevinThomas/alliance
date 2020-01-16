@@ -5,16 +5,13 @@ import {GET_ALL_SPACES} from "../../constants/urls";
 import {connect} from "react-redux";
 import {SEND_CURRENT_SPACES} from "../../constants/space";
 import SpaceCard from "../../components/spaces/spaceCard";
-
-const mapDispatchToProps = dispatch => {
-    return ({
-        sendCurrentSpaces: ( data ) => {dispatch( { type: SEND_CURRENT_SPACES, payload: data } );},
-    });
-};
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
 
 const mapStateToProps = state => {
     return ({
-        currentSpaces: state.currentSpaces
+        currentSpaces: state.currentSpaces,
+        loading: state.isLoading
     });
 };
 
@@ -23,12 +20,15 @@ const AllSpaces = ( props ) => {
     getToken();
 
     useEffect( () => {
+
         const fetchSpaces = async () => {
+            props.dispatch( isLoading( true ) );
             const response = await Axios( {
                 method: "GET",
                 url: GET_ALL_SPACES
             } );
-            props.sendCurrentSpaces( response.data );
+            props.dispatch( { type: SEND_CURRENT_SPACES, payload: response.data } );
+            props.dispatch( isLoading( false ) );
         };
         fetchSpaces();
     }, [] );
@@ -43,9 +43,10 @@ const AllSpaces = ( props ) => {
 
     return (
         <div id={"all-spaces"}>
+            {props.loading ? <Loader/> : null}
             {spacesUI}
         </div>
     );
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( AllSpaces );
+export default connect( mapStateToProps )( AllSpaces );

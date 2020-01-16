@@ -5,9 +5,15 @@ import getToken from "../../helperMethods/getToken";
 import Button from "../../components/general/button";
 import * as friendConstants from "../../constants/friends";
 import {UPDATE_FRIEND_REQUEST} from "../../constants/friends";
+import {isLoading} from "../../redux/actions";
+import Loader from "../../components/loader/loader";
 
 const mapStateToProps = state => {
-    return { friendRequests: state.friendRequests, updateFriendRequest: state.updateFriendRequest };
+    return {
+        friendRequests: state.friendRequests,
+        updateFriendRequest: state.updateFriendRequest,
+        loading: state.isLoading
+    };
 };
 
 const FriendRequests = ( props ) => {
@@ -16,7 +22,7 @@ const FriendRequests = ( props ) => {
 
     //TODO: Change url to constant
     useEffect( () => {
-        console.log( "Making friends request" );
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "GET",
             url: "http://localhost:8000/api/get-friends-invites",
@@ -25,11 +31,13 @@ const FriendRequests = ( props ) => {
                 type: friendConstants.FRIEND_REQUESTS,
                 payload: r.data
             } );
+            props.dispatch( isLoading( false ) );
         } ).catch( e => console.log( e ) );
     }, [ props.updateFriendRequest ] );
 
     //TODO: Change url to constant
     const submitAcceptOrDeclineRequest = ( email, accept ) => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "POST",
             url: "http://localhost:8000/api/accept-friend",
@@ -39,6 +47,7 @@ const FriendRequests = ( props ) => {
             }
         } ).then( ( response ) => {
             props.dispatch( { type: UPDATE_FRIEND_REQUEST } );
+            props.dispatch( isLoading( false ) );
         } ).catch( e => console.log( e ) );
     };
 
@@ -61,6 +70,7 @@ const FriendRequests = ( props ) => {
 
     return (
         <div>
+            {props.loading ? <Loader/> : null}
             <h1>Friend requests</h1>
             {UI}
         </div>

@@ -2,19 +2,22 @@ import React, {useEffect} from "react";
 import {GET_USER_WITH_TASK_LOOKUP} from "../../constants/urls";
 import Axios from "axios";
 import {connect} from "react-redux";
-import {singleUserPopulatedWithTasks} from "../../redux/actions";
+import {isLoading, singleUserPopulatedWithTasks} from "../../redux/actions";
 import Heading from "../textElements/heading";
 import Paragraph from "../textElements/paragraph";
+import Loader from "../loader/loader";
 
 const mapStateToProps = state => {
     return {
-        singleUserWithPopulatedTasks: state.singleUserPopulatedWithTasks
+        singleUserWithPopulatedTasks: state.singleUserPopulatedWithTasks,
+        loading: state.isLoading
     };
 };
 
 const SingleUserInSpace = ( props ) => {
 
     useEffect( () => {
+        props.dispatch( isLoading( true ) );
         Axios( {
             method: "POST",
             url: GET_USER_WITH_TASK_LOOKUP,
@@ -23,6 +26,7 @@ const SingleUserInSpace = ( props ) => {
             }
         } ).then( ( r ) => {
             props.dispatch( singleUserPopulatedWithTasks( r.data ) );
+            props.dispatch( isLoading( false ) );
         } ).catch( e => console.log( e ) );
     }, [] );
 
@@ -69,6 +73,7 @@ const SingleUserInSpace = ( props ) => {
 
     return (
         <div>
+            {props.loading ? <Loader/> : null}
             {userUI}
         </div>
     );
