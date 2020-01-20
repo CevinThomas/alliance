@@ -162,12 +162,12 @@ const EditOrViewSpace = ( props ) => {
         setSelectedTaskToEdit( challengeWithoutArray );
     };
 
-    const handleTaskEditInput = ( { target, value } ) => {
+    const handleTaskEditInput = ( { target } ) => {
         setSelectedTaskToEdit( {
             ...selectedTaskToEdit,
-            []
+            [target.name]: target.value
         } );
-        console.log( target, value );
+        console.log( target.name, target.value );
     };
 
     let viewUI;
@@ -179,7 +179,10 @@ const EditOrViewSpace = ( props ) => {
     if ( selectedTaskToEdit !== "" && selectedTaskToEdit !== undefined ) {
         editTaskUI = (
             <div className={"selected-task-modal"}>
-                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.name}/>
+                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.name}
+                       name={"name"}/>
+                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.description}
+                       name={"description"}/>
             </div>
         );
     }
