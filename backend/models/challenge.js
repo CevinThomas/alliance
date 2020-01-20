@@ -19,9 +19,29 @@ class Challenge {
 
     }
 
-    static updateTask = ( task ) => {
+    static updateTask = async ( task, originalChallengeName ) => {
+        console.log( task );
         const db = getDb();
         let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
+        bulk.find( { _id: ObjectId( task._id ) } ).update( {
+            $set: {
+                name: task.name,
+                description: task.description,
+                goal: task.goal
+            }
+        } );
+        bulk.find( {
+            _id: ObjectId( task._id ),
+            "challengeData.name": originalChallengeName
+        }, ).update( {
+            $set: {
+                "challengeData.$.name": task.challengeToEdit.name,
+                "challengeData.$.description": task.challengeToEdit.description,
+                "challengeData.$.completed": task.challengeToEdit.completed
+            }
+        } );
+        const executed = await bulk.execute();
+        return executed;
     };
 
     static getAllTasksFromUser = ( user ) => {

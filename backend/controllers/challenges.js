@@ -16,11 +16,11 @@ exports.addChallenge = ( req, res, next ) => {
 
 exports.getUserChallenges = async ( req, res, next ) => {
     const usersTasks = await Challenge.getAllTasksFromUser( req.user );
-    console.log( usersTasks );
     res.status( 200 ).send( usersTasks[0].populatedTasks );
 };
 
 exports.updateChallenge = async ( req, res, next ) => {
-    const updated = await Challenge.updateTask( req.body.selectedTaskToEdit );
+    const updated = await Challenge.updateTask( req.body.selectedTaskToEdit, req.body.originalChallengeName );
+    //TODO: Check if updated result is OK
     res.status( 200 ).send( req.body.selectedTaskToEdit );
 };

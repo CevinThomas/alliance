@@ -35,6 +35,8 @@ const EditOrViewSpace = ( props ) => {
     const [ selectedTaskId, setSelectedTaskId ] = useState( "" );
     const [ selectedTaskToEdit, setSelectedTaskToEdit ] = useState( "" );
     const [ selectedTaskChallengersData, setSelectedTaskChallengersData ] = useState( "" );
+    const [ originalChallengeName, setOriginalChallengeName ] = useState( "" );
+    const [ showUpdatedTaskModal, setShowUpdatedTaskModal ] = useState( false );
 
 
     useEffect( () => {
@@ -163,6 +165,7 @@ const EditOrViewSpace = ( props ) => {
         let challengersData = {};
         challengeWithoutArray.challengeData.map( ( task ) => {
             challengersData = task;
+            setOriginalChallengeName( task.name );
         } );
         setSelectedTaskChallengersData( challengersData );
         setSelectedTaskToEdit( challengeWithoutArray );
@@ -197,9 +200,11 @@ const EditOrViewSpace = ( props ) => {
             method: "PUT",
             url: UPDATE_TASK,
             data: {
-                selectedTaskToEdit
+                selectedTaskToEdit,
+                originalChallengeName
             }
         } ).then( ( response ) => {
+            setShowUpdatedTaskModal( true );
             console.log( response );
         } ).catch( e => console.log( e ) );
     };
@@ -208,6 +213,11 @@ const EditOrViewSpace = ( props ) => {
     if ( props.showThankYouModal === true ) {
         return viewUI = <ThankYouModal title={"You have updated the space!"}/>;
     }
+
+    if ( showUpdatedTaskModal === true ) {
+        return viewUI = <ThankYouModal title={"You have updated the task!"}/>;
+    }
+
 
     let editTaskUI = "";
     if ( selectedTaskToEdit !== "" && selectedTaskToEdit !== undefined ) {
@@ -219,7 +229,7 @@ const EditOrViewSpace = ( props ) => {
                        name={"description"}/>
                 <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.goal}
                        name={"goal"}/>
-                <div>
+                {selectedTaskToEdit.challengeData.length !== 0 ? <div>
                     <Input onchange={handleChallengeEditInput} type="text" value={selectedTaskChallengersData.name}
                            name={"name"}/>
                     <Input onchange={handleChallengeEditInput} type="text"
@@ -228,7 +238,8 @@ const EditOrViewSpace = ( props ) => {
                     <input type="checkbox" checked={selectedTaskChallengersData.completed}
                            value={selectedTaskChallengersData.completed}
                            onChange={changeCheckedHandler}/>
-                </div>
+                </div> : null}
+
                 <Button title={"Update Challenge"} type={"h2"} onclick={updateChallengeHandler}/>
             </div>
         );
@@ -242,17 +253,18 @@ const EditOrViewSpace = ( props ) => {
                     <Heading title={task.name} type={"h3"}/>
                     <Paragraph title={task.description}/>
                     <Paragraph title={"Completed? " + task.completed.toString()}/>
-                    <Button title={"Edit task"} onclick={() => handleEditTask( task._id )}/>
+
                     <div>
-                        <Heading title={"Challenge Data"} type={"h3"}/>
                         {task.challengeData.length !== 0 ? task.challengeData.map( ( task ) => {
                             return (
                                 <div>
+                                    <Heading title={"Challenge Data"} type={"h3"}/>
                                     <Paragraph title={task.name}/>
                                     <Paragraph title={task.description}/>
                                 </div>
                             );
                         } ) : null}
+                        <Button title={"Edit task"} onclick={() => handleEditTask( task._id )}/>
                     </div>
                 </div>
                 : null;
