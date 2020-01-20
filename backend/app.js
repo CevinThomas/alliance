@@ -68,6 +68,7 @@ app.post( "/api/get-space-with-lookup", auth, spaceController.getSpaceWithLookup
 app.post( "/api/get-user-task-lookup", auth, spaceController.getUserWithTaskLookup );
 
 app.put( "/api/update-space-credentials", auth, spaceController.updateSpaceCredentials );
+app.put( "/api/update-task", auth, challengeController.updateChallenge );
 
 app.delete( "/api/delete-space", auth, spaceController.deleteSpace );
 

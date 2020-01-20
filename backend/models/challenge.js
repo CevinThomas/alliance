@@ -19,6 +19,11 @@ class Challenge {
 
     }
 
+    static updateTask = ( task ) => {
+        const db = getDb();
+        let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
+    };
+
     static getAllTasksFromUser = ( user ) => {
         const db = getDb();
         return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: ObjectId( user._id ) } },

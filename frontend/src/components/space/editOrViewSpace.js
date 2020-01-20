@@ -3,7 +3,7 @@ import queryString from "query-string";
 import Heading from "../../components/textElements/heading";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
-import {GET_USER_CHALLENGES} from "../../constants/urls";
+import {GET_USER_CHALLENGES, UPDATE_TASK} from "../../constants/urls";
 import getToken from "../../helperMethods/getToken";
 import Paragraph from "../../components/textElements/paragraph";
 import {withRouter} from "react-router-dom";
@@ -34,6 +34,7 @@ const EditOrViewSpace = ( props ) => {
     const [ tasksInSpace, setTasksInSpace ] = useState( "" );
     const [ selectedTaskId, setSelectedTaskId ] = useState( "" );
     const [ selectedTaskToEdit, setSelectedTaskToEdit ] = useState( "" );
+    const [ selectedTaskChallengersData, setSelectedTaskChallengersData ] = useState( "" );
 
 
     useEffect( () => {
@@ -159,7 +160,20 @@ const EditOrViewSpace = ( props ) => {
         challengeToEdit.map( ( task ) => {
             challengeWithoutArray = task;
         } );
+        let challengersData = {};
+        challengeWithoutArray.challengeData.map( ( task ) => {
+            challengersData = task;
+        } );
+        setSelectedTaskChallengersData( challengersData );
         setSelectedTaskToEdit( challengeWithoutArray );
+    };
+
+
+    const handleChallengeEditInput = ( { target } ) => {
+        setSelectedTaskChallengersData( {
+            ...selectedTaskChallengersData,
+            [target.name]: target.value
+        } );
     };
 
     const handleTaskEditInput = ( { target } ) => {
@@ -167,7 +181,27 @@ const EditOrViewSpace = ( props ) => {
             ...selectedTaskToEdit,
             [target.name]: target.value
         } );
-        console.log( target.name, target.value );
+    };
+
+    const changeCheckedHandler = ( { target } ) => {
+        setSelectedTaskChallengersData( {
+            ...selectedTaskChallengersData,
+            completed: target.checked
+        } );
+    };
+
+    const updateChallengeHandler = () => {
+        selectedTaskToEdit.challengeData.splice( 0, 1 );
+        selectedTaskToEdit.challengeToEdit = selectedTaskChallengersData;
+        Axios( {
+            method: "PUT",
+            url: UPDATE_TASK,
+            data: {
+                selectedTaskToEdit
+            }
+        } ).then( ( response ) => {
+            console.log( response );
+        } ).catch( e => console.log( e ) );
     };
 
     let viewUI;
@@ -183,6 +217,19 @@ const EditOrViewSpace = ( props ) => {
                        name={"name"}/>
                 <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.description}
                        name={"description"}/>
+                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.goal}
+                       name={"goal"}/>
+                <div>
+                    <Input onchange={handleChallengeEditInput} type="text" value={selectedTaskChallengersData.name}
+                           name={"name"}/>
+                    <Input onchange={handleChallengeEditInput} type="text"
+                           value={selectedTaskChallengersData.description}
+                           name={"description"}/>
+                    <input type="checkbox" checked={selectedTaskChallengersData.completed}
+                           value={selectedTaskChallengersData.completed}
+                           onChange={changeCheckedHandler}/>
+                </div>
+                <Button title={"Update Challenge"} type={"h2"} onclick={updateChallengeHandler}/>
             </div>
         );
     }

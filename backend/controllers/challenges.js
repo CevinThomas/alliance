@@ -19,3 +19,8 @@ exports.getUserChallenges = async ( req, res, next ) => {
     console.log( usersTasks );
     res.status( 200 ).send( usersTasks[0].populatedTasks );
 };
+
+exports.updateChallenge = async ( req, res, next ) => {
+    const updated = await Challenge.updateTask( req.body.selectedTaskToEdit );
+    res.status( 200 ).send( req.body.selectedTaskToEdit );
+};
