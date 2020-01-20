@@ -9,6 +9,7 @@ import * as generalConstants from "../../constants/general";
 import {IS_LOADING} from "../../constants/general";
 import * as friendConstants from "../../constants/friends";
 import * as taskConstants from "../../constants/tasks";
+import {RESET_LOGIN_MESSAGE} from "../actions/types";
 
 const initialState = {
     //TODO: Refactor state
@@ -71,6 +72,19 @@ const initialState = {
 
 //TODO: Create separate reducers depending on view
 function rootReducer( state = initialState, action ) {
+
+    if ( action.type === RESET_LOGIN_MESSAGE ) {
+        return {
+            ...state,
+            userLoginInformation: {
+                ...state.userLoginInformation,
+                response: {
+                    ...state.userLoginInformation.response,
+                    message: ""
+                }
+            }
+        };
+    }
 
     if ( action.type === IS_LOADING ) {
         return {

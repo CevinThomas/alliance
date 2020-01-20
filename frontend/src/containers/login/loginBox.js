@@ -11,6 +11,7 @@ import Axios from "axios";
 import * as loginConstants from "../../constants/login";
 import * as urlConstants from "../../constants/urls";
 import LOGGED_IN from "../../constants/token";
+import {resetLoginMessage} from "../../redux/actions";
 
 const mapStateToProps = state => {
     return { loginCredentials: state.userLoginInformation };
@@ -34,6 +35,7 @@ const LoginBox = ( props ) => {
             if ( response.data.message === "You are now logged in" ) {
                 props.dispatch( { type: LOGGED_IN, payload: true } );
                 setTimeout( () => {
+                    props.dispatch( resetLoginMessage() );
                     props.history.push( "/" );
                 }, 1500 );
             }

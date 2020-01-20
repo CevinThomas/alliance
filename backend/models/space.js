@@ -285,6 +285,11 @@ class Space {
 
     };
 
+    static declinedSpaceInvite = ( userId, spaceId ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { incomingSpaceInvites: spaceId } } );
+    };
+
     static removeUsersFromSpace = async ( usersId, spaceId ) => {
         const db = getDb();
         const users = await db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: usersId } } ).project( {

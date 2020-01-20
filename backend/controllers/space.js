@@ -126,7 +126,11 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
             res.status( 200 ).send( req.body );
         } );
     } else {
-        res.status( 500 ).send( req.body );
+        const space = await Space.findSpacePerId( req.body.id );
+        User.findUserInDatabase( "email", req.user.email, ( user ) => {
+            const decline = Space.declinedSpaceInvite( user.id, space.id );
+            res.status( 200 ).send();
+        } );
     }
 };
 
