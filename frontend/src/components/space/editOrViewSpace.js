@@ -3,6 +3,7 @@ import queryString from "query-string";
 import Heading from "../../components/textElements/heading";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
+import {GET_USER_CHALLENGES} from "../../constants/urls";
 import getToken from "../../helperMethods/getToken";
 import Paragraph from "../../components/textElements/paragraph";
 import {withRouter} from "react-router-dom";
@@ -30,12 +31,16 @@ const EditOrViewSpace = ( props ) => {
     const [ editData, setEditData ] = useState( { name: "", description: "" } );
     const [ membersToRemove, setMembersToRemove ] = useState( [] );
     const [ usersInSpace, setUsersInSpace ] = useState( [] );
+    const [ tasksInSpace, setTasksInSpace ] = useState( "" );
+    const [ selectedTaskId, setSelectedTaskId ] = useState( "" );
+    const [ selectedTaskToEdit, setSelectedTaskToEdit ] = useState( "" );
 
 
     useEffect( () => {
         const spaceId = queryString.parse( props.history.location.search );
+
         setSelectedSpaceId( spaceId.spaceId );
-    }, [] );
+    }, [ props.history.location, selectedTaskId ] );
 
     useEffect( () => {
         if ( selectedSpaceId !== "" ) {
@@ -51,7 +56,6 @@ const EditOrViewSpace = ( props ) => {
                     setRequestFailed( true );
                     props.dispatch( isLoading( false ) );
                 } else {
-                    console.log( response.data.users );
                     setResponseSpace( response.data.space );
                     setEditData( {
                         name: response.data.space.name,
@@ -64,6 +68,15 @@ const EditOrViewSpace = ( props ) => {
             } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
+
+    useEffect( () => {
+        Axios( {
+            method: "GET",
+            url: GET_USER_CHALLENGES
+        } ).then( ( r ) => {
+            setTasksInSpace( r.data );
+        } ).catch( e => console.log( e ) );
+    }, [] );
 
     const submitUpdatedChanges = () => {
         Axios( {
@@ -140,9 +153,60 @@ const EditOrViewSpace = ( props ) => {
         setMembersToRemove( freshMembersToRemove );
     };
 
+    const handleEditTask = taskId => {
+        const challengeToEdit = tasksInSpace.filter( ( task ) => task._id === taskId );
+        let challengeWithoutArray = {};
+        challengeToEdit.map( ( task ) => {
+            challengeWithoutArray = task;
+        } );
+        setSelectedTaskToEdit( challengeWithoutArray );
+    };
+
+    const handleTaskEditInput = ( { target, value } ) => {
+        setSelectedTaskToEdit( {
+            ...selectedTaskToEdit,
+            []
+        } );
+        console.log( target, value );
+    };
+
     let viewUI;
     if ( props.showThankYouModal === true ) {
         return viewUI = <ThankYouModal title={"You have updated the space!"}/>;
+    }
+
+    let editTaskUI = "";
+    if ( selectedTaskToEdit !== "" && selectedTaskToEdit !== undefined ) {
+        editTaskUI = (
+            <div className={"selected-task-modal"}>
+                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.name}/>
+            </div>
+        );
+    }
+
+    let taskUI;
+    if ( tasksInSpace.length !== 0 ) {
+        taskUI = tasksInSpace.map( ( task ) => {
+            return task.chosenSpace === selectedSpaceId ?
+                <div key={task._id}>
+                    <Heading title={task.name} type={"h3"}/>
+                    <Paragraph title={task.description}/>
+                    <Paragraph title={"Completed? " + task.completed.toString()}/>
+                    <Button title={"Edit task"} onclick={() => handleEditTask( task._id )}/>
+                    <div>
+                        <Heading title={"Challenge Data"} type={"h3"}/>
+                        {task.challengeData.length !== 0 ? task.challengeData.map( ( task ) => {
+                            return (
+                                <div>
+                                    <Paragraph title={task.name}/>
+                                    <Paragraph title={task.description}/>
+                                </div>
+                            );
+                        } ) : null}
+                    </div>
+                </div>
+                : null;
+        } );
     }
 
     if ( requestFailed !== true ) {
@@ -199,6 +263,14 @@ const EditOrViewSpace = ( props ) => {
         <div>
             {props.loading ? <Loader/> : null}
             {viewUI}
+            <div id={"tasks-in-space"}>
+                <Heading title={"Your tasks in this space"} type={"h2"}/>
+                {taskUI}
+            </div>
+            <div>
+                {editTaskUI}
+            </div>
+
         </div>
     );
 };

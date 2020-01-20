@@ -19,6 +19,38 @@ class Challenge {
 
     }
 
+    static getAllTasksFromUser = ( user ) => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).aggregate( [ { $match: { _id: ObjectId( user._id ) } },
+            {
+                $project: {
+                    password: 0,
+                    tokens: 0,
+                    spaces: 0,
+                    incomingSpaceInvites: 0,
+                    incomingFriendRequest: 0,
+                    friends: 0
+                }
+            },
+            {
+                $lookup: {
+                    from: "challenges",
+                    let: { tasks: "$tasks" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: [ "$_id", "$$tasks" ]
+                                }
+                            }
+                        }
+                    ],
+                    as: "populatedTasks"
+                }
+            }
+        ] ).toArray();
+    };
+
     static addToSpaceAndUser = ( taskId, userId, spaceId ) => {
         const db = getDb();
         db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { tasks: ObjectId( taskId ) } } );

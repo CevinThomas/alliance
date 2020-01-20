@@ -5,7 +5,7 @@ import Heading from "../../components/textElements/heading";
 import Paragraph from "../../components/textElements/paragraph";
 import {Link} from "react-router-dom";
 
-const CurrentSpaces = () => {
+const CurrentSpaces = ( props ) => {
 
     const [ currentSpaces, setCurrentSpaces ] = useState( [] );
     const [ ownerOfTheseSpaces, setOwnerOfTheseSpaces ] = useState( [] );
@@ -19,9 +19,6 @@ const CurrentSpaces = () => {
             setOwnerOfTheseSpaces( response.data.ownerOf );
         } ).catch( e => console.log( e ) );
     }, [] );
-
-    console.log( currentSpaces );
-    console.log( ownerOfTheseSpaces );
 
     let spacesUI;
     if ( currentSpaces.length !== 0 ) {

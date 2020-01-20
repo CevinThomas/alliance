@@ -62,7 +62,7 @@ const EditSpaceChallenges = ( props ) => {
     const handleAcceptOrDecline = ( id, accept ) => {
         submitAcceptOrDeclineRequest( id, accept );
     };
-
+    
     let spaceInvitesUI;
     spaceInvitesUI = props.spaceInvites.map( ( invite ) => {
         return (

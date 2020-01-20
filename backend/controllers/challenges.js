@@ -13,3 +13,9 @@ exports.addChallenge = ( req, res, next ) => {
         } );
     } );
 };
+
+exports.getUserChallenges = async ( req, res, next ) => {
+    const usersTasks = await Challenge.getAllTasksFromUser( req.user );
+    console.log( usersTasks );
+    res.status( 200 ).send( usersTasks[0].populatedTasks );
+};
