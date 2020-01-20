@@ -102,12 +102,6 @@ exports.leaveSpace = async ( req, res, next ) => {
 
 exports.getAllSpaces = async ( req, res, next ) => {
     const spaces = await Space.getSpacesWithMembers();
-
-    spaces.map( ( space ) => {
-        console.log( space );
-
-    } );
-
     res.status( 200 ).send( spaces );
 };
 

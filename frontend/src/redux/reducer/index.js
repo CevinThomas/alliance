@@ -69,7 +69,7 @@ const initialState = {
 
 };
 
-//TODO: Create seperate reducers depending on view
+//TODO: Create separate reducers depending on view
 function rootReducer( state = initialState, action ) {
 
     if ( action.type === IS_LOADING ) {

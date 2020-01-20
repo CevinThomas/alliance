@@ -12,6 +12,7 @@ const mongoConnect = require( "./database/index" ).mongoConnect;
 const app = express();
 const http = require( "http" ).createServer( app );
 const io = require( "socket.io" )( http );
+const morgan = require( "morgan" );
 require( "./javascriptSandbox" );
 require( "dotenv" ).config();
 
@@ -28,6 +29,7 @@ io.on( "connection", ( socket ) => {
 //TODO: Make Cors more detailed
 const cors = require( "cors" );
 app.use( cors() );
+app.use( morgan( "combined" ) );
 app.options( "*", cors() );
 
 app.use( logger( "dev" ) );

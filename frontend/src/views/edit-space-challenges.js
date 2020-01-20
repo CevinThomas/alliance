@@ -31,6 +31,7 @@ const EditSpaceChallenges = ( props ) => {
             method: "GET",
             url: urlConstants.GET_SPACE_INVITES
         } ).then( ( spaceInvites ) => {
+            console.log( spaceInvites );
             props.dispatch( {
                 type: userConstants.USER_INCOMING_SPACE_INVITES,
                 payload: spaceInvites.data

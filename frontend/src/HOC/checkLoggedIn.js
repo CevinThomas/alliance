@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 export default ChildComponent => {
     class IsLoggedIn extends React.Component {
 
+        //TODO: REFACTOR
         componentDidMount() {
             if ( localStorage.getItem( "TOKEN" ) ) {
                 if ( this.props.isLoggedIn !== true ) {
