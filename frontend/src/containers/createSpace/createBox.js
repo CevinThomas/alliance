@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import TopBar from "../../components/nav/topBar";
 import Heading from "../../components/textElements/heading";
 import Input from "../../components/forms/input";
 import Button from "../../components/general/button";
@@ -14,6 +13,8 @@ import getToken from "../../helperMethods/getToken";
 import ThankYouModal from "../../components/modals/thankYouModal";
 import {isLoading} from "../../redux/actions";
 import Loader from "../../components/loader/loader";
+import ResponseMessage from "../../components/misc/responseMessage";
+import Overlay from "../../components/general/overlay";
 
 const mapStateToProps = state => ({
     user: state.MainUserCredentials,
@@ -27,16 +28,7 @@ const mapStateToProps = state => ({
 
 const CreateBox = ( props ) => {
 
-    const topBarObject = {
-        linkOne: {
-            to: "/admin",
-            title: "Go Back"
-        },
-        linkTwo: {
-            to: "/randomUrl",
-            title: "Go Here"
-        }
-    };
+    const [ emptySpace, setEmptySpace ] = useState( 0 );
 
     getToken();
 
@@ -86,7 +78,15 @@ const CreateBox = ( props ) => {
         } else {
             props.dispatch( { type: spaceConstants.SPACE_CHALLENGERS, payload: { remove: e.target.value } } );
         }
+    };
 
+    const renderErrorMessage = () => {
+        if ( props.space.name === "" ) {
+            setEmptySpace( 1 );
+        } else {
+            setEmptySpace( 0 );
+            showModalFunction();
+        }
     };
 
     const showModalFunction = () => {
@@ -98,7 +98,8 @@ const CreateBox = ( props ) => {
         if ( props.friendsList.length > 0 ) {
             ModalUI = props.friendsList.map( ( friend ) => {
                 if ( props.friendsToInvite.includes( friend.email ) ) {
-                    return (<div key={friend._id} className={"friend-container checked-friend"}>
+                    return (
+                        <div key={friend._id} className={"friend-container checked-friend"}>
                             <label htmlFor="">{friend.name} Selected</label>
                             <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend.email}/>
                         </div>
@@ -122,21 +123,38 @@ const CreateBox = ( props ) => {
     return (
         <div className={"create-space-box"}>
             {props.loading ? <Loader/> : null}
-            <TopBar links={topBarObject}/>
             <div className={"create-space-box-container"}>
-                <Heading title={"Create your space"} type={"h2"}/>
                 <div className={"space-creation-container"}>
                     <div className={"form-container"}>
+                        <div className={"form-top-container"}>
+                            <Heading title={"Create your space"} type={"h2"}/>
+                            <p className={"sub-text-form"}>Create and invite the friends you want!</p>
+                        </div>
+                        <label className={"label-create"} htmlFor="name">Enter Space Name</label>
+                        {emptySpace === 1 ? <ResponseMessage class={"error-div"}
+                                                             errorMessage={"Please enter a name for the Space"}/> : null}
                         <Input onchange={handleInputChange} type={"text"} name={"name"} id={"name"}
                                placeholder={"Enter Name"}/>
+                        <label className={"label-create"} htmlFor="desc">Enter Space Name</label>
+
                         <Input onchange={handleInputChange} type={"text"} name={"desc"} id={"desc"}
                                placeholder={"Enter Description"}/>
-                        <Button onclick={showModalFunction} id={"challengers-button"} title={"Add Challengers"}/>
-                    </div>
-                    {props.showModal ?
-                        <div className={"modal"}>{ModalUI} <Button onclick={sendDataToEndpoint} title={"Create"}/>
+                        <div className={"form-button-container"}>
+                            <Button title={"Cancel"}/>
+                            <Button onclick={renderErrorMessage} id={"challengers-button"}
+                                    title={props.showModal ? "New Box Appeared!" : "Add Challengers"}/>
                         </div>
-                        : ""}
+                    </div>
+                    <div className={"create-sidebar"}>
+                        {props.showModal ?
+                            <div className={"modal"}><Overlay/><Heading class={"friends-header"}
+                                                                        title={"Invite your friends"}
+                                                                        type={"h2"}/> {ModalUI}
+                                <Button class={"friends-create"}
+                                        onclick={sendDataToEndpoint} title={"Create"}/>
+                            </div>
+                            : null}
+                    </div>
                 </div>
             </div>
         </div>

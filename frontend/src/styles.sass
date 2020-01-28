@@ -130,7 +130,7 @@ a:hover
   width: 80%
   display: block
   padding: 20px
-  border-radius: 40px
+  border-radius: 10px
   border: none
   font-size: 16px
 
@@ -167,7 +167,7 @@ a:hover
   box-sizing: border-box
   display: block
   padding: 20px
-  border-radius: 40px
+  border-radius: 10px
   border: none
   font-size: 16px
 
@@ -334,9 +334,30 @@ a:hover
   height: 15%
   background-color: $mainColor
 
+  .top-bar-link-container:first-child
+    width: 60%
+
+    a
+      background: $whiteColor
+      color: $mainColor
+
+      &:hover
+        background: $mainColor
+        color: $whiteColor
+
+  .top-bar-link-container:last-child
+    width: 40%
+
+    a
+      background: $mainColor
+      color: $whiteColor
+
+      &:hover
+        background: $whiteColor
+        color: $mainColor
+
   .top-bar-link-container
     display: inline-block
-    width: 50%
     height: 100%
 
     a
@@ -345,6 +366,21 @@ a:hover
       @extend %flexStandard
 
 
+.creation-modal
+  position: fixed
+  height: 100%
+  width: 100%
+  top: 0
+  left: 0
+  @extend %flexStandard
+
+  .inside-modal
+    height: 50%
+    width: 50%
+    background: $whiteColor
+    border-radius: 10px
+    @extend %flexStandard
+
 #create-space
   background: url("./images/deer-3219872_1920.jpg") center no-repeat
   background-size: cover
@@ -352,36 +388,58 @@ a:hover
   @extend %flexStandard
 
   .create-space-box-container
-    padding: 0 40px
-    margin-top: 150px
+    height: 100%
 
     .space-creation-container
       display: flex
       justify-content: space-evenly
+      height: 100%
+      width: 100%
+
+      .create-sidebar
+        width: 40%
+        background: url("./images/small-poly-3332793_1920.jpg") center no-repeat
+        background-size: cover
+        position: relative
 
     .modal
-      display: inline-block
-      width: 45%
+      display: block
+      width: 100%
       height: 100%
       vertical-align: top
-      margin-top: 50px
       box-sizing: border-box
+
+      .overlay
+        z-index: 1
+
+      .friends-header
+        position: relative
+        z-index: 2
+
+      h2
+        text-align: center
+        padding: 30px 0
+        color: $whiteColor
 
       button
         background-color: $mainColor
         margin-bottom: 10px
         color: $whiteColor
+        z-index: 9
+        position: relative
 
       .friend-container
         position: relative
-        height: 100%
         width: 100%
-        padding: 20px
+        padding: 26px
         box-sizing: border-box
+        z-index: 9
         @extend %flexStandard
 
         label
           color: $mainColor
+          z-index: 2
+          position: relative
 
         input
           position: absolute
@@ -402,19 +460,50 @@ a:hover
 
   input
     @extend %inputStyling
-    margin: 25px auto 25px auto
+    margin: 20px auto 40px auto
 
   .form-container
-    width: 45%
-    box-shadow: 0 0 1px 0 #00cca3
+    width: 60%
     padding: 30px 0
-    margin-top: 50px
+    margin-top: 150px
     display: inline-block
-    
-    #challengers-button
-      @extend %inputStyling
+
+    .form-top-container
+      padding-bottom: 20px
+
+      .sub-text-form
+        text-align: center
+
+    .label-create
       color: $mainColor
-      background-color: $whiteColor
+      text-align: left
+      width: 80%
+      margin: 0 auto
+      display: block
+
+    .form-button-container
+      width: 80%
+      margin: 0 auto
+      @extend %flexStandard
+
+      button
+        width: 40%
+        display: inline-block
+
+    h2
+      margin: 0 auto
+      width: 80%
+      padding: 30px 0 10px 0
+      text-align: center
+
+    .error-div
+      margin: 0 auto
+      text-align: center
+      text-align: left
+      width: 80%
+
+      p
+        color: $redColor
 
     button
       width: 80%
@@ -954,7 +1043,7 @@ a:hover
       width: 100%
       display: block
       padding: 20px
-      border-radius: 40px
+      border-radius: 10px
       border: none
       margin-top: 30px
       font-size: 16px
@@ -965,9 +1054,9 @@ a:hover
       width: 100%
       display: block
       padding: 20px
-      border-radius: 40px
+      border-radius: 10px
       border: none
-      margin-top: 40px
+      margin-top: 10px
       font-size: 16px
       @extend %buttonStyling
 

@@ -130,13 +130,13 @@ a:hover {
   vertical-align: top;
 }
 
-#registration, #login, #account #double-box-container, #account #double-section-container #right-section .right-section-box-container .right-section-box, #account #double-section-container #right-section .right-section-box-container, #account #double-section-container, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container, #create-task, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-right, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-left, #view-friend-container #view-friend #friend-information-container #friend-inner-container, #view-friend-container #view-friend #friend-information-container, #view-friend-container, #spaces #all-spaces, #create-space .create-space-box-container .modal .friend-container, #create-space, .top-bar .top-bar-link-container a {
+#registration, #login, #account #double-box-container, #account #double-section-container #right-section .right-section-box-container .right-section-box, #account #double-section-container #right-section .right-section-box-container, #account #double-section-container, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container, #create-task, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-right, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-left, #view-friend-container #view-friend #friend-information-container #friend-inner-container, #view-friend-container #view-friend #friend-information-container, #view-friend-container, #spaces #all-spaces, #create-space .form-container .form-button-container, #create-space .create-space-box-container .modal .friend-container, #create-space, .creation-modal .inside-modal, .creation-modal, .top-bar .top-bar-link-container a {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#registration #right-column input, #login #loginForm input, #create-task #checkbox-form .right-column .right-container input, #create-space .form-container #challengers-button, #create-space input {
+#registration #right-column input, #login #loginForm input, #create-task #checkbox-form .right-column .right-container input, #create-space input {
   margin: 15px auto 15px auto;
   box-shadow: 0 0 3px 0 #00cca3;
   color: #00cca3;
@@ -144,7 +144,7 @@ a:hover {
   width: 80%;
   display: block;
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 10px;
   border: none;
   font-size: 16px;
 }
@@ -184,7 +184,7 @@ a:hover {
   box-sizing: border-box;
   display: block;
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 10px;
   border: none;
   font-size: 16px;
 }
@@ -354,9 +354,30 @@ a:hover {
   height: 15%;
   background-color: #00cca3;
 }
+.top-bar .top-bar-link-container:first-child {
+  width: 60%;
+}
+.top-bar .top-bar-link-container:first-child a {
+  background: #fff;
+  color: #00cca3;
+}
+.top-bar .top-bar-link-container:first-child a:hover {
+  background: #00cca3;
+  color: #fff;
+}
+.top-bar .top-bar-link-container:last-child {
+  width: 40%;
+}
+.top-bar .top-bar-link-container:last-child a {
+  background: #00cca3;
+  color: #fff;
+}
+.top-bar .top-bar-link-container:last-child a:hover {
+  background: #fff;
+  color: #00cca3;
+}
 .top-bar .top-bar-link-container {
   display: inline-block;
-  width: 50%;
   height: 100%;
 }
 .top-bar .top-bar-link-container a {
@@ -364,40 +385,76 @@ a:hover {
   width: 100%;
 }
 
+.creation-modal {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.creation-modal .inside-modal {
+  height: 50%;
+  width: 50%;
+  background: #fff;
+  border-radius: 10px;
+}
+
 #create-space {
   background: url("./images/deer-3219872_1920.jpg") center no-repeat;
   background-size: cover;
 }
 #create-space .create-space-box-container {
-  padding: 0 40px;
-  margin-top: 150px;
+  height: 100%;
 }
 #create-space .create-space-box-container .space-creation-container {
   display: flex;
   justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+}
+#create-space .create-space-box-container .space-creation-container .create-sidebar {
+  width: 40%;
+  background: url("./images/small-poly-3332793_1920.jpg") center no-repeat;
+  background-size: cover;
+  position: relative;
 }
 #create-space .create-space-box-container .modal {
-  display: inline-block;
-  width: 45%;
+  display: block;
+  width: 100%;
   height: 100%;
   vertical-align: top;
-  margin-top: 50px;
   box-sizing: border-box;
+}
+#create-space .create-space-box-container .modal .overlay {
+  z-index: 1;
+}
+#create-space .create-space-box-container .modal .friends-header {
+  position: relative;
+  z-index: 2;
+}
+#create-space .create-space-box-container .modal h2 {
+  text-align: center;
+  padding: 30px 0;
+  color: #fff;
 }
 #create-space .create-space-box-container .modal button {
   background-color: #00cca3;
   margin-bottom: 10px;
   color: #fff;
+  z-index: 9;
+  position: relative;
 }
 #create-space .create-space-box-container .modal .friend-container {
   position: relative;
-  height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 26px;
   box-sizing: border-box;
+  z-index: 9;
 }
 #create-space .create-space-box-container .modal .friend-container label {
   color: #00cca3;
+  z-index: 2;
+  position: relative;
 }
 #create-space .create-space-box-container .modal .friend-container input {
   position: absolute;
@@ -417,18 +474,49 @@ a:hover {
   color: #fff;
 }
 #create-space input {
-  margin: 25px auto 25px auto;
+  margin: 20px auto 40px auto;
 }
 #create-space .form-container {
-  width: 45%;
-  box-shadow: 0 0 1px 0 #00cca3;
+  width: 60%;
   padding: 30px 0;
-  margin-top: 50px;
+  margin-top: 150px;
   display: inline-block;
 }
-#create-space .form-container #challengers-button {
+#create-space .form-container .form-top-container {
+  padding-bottom: 20px;
+}
+#create-space .form-container .form-top-container .sub-text-form {
+  text-align: center;
+}
+#create-space .form-container .label-create {
   color: #00cca3;
-  background-color: #fff;
+  text-align: left;
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+}
+#create-space .form-container .form-button-container {
+  width: 80%;
+  margin: 0 auto;
+}
+#create-space .form-container .form-button-container button {
+  width: 40%;
+  display: inline-block;
+}
+#create-space .form-container h2 {
+  margin: 0 auto;
+  width: 80%;
+  padding: 30px 0 10px 0;
+  text-align: center;
+}
+#create-space .form-container .error-div {
+  margin: 0 auto;
+  text-align: center;
+  text-align: left;
+  width: 80%;
+}
+#create-space .form-container .error-div p {
+  color: #740e17;
 }
 #create-space .form-container button {
   width: 80%;
@@ -944,7 +1032,7 @@ a:hover {
   width: 100%;
   display: block;
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 10px;
   border: none;
   margin-top: 30px;
   font-size: 16px;
@@ -954,9 +1042,9 @@ a:hover {
   width: 100%;
   display: block;
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 10px;
   border: none;
-  margin-top: 40px;
+  margin-top: 10px;
   font-size: 16px;
 }
 #login #loginForm #form-inner {
