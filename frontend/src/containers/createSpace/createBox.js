@@ -99,7 +99,7 @@ const CreateBox = ( props ) => {
             ModalUI = props.friendsList.map( ( friend ) => {
                 if ( props.friendsToInvite.includes( friend.email ) ) {
                     return (<div key={friend._id} className={"friend-container checked-friend"}>
-                            <label htmlFor="">{friend.name} SELECTED</label>
+                            <label htmlFor="">{friend.name} Selected</label>
                             <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend.email}/>
                         </div>
                     );
