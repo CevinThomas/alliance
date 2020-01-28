@@ -99,7 +99,7 @@ const CreateBox = ( props ) => {
             ModalUI = props.friendsList.map( ( friend ) => {
                 if ( props.friendsToInvite.includes( friend.email ) ) {
                     return (<div key={friend._id} className={"friend-container checked-friend"}>
-                            <label htmlFor="">{friend.name}</label>
+                            <label htmlFor="">{friend.name} SELECTED</label>
                             <Input onchange={handleCheckboxChange} type={"checkbox"} value={friend.email}/>
                         </div>
                     );
@@ -125,17 +125,19 @@ const CreateBox = ( props ) => {
             <TopBar links={topBarObject}/>
             <div className={"create-space-box-container"}>
                 <Heading title={"Create your space"} type={"h2"}/>
-                <div className={"form-container"}>
-                    <Input onchange={handleInputChange} type={"text"} name={"name"} id={"name"}
-                           placeholder={"Enter Name"}/>
-                    <Input onchange={handleInputChange} type={"text"} name={"desc"} id={"desc"}
-                           placeholder={"Enter Description"}/>
-                    <Button onclick={showModalFunction} id={"challengers-button"} title={"Add Challengers"}/>
-                </div>
-                {props.showModal ?
-                    <div className={"modal"}>{ModalUI} <Button onclick={sendDataToEndpoint} title={"Create"}/>
+                <div className={"space-creation-container"}>
+                    <div className={"form-container"}>
+                        <Input onchange={handleInputChange} type={"text"} name={"name"} id={"name"}
+                               placeholder={"Enter Name"}/>
+                        <Input onchange={handleInputChange} type={"text"} name={"desc"} id={"desc"}
+                               placeholder={"Enter Description"}/>
+                        <Button onclick={showModalFunction} id={"challengers-button"} title={"Add Challengers"}/>
                     </div>
-                    : ""}
+                    {props.showModal ?
+                        <div className={"modal"}>{ModalUI} <Button onclick={sendDataToEndpoint} title={"Create"}/>
+                        </div>
+                        : ""}
+                </div>
             </div>
         </div>
     );

@@ -171,6 +171,10 @@ a:hover
   border: none
   font-size: 16px
 
+%containerStyling
+  max-width: 1200px
+  margin: 0 auto
+
 %adminBoxesShared
   height: 50%
   width: 50%
@@ -351,32 +355,33 @@ a:hover
     padding: 0 40px
     margin-top: 150px
 
+    .space-creation-container
+      display: flex
+      justify-content: space-evenly
+
     .modal
       display: inline-block
-      width: 60%
+      width: 45%
       height: 100%
       vertical-align: top
       margin-top: 50px
-      background-color: $mainColor
       box-sizing: border-box
 
-      .checked-friend
-        background-color: $whiteColor
-
       button
-        background-color: $whiteColor
+        background-color: $mainColor
         margin-bottom: 10px
-        color: $mainColor
+        color: $whiteColor
 
       .friend-container
         position: relative
         height: 100%
         width: 100%
         padding: 20px
+        box-sizing: border-box
         @extend %flexStandard
 
         label
-          color: $whiteColor
+          color: $mainColor
 
         input
           position: absolute
@@ -386,13 +391,21 @@ a:hover
           height: 100%
           z-index: 999
           margin: 0
+          border-radius: 0
+          opacity: 0
+
+      .checked-friend
+        background-color: $mainColor
+
+        label
+          color: $whiteColor
 
   input
     @extend %inputStyling
     margin: 25px auto 25px auto
 
   .form-container
-    width: 40%
+    width: 45%
     box-shadow: 0 0 1px 0 #00cca3
     padding: 30px 0
     margin-top: 50px
@@ -410,6 +423,7 @@ a:hover
     height: 80%
     width: 80%
     background: $whiteColor
+    max-width: 1200px
 
 #spaces
   #all-spaces
@@ -775,6 +789,7 @@ a:hover
   #admin-box-container
     width: 80%
     height: 80%
+    max-width: 1200px
     background: $whiteColor
     @extend %flexStandard
     flex-flow: wrap

@@ -23,6 +23,7 @@
     "mongodb": "^3.3.5",
     "morgan": "^1.9.1",
     "node-sass-middleware": "0.11.0",
+    "rookout": "^0.1.86",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
