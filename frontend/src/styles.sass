@@ -10,6 +10,8 @@ $smallPhoneSize: 375px
 $transition: .2s ease-in-out
 $overlayTransition: .5s ease-in-out
 
+*
+  box-sizing: border-box
 
 h1
   transition: $overlayTransition
@@ -903,118 +905,115 @@ a:hover
       right: 0
 
 #account
-  background: url("./images/small-poly-3350169_1920.jpg") center no-repeat
-  background-size: cover
+  background: $whiteColor
   @extend %fullCoverPageBackground
   display: block
 
-  #double-section-container
-    margin-top: 20px
-    min-height: 600px
+  #side-menu
+    height: 95%
+    vertical-align: bottom
+    width: 20%
+    background: #eee
+    display: inline-block
     @extend %flexStandard
 
-    #left-section
-      width: 30%
-      position: relative
-      background-color: $whiteColor
-      @extend %leftAndRightSection
-      box-shadow: none
-      z-index: 9999
-      height: 100%
-      min-height: 600px
+    .link-container
+      a
+        color: $mainColor
+        font-size: 32px
 
-      &:before
-        content: ""
-        position: absolute
-        right: 0
-        top: 0
-        height: 100%
-        width: 1px
-        opacity: 0.5
-        background-color: $mainColor
-        z-index: 99999
-        padding: 0 10px
-        box-sizing: border-box
+  #main-view
+    width: 80%
+    height: 100%
+    display: inline-block
+    box-sizing: border-box
+    vertical-align: top
 
-      #left-section-overlay
-        z-index: -1
+    .main-view-inside
+      padding: 20px
+      max-width: 90%
+      margin: 65px auto 0 auto
 
-      h2
-        position: relative
-
-        &:before
-          content: ""
-          width: 100%
-          position: absolute
-          height: 1px
-          background-color: $mainColor
-          top: 45px
-
-
-    #right-section
-      width: 63%
-      height: 100%
-      min-height: 600px
-      @extend %leftAndRightSection
-
-      .right-section-box-container
-        width: 100%
-        height: 100%
+      .main-view-container
         @extend %flexStandard
-        flex-wrap: wrap
+        justify-content: space-evenly
+        align-items: flex-start
+        height: 1159px
 
-        .right-section-box
-          width: 33%
-          min-height: 230px
-          @extend %flexStandard
+        .user-container-right
+          display: inline-block
+          width: 45%
+          vertical-align: top
+          height: 100%
 
-          h3
-            text-align: center
+          .user-stats
+            height: 100%
+            width: 100%
+            background: white
+            display: inline-block
+            float: right
+            box-shadow: 0 0 3px 0 $mainColor
+            border-radius: 10px
+            padding: 20px
 
-      h2
-        position: relative
+            h2
+              text-align: center
 
-        &:before
-          content: ""
-          width: 100%
-          position: absolute
-          height: 1px
-          background-color: $mainColor
-          top: 45px
+        .user-container-left
+          display: inline-block
+          width: 45%
 
-  #double-box-container
-    @extend %flexStandard
-    margin-top: 150px
+          .user-news
+            height: 30%
+            padding: 0 20px
+            width: 100%
+            margin-top: 50px
+            box-shadow: 0 0 3px 0 $mainColor
+            min-height: 500px
+            border-radius: 10px
+            padding: 20px
 
-  .account-box
-    position: relative
-    z-index: 9999
-    @extend %boxStyling
+            h2
+              text-align: center
 
-    &:hover
-      .overlay-transition
-        width: 100%
-        z-index: -1
+          .user-info
+            height: 60%
+            width: 100%
+            background: $whiteColor
+            display: inline-block
+            vertical-align: top
+            border-radius: 10px
+            box-shadow: 0 0 3px 0 $mainColor
+            padding: 0 20px
 
-      h3
-        color: $whiteColor
-        z-index: 999
-        transition: $overlayTransition
-        -webkit-transition: $overlayTransition
-        -moz-transition: $overlayTransition
-        -o-transition: $overlayTransition
+            .user-image
+              background: url("./images/deer-3219872_1920.jpg") center no-repeat
+              background-size: cover
+              border-radius: 400px
+              margin: 50px auto 0 auto
+              width: 50%
+              padding: 135px
 
-      p
-        color: $whiteColor
-        transition: $overlayTransition
-        -webkit-transition: $overlayTransition
-        -moz-transition: $overlayTransition
-        -o-transition: $overlayTransition
+            .user-text
+              .user-top-input
+                @extend %flexStandard
 
-    .overlay-transition
-      left: 0
-      top: 0
-      @extend %overlayTransitionShared
+                .user-name
+                  width: 40%
+                  display: inline-block
+
+                .user-phone
+                  width: 40%
+                  display: inline-block
+
+              input
+                width: 90%
+                @extend %inputStyling
+                box-shadow: none
+
+              button
+                margin-bottom: 20px
+
 
 #login
   height: 100vh

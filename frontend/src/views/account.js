@@ -1,25 +1,20 @@
 import React from "react";
-import LeftBox from "../containers/account/leftBox";
-import RightBox from "../containers/account/rightBox";
-import LeftSection from "../containers/account/leftSection";
-import RightSection from "../containers/account/rightSection";
-import Overlay from "../components/general/overlay";
+
 import Navbar from "../components/nav/nav";
 import checkLoggedIn from "../HOC/checkLoggedIn";
+import AdminSideMenu from "../components/sideMenu/adminSideMenu";
+import MainViewContainer from "../containers/account/mainViewContainer";
 
 const Account = () => {
     return (
         <React.Fragment>
-            <Navbar/>
+            <Navbar dark/>
             <div id={"account"}>
-                <Overlay/>
-                <div id={"double-box-container"}>
-                    <LeftBox/>
-                    <RightBox/>
+                <div id={"side-menu"}>
+                    <AdminSideMenu/>
                 </div>
-                <div id={"double-section-container"}>
-                    <LeftSection/>
-                    <RightSection/>
+                <div id={"main-view"}>
+                    <MainViewContainer/>
                 </div>
 
             </div>
