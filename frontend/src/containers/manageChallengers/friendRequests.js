@@ -58,7 +58,6 @@ const FriendRequests = ( props ) => {
     let UI;
     if ( props.friendRequests.length !== 0 ) {
         UI = props.friendRequests.map( ( request ) => {
-            console.log( request );
             return (
                 <div className={"friend-request-inner"} key={request}>
                     <h3>{request}</h3>
@@ -74,7 +73,7 @@ const FriendRequests = ( props ) => {
     return (
         <div className={"friend-requests-container"}>
             {props.loading ? <Loader/> : null}
-            {props.friendRequests.length !== 0 ? <h3>Friend Requests</h3> : null}
+            {props.friendRequests.length !== 0 ? <h3 className={"requests-title"}>Friend Requests</h3> : null}
             {UI}
         </div>
     );

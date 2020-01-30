@@ -12,11 +12,14 @@ const ManageChallengers = ( props ) => {
         <React.Fragment>
             <Navbar dark/>
             <div id={"manage-friends-background"}>
-                <div className={"main-container"}>
-                    <div id={"manage-friends"}>
+
+                <div id={"manage-friends"}>
+                    <div className={"full-width-container"}>
                         <div className={"add-friends"}>
                             <AddFriends/>
                         </div>
+                    </div>
+                    <div className={"main-container"}>
                         <div className={"friend-requests"}>
                             <FriendRequests/>
                         </div>

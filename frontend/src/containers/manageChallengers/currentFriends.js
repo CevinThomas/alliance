@@ -51,6 +51,7 @@ const CurrentFriends = ( props ) => {
     return (
         <div className={"friends-container"}>
             {props.loading ? <Loader/> : null}
+            {props.friends.length !== 0 ? <h3 className={"requests-title"}>Friends List</h3> : null}
             {friendsUI}
         </div>
     );

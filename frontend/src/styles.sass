@@ -911,6 +911,12 @@ a:hover
   margin: 0 auto
   width: 80%
 
+.full-width-container
+  max-width: 100%
+  background: #eee
+  padding: 50px 30px
+  margin-top: 50px
+
 
 #manage-friends-background
 
@@ -918,7 +924,6 @@ a:hover
     margin-top: 65px
 
   #manage-friends
-    padding: 50px
     background: $whiteColor
     border-radius: 10px
 
@@ -949,13 +954,28 @@ a:hover
             @extend %inputStyling
 
     .friend-requests
-      margin: 150px 0
-      padding: 20px
+      margin: 60px 0
+      padding: 50px
+      box-shadow: 0 0 5px 2px #eee
 
       vertical-align: top
 
       .friend-requests-container
+        .requests-title
+          position: relative
+
+          &:before
+            content: ""
+            position: absolute
+            top: 35px
+            left: 0
+            height: 2px
+            background: #eee
+            width: 100%
+
         .friend-request-inner
+          padding-top: 10px
+
           .friend-request-buttons
             width: 50%
             @extend %flexStandard
@@ -972,11 +992,24 @@ a:hover
 
 
   .friends-container
+    box-shadow: 0 0 5px 2px $boxShadowColor
+    padding: 50px
+
+    .requests-title
+      position: relative
+
+      &:before
+        content: ""
+        position: absolute
+        top: 35px
+        left: 0
+        height: 2px
+        background: #eee
+        width: 100%
+
     .friend-container
       padding: 20px
       margin-bottom: 20px
-      box-shadow: 0 0 5px 2px $boxShadowColor
-
 
       .friend-info
         display: inline-block

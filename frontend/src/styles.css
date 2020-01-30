@@ -894,11 +894,17 @@ a:hover {
   width: 80%;
 }
 
+.full-width-container {
+  max-width: 100%;
+  background: #eee;
+  padding: 50px 30px;
+  margin-top: 50px;
+}
+
 #manage-friends-background .main-container {
   margin-top: 65px;
 }
 #manage-friends-background #manage-friends {
-  padding: 50px;
   background: #fff;
   border-radius: 10px;
 }
@@ -925,9 +931,25 @@ a:hover {
   margin-right: 15px;
 }
 #manage-friends-background #manage-friends .friend-requests {
-  margin: 150px 0;
-  padding: 20px;
+  margin: 60px 0;
+  padding: 50px;
+  box-shadow: 0 0 5px 2px #eee;
   vertical-align: top;
+}
+#manage-friends-background #manage-friends .friend-requests .friend-requests-container .requests-title {
+  position: relative;
+}
+#manage-friends-background #manage-friends .friend-requests .friend-requests-container .requests-title:before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 0;
+  height: 2px;
+  background: #eee;
+  width: 100%;
+}
+#manage-friends-background #manage-friends .friend-requests .friend-requests-container .friend-request-inner {
+  padding-top: 10px;
 }
 #manage-friends-background #manage-friends .friend-requests .friend-requests-container .friend-request-inner .friend-request-buttons {
   width: 50%;
@@ -942,10 +964,25 @@ a:hover {
 #manage-friends-background #manage-friends .friend-requests .friend-requests-container .friend-request-inner .friend-request-buttons button:first-child {
   margin-right: 15px;
 }
+#manage-friends-background .friends-container {
+  box-shadow: 0 0 5px 2px #eee;
+  padding: 50px;
+}
+#manage-friends-background .friends-container .requests-title {
+  position: relative;
+}
+#manage-friends-background .friends-container .requests-title:before {
+  content: "";
+  position: absolute;
+  top: 35px;
+  left: 0;
+  height: 2px;
+  background: #eee;
+  width: 100%;
+}
 #manage-friends-background .friends-container .friend-container {
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 0 5px 2px #eee;
 }
 #manage-friends-background .friends-container .friend-container .friend-info {
   display: inline-block;
