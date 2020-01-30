@@ -58,20 +58,23 @@ const FriendRequests = ( props ) => {
     let UI;
     if ( props.friendRequests.length !== 0 ) {
         UI = props.friendRequests.map( ( request ) => {
+            console.log( request );
             return (
-                <div key={request}>
-                    <h2>{request}</h2>
-                    <Button onclick={() => handleAcceptOrDecline( request, true )} title={"Accept"}/>
-                    <Button onclick={() => handleAcceptOrDecline( request, false )} title={"Decline"}/>
+                <div className={"friend-request-inner"} key={request}>
+                    <h3>{request}</h3>
+                    <div className={"friend-request-buttons"}>
+                        <Button onclick={() => handleAcceptOrDecline( request, true )} title={"Accept"}/>
+                        <Button onclick={() => handleAcceptOrDecline( request, false )} title={"Decline"}/>
+                    </div>
                 </div>
             );
         } );
     }
 
     return (
-        <div>
+        <div className={"friend-requests-container"}>
             {props.loading ? <Loader/> : null}
-            <h1>Friend requests</h1>
+            {props.friendRequests.length !== 0 ? <h3>Friend Requests</h3> : null}
             {UI}
         </div>
     );

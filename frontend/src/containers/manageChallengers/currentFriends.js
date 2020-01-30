@@ -33,9 +33,15 @@ const CurrentFriends = ( props ) => {
     if ( props.friends.length !== 0 ) {
         friendsUI = props.friends.map( ( friend ) => {
             return (
-                <div key={friend._id}>
-                    <h1>{friend.name}</h1>
-                    <Link to={"/admin/friend/?id=" + friend._id}><Button title={"View"}/></Link>
+                <div className={"friend-container"} key={friend._id}>
+                    <div className={"friend-image"}>
+                        <div className={"temp-friend-image"}></div>
+                    </div>
+                    <div className={"friend-info"}>
+                        <h3>{friend.name}</h3>
+                        <p>Some random quote they have to say</p>
+                        <Link to={"/admin/friend/?id=" + friend._id}><Button title={"View"}/></Link>
+                    </div>
                 </div>
             );
         } );
@@ -43,7 +49,7 @@ const CurrentFriends = ( props ) => {
 
 
     return (
-        <div>
+        <div className={"friends-container"}>
             {props.loading ? <Loader/> : null}
             {friendsUI}
         </div>

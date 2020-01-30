@@ -1,6 +1,7 @@
 $mainColor: #00cca3
 $whiteColor: #fff
 $redColor: #740e17
+$boxShadowColor: #eee
 
 $ipadSize: 980px
 $largePhoneSize: 767px
@@ -126,7 +127,7 @@ a:hover
 
 %inputStyling
   margin: 15px auto 15px auto
-  box-shadow: 0 0 3px 0 #00cca3
+  box-shadow: 0 0 5px 2px $boxShadowColor
   color: #00cca3
   box-sizing: border-box
   width: 80%
@@ -149,6 +150,7 @@ a:hover
   text-align: center
   padding: 20px 0
   z-index: 999
+  position: relative
 
 %boxStyling
   display: inline-block
@@ -156,7 +158,7 @@ a:hover
   box-sizing: border-box
   padding: 20px
   text-align: center
-  box-shadow: 0 0 3px 0 #00cca3
+  box-shadow: 0 0 5px 2px $boxShadowColor
   margin: 20px
   background-color: $whiteColor
 
@@ -907,6 +909,99 @@ a:hover
 .main-container
   max-width: 1200px
   margin: 0 auto
+  width: 80%
+
+
+#manage-friends-background
+
+  .main-container
+    margin-top: 65px
+
+  #manage-friends
+    padding: 50px
+    background: $whiteColor
+    border-radius: 10px
+
+    .add-friends
+
+      h1
+        width: 20%
+        display: inline-block
+        vertical-align: top
+
+      .add-friend-input-container
+        text-align: center
+
+        .add-friend-input-inside
+          display: inline-block
+          width: 70%
+          @extend %flexStandard
+
+          button
+            display: inline-block
+            margin: 0px
+            width: 40%
+
+          input
+            display: inline-block
+            width: 40%
+            margin-right: 15px
+            @extend %inputStyling
+
+    .friend-requests
+      margin: 150px 0
+      padding: 20px
+
+      vertical-align: top
+
+      .friend-requests-container
+        .friend-request-inner
+          .friend-request-buttons
+            width: 50%
+            @extend %flexStandard
+            justify-content: start
+
+            button
+              display: inline-block
+              width: 40%
+              padding: 15px
+              margin: 0
+
+            button:first-child
+              margin-right: 15px
+
+
+  .friends-container
+    .friend-container
+      padding: 20px
+      margin-bottom: 20px
+      box-shadow: 0 0 5px 2px $boxShadowColor
+
+
+      .friend-info
+        display: inline-block
+        width: 80%
+        vertical-align: top
+
+        h3
+          margin: 0
+
+        button
+          margin: 0
+          width: 20%
+          padding: 15px
+
+      .friend-image
+        width: 20%
+        display: inline-block
+
+        .temp-friend-image
+          background: url("./images/cevin.JPG") center no-repeat
+          background-size: cover
+          height: 130px
+          width: 130px
+          border-radius: 130px
+          margin: 0 auto
 
 #account
   background: $whiteColor
@@ -922,6 +1017,8 @@ a:hover
     @extend %flexStandard
 
     .link-container
+      background: $whiteColor
+
       a
         color: $mainColor
         font-size: 32px
@@ -935,13 +1032,14 @@ a:hover
 
     .main-view-inside
       padding: 20px
-      margin: 65px auto 0 auto
+      margin: 0px auto 0 auto
 
       .main-view-container
         @extend %flexStandard
         justify-content: space-evenly
         align-items: flex-start
         height: 1159px
+        box-shadow: 0 0 5px 2px $boxShadowColor
 
         .user-container-right
           display: inline-block
@@ -955,7 +1053,6 @@ a:hover
             background: white
             display: inline-block
             float: right
-            box-shadow: 0 0 3px 0 $mainColor
             border-radius: 10px
             padding: 20px
 
@@ -971,7 +1068,6 @@ a:hover
             padding: 0 20px
             width: 100%
             margin-top: 50px
-            box-shadow: 0 0 3px 0 $mainColor
             min-height: 500px
             border-radius: 10px
             padding: 20px
@@ -986,7 +1082,6 @@ a:hover
             display: inline-block
             vertical-align: top
             border-radius: 10px
-            box-shadow: 0 0 3px 0 $mainColor
             padding: 0 20px
 
             .user-image
@@ -1050,6 +1145,7 @@ a:hover
       margin-top: 30px
       font-size: 16px
       @extend %inputStyling
+      box-shadow: none
 
     button
       box-sizing: border-box

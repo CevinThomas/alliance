@@ -32,10 +32,10 @@ const AddFriends = ( props ) => {
     };
 
     return (
-        <div>
+        <div className={"add-friend-input-container"}>
             {props.loading ? <Loader/> : null}
-            <h1>Add Friends</h1>
-            <div>
+            <h3>Add Friends</h3>
+            <div className={"add-friend-input-inside"}>
                 <Input onchange={handleInputChange} placeholder={"Email"} name={"email"}/>
                 <Button onclick={addFriendRequest} title={"Add Friend"}/>
             </div>
