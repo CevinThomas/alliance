@@ -887,6 +887,11 @@ a:hover {
   right: 0;
 }
 
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 #account {
   background: #fff;
   display: block;
@@ -903,7 +908,6 @@ a:hover {
   font-size: 32px;
 }
 #account #main-view {
-  width: 80%;
   height: 100%;
   display: inline-block;
   box-sizing: border-box;

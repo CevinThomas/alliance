@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import GoToSpaces from "../containers/homePage/goToSpaces";
 import Navbar from "../components/nav/nav";
-import LOGGED_IN from "../constants/token";
 import {connect} from "react-redux";
+import Layout from "../components/layout";
 
 const mapStateToProps = state => {
     return {
@@ -12,21 +12,15 @@ const mapStateToProps = state => {
 
 const HomePage = ( props ) => {
 
-    useEffect( () => {
-        if ( localStorage.getItem( "TOKEN" ) ) {
-            if ( props.isLoggedIn !== true ) {
-                props.dispatch( { type: LOGGED_IN, payload: true } );
-            }
-        }
-    }, [] );
-
     return (
         <React.Fragment>
             <Navbar dark/>
-            
-            <div>
-                <GoToSpaces/>
-            </div>
+            <Layout>
+                <div>
+                    <GoToSpaces/>
+                </div>
+            </Layout>
+
         </React.Fragment>
     );
 };

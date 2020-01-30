@@ -5,6 +5,7 @@ import UserNews from "../../components/user/userNews";
 
 const MainViewContainer = () => {
     return (
+
         <div className={"main-view-inside"}>
             <div className={"main-view-container"}>
 

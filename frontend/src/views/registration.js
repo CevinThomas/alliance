@@ -9,12 +9,14 @@ const Registration = () => {
     return (
         <React.Fragment>
             <Navbar/>
+
             <div id={"registration"}>
                 <div id={"registration-box"}>
                     <LeftColumn id={"left-column"}/>
                     <RightColumn id={"right-column"}/>
                 </div>
             </div>
+
         </React.Fragment>
     );
 };

@@ -4,6 +4,7 @@ import Navbar from "../components/nav/nav";
 import checkLoggedIn from "../HOC/checkLoggedIn";
 import AdminSideMenu from "../components/sideMenu/adminSideMenu";
 import MainViewContainer from "../containers/account/mainViewContainer";
+import Layout from "../components/layout";
 
 const Account = () => {
     return (
@@ -13,9 +14,11 @@ const Account = () => {
                 <div id={"side-menu"}>
                     <AdminSideMenu/>
                 </div>
-                <div id={"main-view"}>
-                    <MainViewContainer/>
-                </div>
+                <Layout>
+                    <div id={"main-view"}>
+                        <MainViewContainer/>
+                    </div>
+                </Layout>
 
             </div>
         </React.Fragment>
