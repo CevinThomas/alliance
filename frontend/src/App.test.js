@@ -35,7 +35,7 @@ test( "Renders without crashing", () => {
 test( "Render leftColumn Container without issues", () => {
     const wrapper = setup();
     const appComponent = findByTestAttr( wrapper, "component-leftcolumn" );
-    expect( appComponent.length ).toBe( 2 );
+    expect( appComponent.length ).toBe( 1 );
 } );
 
 test( "Runs Axios registration function", () => {
