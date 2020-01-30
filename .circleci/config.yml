@@ -1,6 +1,5 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-store_test_results
 # Use a package of configuration called an orb.
 orbs:
   # Declare a dependency on the welcome-orb
@@ -12,3 +11,4 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
+     
