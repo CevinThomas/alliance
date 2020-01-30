@@ -193,7 +193,7 @@ a:hover {
   background-color: #00cca3;
 }
 
-#account, #admin, #create-space {
+#admin, #create-space {
   position: fixed;
   z-index: -1;
   top: 0;
@@ -898,10 +898,11 @@ a:hover {
 }
 #account #side-menu {
   height: 95%;
-  vertical-align: bottom;
-  width: 20%;
+  vertical-align: top;
+  width: 50%;
+  margin: 0 auto;
   background: #eee;
-  display: inline-block;
+  display: block;
 }
 #account #side-menu .link-container a {
   color: #00cca3;
@@ -912,10 +913,10 @@ a:hover {
   display: inline-block;
   box-sizing: border-box;
   vertical-align: top;
+  width: 100%;
 }
 #account #main-view .main-view-inside {
   padding: 20px;
-  max-width: 90%;
   margin: 65px auto 0 auto;
 }
 #account #main-view .main-view-inside .main-view-container {
