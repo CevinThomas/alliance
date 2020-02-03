@@ -633,6 +633,47 @@ a:hover {
   height: 100%;
   width: 100%;
 }
+#create-task .choose-task-space {
+  padding: 20px;
+  box-shadow: 0 0 5px 3px #eee;
+  background: #00cca3;
+}
+#create-task .choose-task-space button {
+  margin: 20px 0;
+  width: 100%;
+  background: #fff;
+  color: #00cca3;
+  position: relative;
+  z-index: 999;
+  border: 1px solid #fff;
+}
+#create-task .choose-task-space button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #00cca3;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  z-index: -1;
+}
+#create-task .choose-task-space button:hover:before {
+  width: 100%;
+  transition: 0.2s ease-in-out;
+}
+#create-task .choose-task-space button:hover {
+  color: #fff;
+  transition: 0.2s ease-in-out;
+}
+#create-task .choose-task-space .task-space-heading h3 {
+  color: #fff;
+}
+#create-task .choose-task-space .task-space-heading h2 {
+  border-bottom: 1px solid #eee;
+  color: #fff;
+}
 #create-task .task-type {
   padding: 50px;
   box-shadow: 0 0 5px 3px #eee;

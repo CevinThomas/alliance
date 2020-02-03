@@ -35,17 +35,19 @@ const ShowSpaceStep = ( props ) => {
         showSpacesUI = props.usersSpace.map( ( singleSpace ) => {
             return (
                 <div key={singleSpace._id}>
-                    <h2 onClick={handleSpaceClick} data-space-id={singleSpace._id}>{singleSpace.name}</h2>
+                    <button onClick={handleSpaceClick} data-space-id={singleSpace._id}>{singleSpace.name}</button>
                 </div>
             );
         } );
     }
 
     return (
-        <div>
+        <div className={"choose-task-space"}>
             {props.loading ? <Loader/> : null}
-            <h2>{`You chose ${props.chosenTaskType}`}</h2>
-            <h3>Please choose a Space to add challenge to</h3>
+            <div className={"task-space-heading"}>
+                <h2>{`You chose ${props.chosenTaskType}`}</h2>
+                <h3>Please choose a Space to add challenge to</h3>
+            </div>
             <div>
                 {showSpacesUI}
             </div>
