@@ -908,6 +908,10 @@ a:hover {
   background: #fff;
   border-radius: 10px;
 }
+#manage-friends-background #manage-friends .add-friends {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 #manage-friends-background #manage-friends .add-friends h1 {
   width: 20%;
   display: inline-block;

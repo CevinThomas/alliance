@@ -54,7 +54,7 @@ const FriendRequests = ( props ) => {
     const handleAcceptOrDecline = ( email, accept ) => {
         submitAcceptOrDeclineRequest( email, accept );
     };
-
+    
     let UI;
     if ( props.friendRequests.length !== 0 ) {
         UI = props.friendRequests.map( ( request ) => {
@@ -73,7 +73,8 @@ const FriendRequests = ( props ) => {
     return (
         <div className={"friend-requests-container"}>
             {props.loading ? <Loader/> : null}
-            {props.friendRequests.length !== 0 ? <h3 className={"requests-title"}>Friend Requests</h3> : null}
+            {props.friendRequests.length !== 0 ? <h3 className={"requests-title"}>Friend Requests</h3> :
+                <h3 className={"requests-title"}>You currently have no friend requests</h3>}
             {UI}
         </div>
     );
