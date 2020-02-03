@@ -646,6 +646,35 @@ a:hover
   width: 100%
   @extend %flexStandard
 
+  .task-type
+    padding: 50px
+    box-shadow: 0 0 5px 3px $boxShadowColor
+    cursor: pointer
+    position: relative
+    border-radius: 10px
+
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      width: 0
+      height: 100%
+      background: $mainColor
+      transition: $transition
+      border-radius: 10px
+      z-index: -1
+
+    &:hover:before
+      width: 100%
+      transition: $transition
+
+    &:hover
+      h2
+        z-index: 999
+        color: $whiteColor
+
+
   #checkbox-form
     height: 80%
     width: 80%

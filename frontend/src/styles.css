@@ -633,6 +633,33 @@ a:hover {
   height: 100%;
   width: 100%;
 }
+#create-task .task-type {
+  padding: 50px;
+  box-shadow: 0 0 5px 3px #eee;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+}
+#create-task .task-type:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #00cca3;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  z-index: -1;
+}
+#create-task .task-type:hover:before {
+  width: 100%;
+  transition: 0.2s ease-in-out;
+}
+#create-task .task-type:hover h2 {
+  z-index: 999;
+  color: #fff;
+}
 #create-task #checkbox-form {
   height: 80%;
   width: 80%;

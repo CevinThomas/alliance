@@ -16,12 +16,9 @@ const ChooseChallenge = ( props ) => {
     if ( props.typesOfTasks.length !== 0 ) {
         tasksUI = props.typesOfTasks.map( ( type ) => {
             return (
-                <div key={type}>
-                    <div id={type} className={"task-type"}>
-                        <h2 data-task-type={type} onClick={handleTaskTypeClicked}>{type}</h2>
-                    </div>
+                <div onClick={handleTaskTypeClicked} data-task-type={type} key={type} id={type} className={"task-type"}>
+                    <h2>{type}</h2>
                 </div>
-
             );
         } );
     } else {
@@ -29,10 +26,8 @@ const ChooseChallenge = ( props ) => {
     }
 
     return (
-        <div>
-            <div>
-                {tasksUI}
-            </div>
+        <div className={"choose-task-ui"}>
+            {tasksUI}
         </div>
     );
 };
