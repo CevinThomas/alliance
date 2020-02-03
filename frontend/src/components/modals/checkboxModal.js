@@ -29,14 +29,9 @@ const CheckboxModal = ( props ) => {
     return (
         <div className={"creation-container"}>
             <Overlay/>
-            <div id={"checkbox-close"} onClick={handleCloseModal}>Close</div>
             <div className={"creation-modal"}>
                 <div className={"inside-modal"}>
-                    <div className={"left-column"}>
-                        <div className={"left-column-container"}>
-                            <Heading type={props.leftType} title={props.leftTitle}/>
-                        </div>
-                    </div>
+                    <div id={"checkbox-close"} onClick={handleCloseModal}>Close</div>
                     <div className={"right-column"}>
                         <Heading class={"right-heading"} type={props.rightType} title={props.rightTitle}/>
                         <div className={"right-column-form"}>

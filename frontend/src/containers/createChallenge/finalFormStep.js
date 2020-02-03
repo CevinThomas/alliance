@@ -3,7 +3,6 @@ import Input from "../../components/forms/input";
 import Select from "../../components/forms/select";
 import Heading from "../../components/textElements/heading";
 import Paragraph from "../../components/textElements/paragraph";
-import AddCheckbox from "../../components/icons/addCheckbox";
 import ChangeInformation from "../../components/icons/changeInformation";
 import ViewInfo from "../../components/icons/viewInfo";
 import {connect} from "react-redux";
@@ -13,6 +12,9 @@ import * as urlConstants from "../../constants/urls";
 import Button from "../../components/general/button";
 import Axios from "axios";
 import ThankYouModal from "../../components/modals/thankYouModal";
+import Overlay from "../../components/general/overlay";
+import {faCheckSquare} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const mapStateToProps = state => {
     return {
@@ -64,6 +66,18 @@ const FinalFormStep = ( props ) => {
             } );
         };
 
+        const showSpecificModal = ( e ) => {
+            if ( e.target.id === "checkbox" ) {
+                props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: true } );
+            }
+            if ( e.target.id === "change" ) {
+                props.dispatch( { type: taskConstants.SHOW_CHANGE_MODAL, payload: true } );
+            }
+            if ( e.target.id === "view" ) {
+                props.dispatch( { type: taskConstants.SHOW_VIEW_MODAL, payload: true } );
+            }
+        };
+
         //TODO: Need to check what the user chose. At the moment, this function runs even if they click create on "Small" task type.
         const handleCreateClick = () => {
             Axios( {
@@ -97,33 +111,28 @@ const FinalFormStep = ( props ) => {
                            name={"desc"}/>
                     <Input onchange={handleInputChange} type={"text"} placeholder={"What is your goal?"}
                            name={"goal"}/>
-                    <Button onclick={handleCreateClick} title={"Create Challenge"}/>
-                    <div>
+                    <div className={"select-container"}>
                         <Select months={months} maxDays={maxDays} years={currentAndFiveYearsAhead}/>
                     </div>
+                    <div className={"button-container"}>
+                        <Button onclick={handleCreateClick} title={"Create Challenge"}/>
+                        <Button id={"checkbox"} onclick={showSpecificModal} title={"Add Checkbox"}/>
+                    </div>
+
                 </div>
             );
         }
-
-        const showSpecificModal = ( e ) => {
-            if ( e.target.id === "checkbox" ) {
-                props.dispatch( { type: taskConstants.SHOW_CHECKBOX_MODAL, payload: true } );
-            }
-            if ( e.target.id === "change" ) {
-                props.dispatch( { type: taskConstants.SHOW_CHANGE_MODAL, payload: true } );
-            }
-            if ( e.target.id === "view" ) {
-                props.dispatch( { type: taskConstants.SHOW_VIEW_MODAL, payload: true } );
-            }
-        };
 
         let checkListUI;
         if ( props.checkListItems.length !== 0 ) {
             checkListUI = props.checkListItems.map( ( item ) => {
                 return (
-                    <div>
-                        <Heading title={item.name} type={"h3"}/>
-                        <Paragraph title={item.description}/>
+                    <div className={"checklist-item"}>
+                        <div className={"checklist-item-inner"}>
+                            <FontAwesomeIcon id={props.id} icon={faCheckSquare}/>
+                            <h3>Checklist name: {item.name}</h3>
+                            <p>Checklist Description: {item.description}</p>
+                        </div>
                     </div>
                 );
             } );
@@ -133,27 +142,28 @@ const FinalFormStep = ( props ) => {
             <div className={"final-form"} id={"checkbox-form"}>
                 <Button onclick={handleStartOverClick} id={"start-over"} title={"Start over"}/>
                 <div className={"left-column"}>
-                    <div>
-                        <Heading title={"Create your task"} type={"h2"}/>
-                        <Paragraph title={"And get instant access to our Resources!"}/>
-                    </div>
-                    <div className={"circle-container"}>
-                        <AddCheckbox id={"checkbox"} onclick={showSpecificModal} type={"h4"} title={"Add Checkbox"}/>
-                        <ChangeInformation id={"change"} onclick={showSpecificModal} type={"h4"}
-                                           title={"Change task information"}/>
-                        <ViewInfo id={"view"} onclick={showSpecificModal} type={"h4"} title={"View info"}/>
+                    <Overlay/>
+                    <div className={"left-column-inner"}>
+                        <div className={"left-column-heading"}>
+                            <Heading title={"Create your task"} type={"h2"}/>
+                            <Paragraph title={"And get instant access to our Resources!"}/>
+                        </div>
+                        <div className={"circle-container"}>
+                            <ChangeInformation id={"change"} onclick={showSpecificModal} type={"h4"}
+                                               title={"Change task information"}/>
+                            <ViewInfo id={"view"} onclick={showSpecificModal} type={"h4"} title={"View info"}/>
+                        </div>
                     </div>
                 </div>
                 <div className={"right-column"}>
                     <div id={"first-right-container"} className={"right-container"}>
-                        <Heading class={"task-form-heading"} title={"Final Form Step"} type={"h2"}/>
                         <div className={"task-form"}>
                             <Heading class={"task-form-heading"}
-                                     title={"You have chosen " + props.chosenTask} type={"h2"}/>
+                                     title={"Enter Credentials for your Task"} type={"h3"}/>
                             {formUI}
                         </div>
                     </div>
-                    <div className={"right-container"}>
+                    <div id={"checklist-container"} className={"right-container"}>
                         {checkListUI}
                     </div>
                 </div>
@@ -164,7 +174,8 @@ const FinalFormStep = ( props ) => {
 
         let modalUI;
         if ( props.showCheckModal === true ) {
-            modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"} rightTitle={"Bottom Side"}/>;
+            modalUI = <CheckboxModal leftType={"h2"} leftTitle={"Top Side"} rightType={"h2"}
+                                     rightTitle={"Create Checkbox Item"}/>;
         } else if ( props.showThankYouModal === true ) {
             modalUI = <ThankYouModal title={"Thank you for creating this task!"}/>;
         }

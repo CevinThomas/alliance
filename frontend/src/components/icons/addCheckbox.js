@@ -9,7 +9,7 @@ const AddCheckbox = ( props ) => {
             <div onClick={props.onclick} id={"checkbox"} className={"circle-icon"}>
                 <FontAwesomeIcon id={props.id} icon={faCheckSquare}/>
                 <div className={"circle-heading-container"}>
-                    <Heading type={props.type} title={props.title}/>
+                    <Heading onclick={props.onclick} type={props.type} title={props.title}/>
                 </div>
             </div>
 

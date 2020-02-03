@@ -658,7 +658,6 @@ a:hover
       color: $mainColor
       position: relative
       z-index: 999
-      border: 1px solid $whiteColor
 
       &:before
         content: ""
@@ -722,6 +721,7 @@ a:hover
     width: 80%
     z-index: -1
     position: relative
+    box-shadow: 0 0 5px 3px $boxShadowColor
 
     #start-over
       margin: 0
@@ -738,20 +738,72 @@ a:hover
       width: 100%
       background: $mainColor
 
+      #checklist-container
+        align-items: normal
+
       .right-container
         width: 50%
         height: 100%
         vertical-align: top
         float: left
+        background: $whiteColor
         @extend %flexStandard
         flex-wrap: wrap
 
+        .checklist-item
+          width: 100%
+          text-align: center
+          background: $whiteColor
+          flex-wrap: wrap
+          @extend %flexStandard
+
+          .checklist-item-inner
+            width: 100%
+
+            svg
+              color: $mainColor
+              font-size: 40px
+
+
+          h3
+            color: $mainColor
+            width: fit-content
+            margin: 0 auto
+            border-bottom: 1px solid $mainColor
+            padding-top: 10px
+            text-align: center
+
+          p
+            color: $mainColor
+            width: 100%
+            text-align: center
+
+        .button-container
+          width: 80%
+          margin: 0 auto
+          display: flex
+          justify-content: space-evenly
+
+          button
+            width: 45%
+            display: inline-block
+
+        .select-container
+          width: 50%
+          margin: 0 auto
+          display: flex
+          justify-content: space-evenly
+
         input
+          background: $whiteColor
+          color: $mainColor
           @extend %inputStyling
+
+          &::placeholder
+            color: $mainColor
 
         .task-form
           width: 100%
-          margin-top: -150px
 
         .task-form-heading
           width: 100%
@@ -759,51 +811,73 @@ a:hover
 
       h2, h3
         margin: 0
-        color: $whiteColor
+        color: $mainColor
 
       p
-        color: $whiteColor
+        color: $mainColor
 
       button
-        background: $whiteColor
-        color: $mainColor
+        background: $mainColor
+        color: $whiteColor
 
     .left-column
       height: 50%
       width: 100%
-      background: url("./images/the-polygon-1562743_1280.jpg") center no-repeat
+      background: url("./images/geometry-2342115_1920.jpg") center no-repeat
       position: relative
       flex-wrap: wrap
       background-size: cover
       @extend %flexStandard
 
+      .overlay
+        z-index: 0
+
       > div
         width: 100%
-        display: block
+        display: flex
         text-align: center
+        z-index: 1
+        flex-wrap: wrap
+
+      .left-column-inner
         margin-top: 50px
+
+      .left-column-heading
+        width: 100%
 
       .circle-container
         width: 100%
+        z-index: 1
+        margin-top: 50px
         @extend %flexStandard
 
       .circle-icon
-        width: calc(28% / 3)
+        width: calc(100% / 2)
         height: 100px
         display: inline-block
         border-radius: 400px
+        cursor: pointer
+        z-index: 999
+        padding: 20px 0
+        background: $whiteColor
+        height: 130px
+        margin: 0 12%
+        border-radius: 10px
 
         svg
           width: 100%
           height: 50%
-          z-index: 999
-          color: $whiteColor
+          color: $mainColor
 
         .circle-heading-container
           text-align: center
 
       h2
         margin: 0
+        color: $mainColor
+
+      p
+        color: $mainColor
 
   .creation-container
     width: 100%
@@ -814,23 +888,34 @@ a:hover
     @extend %flexStandard
 
     .creation-modal
-      height: 80%
-      width: 80%
+      height: 100%
+      width: 100%
       @extend %flexStandard
 
     .inside-modal
-      width: 80%
-      height: 80%
+      width: 50%
+      height: 50%
       background: white
       flex-wrap: wrap
+      position: relative
+      border-radius: 0px
       @extend %flexStandard
+
+      #checkbox-close
+        position: absolute
+        top: 0
+        left: 0
+        color: $whiteColor
+        background: $mainColor
+        padding: 20px
+        cursor: pointer
 
       .left-column
         width: 100%
         @extend %flexStandard
 
       .right-column
-        width: 100%
+        width: 80%
         @extend %flexStandard
         flex-wrap: wrap
 
@@ -839,6 +924,9 @@ a:hover
 
         .right-column-form
           width: 100%
+
+          input
+            @extend %inputStyling
 
       h2
         text-align: center
