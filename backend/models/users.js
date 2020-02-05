@@ -69,6 +69,11 @@ class User {
         return db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) }, { projection: { name: 1 } } );
     };
 
+    static getAllUsers = () => {
+        const db = getDb();
+        return db.collection( process.env.USERSCOLLECTION ).find( {}, { projection: { name: 1, email: 1 } } ).toArray();
+    };
+
     static removeFriend = async ( friendId, userId ) => {
         const db = getDb();
         const bulk = db.collection( process.env.USERSCOLLECTION ).initializeUnorderedBulkOp();
@@ -114,7 +119,8 @@ class User {
     static addFriends = ( userEmail, friend ) => {
         //TODO: Check if the user already has sent an invite to the requested friend.
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
+
+        //return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
     };
 
     //TODO: Check to see if the execution was completed, return value to conditionally send response to user

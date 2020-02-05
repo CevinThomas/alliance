@@ -66,7 +66,7 @@ const initialState = {
     selectedSpace: "",
     usersWithPopulatedTasks: [],
     singleUserPopulatedWithTasks: "",
-    isLoading: false
+    isLoading: false,
 
 };
 

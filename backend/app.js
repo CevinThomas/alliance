@@ -72,6 +72,7 @@ app.post( "/api/get-friend", auth, friendsController.getFriend );
 app.post( "/api/remove-friend", auth, friendsController.removeFriend );
 app.post( "/api/get-space-with-lookup", auth, spaceController.getSpaceWithLookup );
 app.post( "/api/get-user-task-lookup", auth, spaceController.getUserWithTaskLookup );
+app.post( "/api/search-for-friends", auth, friendsController.searchForFriends );
 
 app.put( "/api/update-space-credentials", auth, spaceController.updateSpaceCredentials );
 app.put( "/api/update-task", auth, challengeController.updateChallenge );

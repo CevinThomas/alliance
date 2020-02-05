@@ -307,7 +307,6 @@ const EditOrViewSpace = ( props ) => {
                         <div className={"main-container"}>
                             <Heading title={"Members"} type={"h2"}/>
                             {usersInSpace.length !== 0 ? usersInSpace.map( ( challenger ) => {
-                                console.log( challenger._id, ownerOfSpace );
                                 return (
                                     <div className={"challenger-container"} key={challenger.email}>
                                         <h4>Email: {challenger.email}</h4>

@@ -15,6 +15,25 @@ exports.addFriend = async ( req, res, next ) => {
     res.status( 200 ).send( "Friends added" );
 };
 
+exports.searchForFriends = async ( req, res ) => {
+
+    if ( req.body.search === "" ) {
+        return res.status( 200 ).send( { message: "Search query cannot be empty", success: false } );
+    }
+    const searchQuery = req.body.search;
+    const allUsersInDb = await User.getAllUsers();
+    const usersToSuggest = allUsersInDb.filter( ( user ) => {
+        if ( user.email.includes( searchQuery ) ) {
+            return user;
+        }
+    } );
+    if ( usersToSuggest.length === 0 ) return res.status( 200 ).send( {
+        message: "We found no users",
+        success: false
+    } );
+    res.status( 200 ).send( usersToSuggest );
+};
+
 exports.removeFriend = async ( req, res, next ) => {
     const success = await User.removeFriend( req.body.friendId, req.user._id );
     success ? res.status( 200 ).send( {
