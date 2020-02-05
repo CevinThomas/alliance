@@ -14,6 +14,7 @@ import * as taskConstants from "../../constants/tasks";
 import ThankYouModal from "../modals/thankYouModal";
 import {isLoading} from "../../redux/actions";
 import Loader from "../loader/loader";
+import Overlay from "../general/overlay";
 
 const mapStateToProps = state => {
     return { showThankYouModal: state.showThankYouModal, loading: state.isLoading };
@@ -37,6 +38,7 @@ const EditOrViewSpace = ( props ) => {
     const [ selectedTaskChallengersData, setSelectedTaskChallengersData ] = useState( "" );
     const [ originalChallengeName, setOriginalChallengeName ] = useState( "" );
     const [ showUpdatedTaskModal, setShowUpdatedTaskModal ] = useState( false );
+    const [ ownerOfSpace, setOwnerOfSpace ] = useState( "" );
 
 
     useEffect( () => {
@@ -71,6 +73,7 @@ const EditOrViewSpace = ( props ) => {
             } ).catch( e => setStartDisplayingData( true ) );
         }
     }, [ selectedSpaceId ] );
+
 
     useEffect( () => {
         Axios( {
@@ -218,29 +221,44 @@ const EditOrViewSpace = ( props ) => {
         return viewUI = <ThankYouModal title={"You have updated the task!"}/>;
     }
 
+    const closeSelectedTaskModalHandler = () => {
+        setSelectedTaskToEdit( "" );
+    };
+
 
     let editTaskUI = "";
     if ( selectedTaskToEdit !== "" && selectedTaskToEdit !== undefined ) {
         editTaskUI = (
             <div className={"selected-task-modal"}>
-                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.name}
-                       name={"name"}/>
-                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.description}
-                       name={"description"}/>
-                <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.goal}
-                       name={"goal"}/>
-                {selectedTaskToEdit.challengeData.length !== 0 ? <div>
-                    <Input onchange={handleChallengeEditInput} type="text" value={selectedTaskChallengersData.name}
-                           name={"name"}/>
-                    <Input onchange={handleChallengeEditInput} type="text"
-                           value={selectedTaskChallengersData.description}
-                           name={"description"}/>
-                    <input type="checkbox" checked={selectedTaskChallengersData.completed}
-                           value={selectedTaskChallengersData.completed}
-                           onChange={changeCheckedHandler}/>
-                </div> : null}
+                <Overlay/>
+                <div className={"selected-task-modal-inner"}>
+                    <div onClick={closeSelectedTaskModalHandler} className={"close"}>Close</div>
+                    <div className={"inner-modal"}>
+                        <h2>Edit Challenge</h2>
+                        <label htmlFor="name">Name</label>
+                        <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.name}
+                               name={"name"}/>
+                        <label htmlFor="name">Description</label>
+                        <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.description}
+                               name={"description"}/>
+                        <label htmlFor="name">Goal</label>
+                        <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.goal}
+                               name={"goal"}/>
+                        {selectedTaskToEdit.challengeData.length !== 0 ? <div>
+                            <Input onchange={handleChallengeEditInput} type="text"
+                                   value={selectedTaskChallengersData.name}
+                                   name={"name"}/>
+                            <Input onchange={handleChallengeEditInput} type="text"
+                                   value={selectedTaskChallengersData.description}
+                                   name={"description"}/>
+                            <input type="checkbox" checked={selectedTaskChallengersData.completed}
+                                   value={selectedTaskChallengersData.completed}
+                                   onChange={changeCheckedHandler}/>
+                        </div> : null}
 
-                <Button title={"Update Challenge"} type={"h2"} onclick={updateChallengeHandler}/>
+                        <Button title={"Update Challenge"} type={"h2"} onclick={updateChallengeHandler}/>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -249,16 +267,16 @@ const EditOrViewSpace = ( props ) => {
     if ( tasksInSpace.length !== 0 ) {
         taskUI = tasksInSpace.map( ( task ) => {
             return task.chosenSpace === selectedSpaceId ?
-                <div key={task._id}>
-                    <Heading title={task.name} type={"h3"}/>
-                    <Paragraph title={task.description}/>
-                    <Paragraph title={"Completed? " + task.completed.toString()}/>
+                <div className={"task-container"} key={task._id}>
+                    <h3>Name: {task.name}</h3>
+                    <p>Description: {task.description}</p>
+                    <Paragraph title={"Completed: " + task.completed.toString()}/>
 
                     <div>
                         {task.challengeData.length !== 0 ? task.challengeData.map( ( task ) => {
                             return (
                                 <div>
-                                    <Heading title={"Challenge Data"} type={"h3"}/>
+                                    <h3 className={"challenge-data-heading"}>Challenge Data</h3>
                                     <Paragraph title={task.name}/>
                                     <Paragraph title={task.description}/>
                                 </div>
@@ -276,33 +294,41 @@ const EditOrViewSpace = ( props ) => {
             if ( responseSpace !== null ) {
                 viewUI = (
                     <div id={"view-spaces"}>
-                        <Heading title={editData.name} type={"h2"}/>
-                        {props.isOwner ? <Input type={"text"} name={"name"} onchange={handleInputChange}
-                                                value={editData.name}/> : null}
-                        <Paragraph title={editData.description}/>
-                        {props.isOwner ? <Input type={"text"} name={"description"} onchange={handleInputChange}
-                                                value={editData.description}/> : null}
-                        <div>
-                            <Heading title={"Members"} type={"h3"}/>
+                        <div className={"full-width-container"}>
+                            <div className={"view-form main-container"}>
+                                <Heading title={editData.name} type={"h2"}/>
+                                {props.isOwner ? <Input type={"text"} name={"name"} onchange={handleInputChange}
+                                                        value={editData.name}/> : null}
+                                <Paragraph title={editData.description}/>
+                                {props.isOwner ? <Input type={"text"} name={"description"} onchange={handleInputChange}
+                                                        value={editData.description}/> : null}
+                            </div>
+                        </div>
+                        <div className={"main-container"}>
+                            <Heading title={"Members"} type={"h2"}/>
                             {usersInSpace.length !== 0 ? usersInSpace.map( ( challenger ) => {
+                                console.log( challenger._id, ownerOfSpace );
                                 return (
-                                    <div key={challenger.email}>
-                                        <Heading title={challenger.email}
-                                                 type={"h4"}/> {membersToRemove.includes( challenger._id ) ?
-                                        <span>We will remove {challenger.email}</span> : null}
-                                        {props.isOwner ? <Button data={challenger._id}
-                                                                 title={membersToRemove.includes( challenger._id ) ? "Cancel" : "Remove"}
-                                                                 onclick={determineButtonState}/> : null}
+                                    <div className={"challenger-container"} key={challenger.email}>
+                                        <h4>Email: {challenger.email}</h4>
+                                        {membersToRemove.includes( challenger._id ) ?
+                                            <span>We will remove {challenger.email}</span> : null}
+                                        {props.isOwner && challenger._id !== responseSpace.owner ?
+                                            <Button data={challenger._id}
+                                                    title={membersToRemove.includes( challenger._id ) ? "Cancel" : "Remove"}
+                                                    onclick={determineButtonState}/> : null}
                                     </div>
                                 );
                             } ) : null}
                         </div>
-                        {!props.isOwner ?
-                            <Button title={"Leave Space"} type={"h3"} onclick={leaveSpaceHandler}/> : null}
-                        {props.isOwner ?
-                            <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}
-                        {props.isOwner ?
-                            <Button onclick={deleteSpaceHandler} title={"Delete Space"} type={"h3"}/> : null}
+                        <div className={"main-buttons-container main-container"}>
+                            {!props.isOwner ?
+                                <Button title={"Leave Space"} type={"h3"} onclick={leaveSpaceHandler}/> : null}
+                            {props.isOwner ?
+                                <Button onclick={submitUpdatedChanges} title={"Update Space"} type={"h3"}/> : null}
+                            {props.isOwner ?
+                                <Button onclick={deleteSpaceHandler} title={"Delete Space"} type={"h3"}/> : null}
+                        </div>
                     </div>
                 );
             } else {
@@ -322,14 +348,16 @@ const EditOrViewSpace = ( props ) => {
     }
 
     return (
-        <div>
+        <div id={"edit-space-singular"}>
             {props.loading ? <Loader/> : null}
             {viewUI}
-            <div id={"tasks-in-space"}>
-                <Heading title={"Your tasks in this space"} type={"h2"}/>
-                {taskUI}
+            <div className={"full-width-container"} id={"tasks-in-space"}>
+                <div className={"main-container"}>
+                    <Heading title={"Your tasks in this space"} type={"h2"}/>
+                    {taskUI}
+                </div>
             </div>
-            <div>
+            <div className={"task-modal"}>
                 {editTaskUI}
             </div>
 

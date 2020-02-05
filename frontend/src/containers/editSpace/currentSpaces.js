@@ -25,15 +25,14 @@ const CurrentSpaces = ( props ) => {
         spacesUI = currentSpaces.map( ( space ) => {
             if ( ownerOfTheseSpaces.includes( space._id ) ) {
                 return (
-                    <div key={space._id}>
+                    <div className={"space-container"} key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
-                        <Paragraph title={space._id}/>
                         <Link to={"/admin/edit-space/?spaceId=" + space._id}>Edit</Link>
                     </div>
                 );
             } else {
                 return (
-                    <div key={space._id}>
+                    <div className={"space-container"} key={space._id}>
                         <Heading title={space.name} type={"h3"}/>
                         <Paragraph title={space._id}/>
                         <Link to={"/admin/view-space/?spaceId=" + space._id}>View</Link>

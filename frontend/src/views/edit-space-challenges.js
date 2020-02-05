@@ -62,15 +62,19 @@ const EditSpaceChallenges = ( props ) => {
     const handleAcceptOrDecline = ( id, accept ) => {
         submitAcceptOrDeclineRequest( id, accept );
     };
-    
+
     let spaceInvitesUI;
     spaceInvitesUI = props.spaceInvites.map( ( invite ) => {
         return (
-            <div key={invite._id}>
-                <h2>{invite.name}</h2>
-                <h3>{invite.description}</h3>
-                <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Accept"}/>
-                <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Decline"}/>
+            <div className={"incoming-space"} key={invite._id}>
+                <div className={"incoming-space-heading"}>
+                    <h3>Name: {invite.name}</h3>
+                    <h4>Description: {invite.description}</h4>
+                </div>
+                <div className={"incoming-space-buttons"}>
+                    <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Accept"}/>
+                    <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Decline"}/>
+                </div>
             </div>
         );
     } );
@@ -78,12 +82,17 @@ const EditSpaceChallenges = ( props ) => {
     return (
         <React.Fragment>
             <Navbar dark/>
-            {props.loading ? <Loader/> : null}
-            <div>
-                <h1>Space Invites</h1>
-                {spaceInvitesUI}
-                <CurrentSpaces/>
-            </div>
+            <section id={"edit-spaces"}>
+                {props.loading ? <Loader/> : null}
+                <div className={"full-width-container space-invites-container"}>
+                    {props.spaceInvites.length === 0 ? <h2>You currently have no Space Invites</h2> :
+                        <h2>Incoming Space Invites:</h2>}
+                    {spaceInvitesUI}
+                </div>
+                <div className={"current-spaces-container main-container"}>
+                    <CurrentSpaces/>
+                </div>
+            </section>
         </React.Fragment>
     );
 };

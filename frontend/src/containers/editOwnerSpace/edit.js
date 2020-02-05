@@ -3,7 +3,7 @@ import EditOrViewSpace from "../../components/space/editOrViewSpace";
 
 const Edit = () => {
     return (
-        <div>
+        <div id={"edit-space-singular"}>
             <EditOrViewSpace isOwner={true}/>
         </div>
     );

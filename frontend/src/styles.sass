@@ -294,13 +294,6 @@ a:hover
   100%
     transform: rotate(359deg)
 
-.selected-task-modal
-  position: fixed
-  height: 100%
-  width: 100%
-  background: black
-  top: 0
-  left: 0
 
 .navbar-dark
   background: $whiteColor
@@ -931,6 +924,139 @@ a:hover
       h2
         text-align: center
 
+#edit-space-singular
+
+  .task-modal
+    .selected-task-modal
+      position: fixed
+      height: 100%
+      width: 100%
+      top: 0
+      left: 0
+      @extend %flexStandard
+
+      .selected-task-modal-inner
+        width: 50%
+        height: auto
+        background: $whiteColor
+        flex-wrap: wrap
+        position: relative
+        @extend %flexStandard
+
+        .close
+          position: absolute
+          top: 0
+          left: 0
+          color: $mainColor
+          padding: 2em
+          cursor: pointer
+
+        .inner-modal
+          width: 80%
+          padding: 2em
+
+          label
+            color: $mainColor
+
+
+          input
+            width: 100%
+            margin: 20px 0
+            @extend %inputStyling
+
+  #tasks-in-space
+    margin-top: 5em
+
+    .main-container
+      padding: 2em
+      background: $whiteColor
+      border-radius: 10px
+
+      .task-container
+        box-shadow: 0 0 5px 3px $boxShadowColor
+        padding: 2em
+        margin-top: 2em
+        text-align: center
+
+        .challenge-data-heading
+          margin-top: 2em
+
+
+  #view-spaces
+
+    .view-form
+      input
+        margin: 0
+        width: 30%
+        @extend %inputStyling
+
+    .main-buttons-container
+      display: flex
+      justify-content: space-evenly
+
+      button
+        width: 45%
+
+    .challenger-container
+      padding: 1em
+      text-align: center
+      box-shadow: 0 0 5px 3px $boxShadowColor
+      margin-top: 1em
+
+      h4
+        width: fit-content
+        display: inline-block
+        padding-right: 20px
+
+      span
+        color: $mainColor
+
+      button
+        margin: 0 auto
+        width: 30%
+
+#edit-spaces
+  .space-invites-container
+    h2
+      text-align: center
+
+    .incoming-space
+      background: $whiteColor
+      border-radius: 10px
+      box-shadow: 0 0 5px 3px $boxShadowColor
+      padding: 2em
+      width: 50%
+      margin: 0 auto
+
+      .incoming-space-heading
+        text-align: center
+
+      .incoming-space-buttons
+        display: flex
+        justify-content: space-evenly
+
+        button
+          display: inline-block
+          width: 45%
+
+  .main-container
+    padding: 2em
+    margin-top: 2em
+    text-align: center
+
+    .space-container
+      box-shadow: 0 0 5px 3px $boxShadowColor
+      padding: 2em
+      margin: 1em auto 0 auto
+      width: 50%
+      text-align: center
+
+      a
+        padding: 20px 60px
+        width: fit-content
+        @extend %inputStyling
+
+
 #admin
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat
   background-size: cover
@@ -1198,15 +1324,21 @@ a:hover
           margin: 0 auto
 
 #account
-  background: $whiteColor
+  background: url("./images/geometry-2342115_1920.jpg") center no-repeat
+  background-size: cover
   display: block
+  @extend %fullCoverPageBackground
+  z-index: 99
+
+  .main-container
+    height: 100%
+    @extend %flexStandard
 
   #side-menu
     height: 95%
     vertical-align: top
     width: 50%
     margin: 0 auto
-    background: #eee
     display: block
     @extend %flexStandard
 
@@ -1218,8 +1350,8 @@ a:hover
         font-size: 32px
 
   #main-view
-    height: 100%
-    display: inline-block
+    height: 80%
+    display: block
     box-sizing: border-box
     vertical-align: top
     width: 100%
@@ -1232,8 +1364,9 @@ a:hover
         @extend %flexStandard
         justify-content: space-evenly
         align-items: flex-start
-        height: 1159px
-        box-shadow: 0 0 5px 2px $boxShadowColor
+        height: 100%
+        width: 100%
+        margin: 0 auto
 
         .user-container-right
           display: inline-block
@@ -1262,7 +1395,6 @@ a:hover
             padding: 0 20px
             width: 100%
             margin-top: 50px
-            min-height: 500px
             border-radius: 10px
             padding: 20px
 

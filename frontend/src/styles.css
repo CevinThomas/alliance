@@ -134,13 +134,13 @@ a:hover {
   vertical-align: top;
 }
 
-#registration, #login, #account #main-view .main-view-inside .main-view-container .user-container-left .user-info .user-text .user-top-input, #account #main-view .main-view-inside .main-view-container, #account #side-menu, #manage-friends-background #manage-friends .friend-requests .friend-requests-container .friend-request-inner .friend-request-buttons, #manage-friends-background #manage-friends .add-friends .add-friend-input-container .add-friend-input-inside, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container .checklist-item, #create-task #checkbox-form .right-column .right-container, #create-task, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-right, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-left, #view-friend-container #view-friend #friend-information-container #friend-inner-container, #view-friend-container #view-friend #friend-information-container, #view-friend-container, #spaces #all-spaces, #create-space .form-container .form-button-container, #create-space .create-space-box-container .modal .friend-container, #create-space, .creation-modal .inside-modal, .creation-modal, .top-bar .top-bar-link-container a {
+#registration, #login, #account #main-view .main-view-inside .main-view-container .user-container-left .user-info .user-text .user-top-input, #account #main-view .main-view-inside .main-view-container, #account #side-menu, #account .main-container, #manage-friends-background #manage-friends .friend-requests .friend-requests-container .friend-request-inner .friend-request-buttons, #manage-friends-background #manage-friends .add-friends .add-friend-input-container .add-friend-input-inside, #admin #admin-box-container, #admin #admin-sideMenu #admin-side-menu .side-menu-link-container a, #admin #admin-sideMenu, #edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner, #edit-space-singular .task-modal .selected-task-modal, #create-task .creation-container .inside-modal .right-column, #create-task .creation-container .inside-modal .left-column, #create-task .creation-container .inside-modal, #create-task .creation-container .creation-modal, #create-task .creation-container, #create-task #checkbox-form .left-column .circle-container, #create-task #checkbox-form .left-column, #create-task #checkbox-form .right-column .right-container .checklist-item, #create-task #checkbox-form .right-column .right-container, #create-task, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-right, #view-friend-container #view-friend #friend-information-container #friend-inner-container #friend-information-left, #view-friend-container #view-friend #friend-information-container #friend-inner-container, #view-friend-container #view-friend #friend-information-container, #view-friend-container, #spaces #all-spaces, #create-space .form-container .form-button-container, #create-space .create-space-box-container .modal .friend-container, #create-space, .creation-modal .inside-modal, .creation-modal, .top-bar .top-bar-link-container a {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#registration #right-column input, #login #loginForm input, #account #main-view .main-view-inside .main-view-container .user-container-left .user-info .user-text input, #manage-friends-background #manage-friends .add-friends .add-friend-input-container .add-friend-input-inside input, #create-task .creation-container .inside-modal .right-column .right-column-form input, #create-task #checkbox-form .right-column .right-container input, #create-space input {
+#registration #right-column input, #login #loginForm input, #account #main-view .main-view-inside .main-view-container .user-container-left .user-info .user-text input, #manage-friends-background #manage-friends .add-friends .add-friend-input-container .add-friend-input-inside input, #edit-spaces .main-container .space-container a, #edit-space-singular #view-spaces .view-form input, #edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner .inner-modal input, #create-task .creation-container .inside-modal .right-column .right-column-form input, #create-task #checkbox-form .right-column .right-container input, #create-space input {
   margin: 15px auto 15px auto;
   box-shadow: 0 0 5px 2px #eee;
   color: #00cca3;
@@ -194,7 +194,7 @@ a:hover {
   background-color: #00cca3;
 }
 
-#admin, #create-space {
+#account, #admin, #create-space {
   position: fixed;
   z-index: -1;
   top: 0;
@@ -297,15 +297,6 @@ a:hover {
     transform: rotate(359deg);
   }
 }
-.selected-task-modal {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background: black;
-  top: 0;
-  left: 0;
-}
-
 .navbar-dark {
   background: #fff;
 }
@@ -902,6 +893,125 @@ a:hover {
   text-align: center;
 }
 
+#edit-space-singular .task-modal .selected-task-modal {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+#edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner {
+  width: 50%;
+  height: auto;
+  background: #fff;
+  flex-wrap: wrap;
+  position: relative;
+}
+#edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner .close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #00cca3;
+  padding: 2em;
+  cursor: pointer;
+}
+#edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner .inner-modal {
+  width: 80%;
+  padding: 2em;
+}
+#edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner .inner-modal label {
+  color: #00cca3;
+}
+#edit-space-singular .task-modal .selected-task-modal .selected-task-modal-inner .inner-modal input {
+  width: 100%;
+  margin: 20px 0;
+}
+#edit-space-singular #tasks-in-space {
+  margin-top: 5em;
+}
+#edit-space-singular #tasks-in-space .main-container {
+  padding: 2em;
+  background: #fff;
+  border-radius: 10px;
+}
+#edit-space-singular #tasks-in-space .main-container .task-container {
+  box-shadow: 0 0 5px 3px #eee;
+  padding: 2em;
+  margin-top: 2em;
+  text-align: center;
+}
+#edit-space-singular #tasks-in-space .main-container .task-container .challenge-data-heading {
+  margin-top: 2em;
+}
+#edit-space-singular #view-spaces .view-form input {
+  margin: 0;
+  width: 30%;
+}
+#edit-space-singular #view-spaces .main-buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+#edit-space-singular #view-spaces .main-buttons-container button {
+  width: 45%;
+}
+#edit-space-singular #view-spaces .challenger-container {
+  padding: 1em;
+  text-align: center;
+  box-shadow: 0 0 5px 3px #eee;
+  margin-top: 1em;
+}
+#edit-space-singular #view-spaces .challenger-container h4 {
+  width: fit-content;
+  display: inline-block;
+  padding-right: 20px;
+}
+#edit-space-singular #view-spaces .challenger-container span {
+  color: #00cca3;
+}
+#edit-space-singular #view-spaces .challenger-container button {
+  margin: 0 auto;
+  width: 30%;
+}
+
+#edit-spaces .space-invites-container h2 {
+  text-align: center;
+}
+#edit-spaces .space-invites-container .incoming-space {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 3px #eee;
+  padding: 2em;
+  width: 50%;
+  margin: 0 auto;
+}
+#edit-spaces .space-invites-container .incoming-space .incoming-space-heading {
+  text-align: center;
+}
+#edit-spaces .space-invites-container .incoming-space .incoming-space-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+#edit-spaces .space-invites-container .incoming-space .incoming-space-buttons button {
+  display: inline-block;
+  width: 45%;
+}
+#edit-spaces .main-container {
+  padding: 2em;
+  margin-top: 2em;
+  text-align: center;
+}
+#edit-spaces .main-container .space-container {
+  box-shadow: 0 0 5px 3px #eee;
+  padding: 2em;
+  margin: 1em auto 0 auto;
+  width: 50%;
+  text-align: center;
+}
+#edit-spaces .main-container .space-container a {
+  padding: 20px 60px;
+  width: fit-content;
+}
+
 #admin {
   background: url("./images/low-poly-3614652_1920.jpg") center no-repeat;
   background-size: cover;
@@ -1168,15 +1278,19 @@ a:hover {
 }
 
 #account {
-  background: #fff;
+  background: url("./images/geometry-2342115_1920.jpg") center no-repeat;
+  background-size: cover;
   display: block;
+  z-index: 99;
+}
+#account .main-container {
+  height: 100%;
 }
 #account #side-menu {
   height: 95%;
   vertical-align: top;
   width: 50%;
   margin: 0 auto;
-  background: #eee;
   display: block;
 }
 #account #side-menu .link-container {
@@ -1187,8 +1301,8 @@ a:hover {
   font-size: 32px;
 }
 #account #main-view {
-  height: 100%;
-  display: inline-block;
+  height: 80%;
+  display: block;
   box-sizing: border-box;
   vertical-align: top;
   width: 100%;
@@ -1200,8 +1314,9 @@ a:hover {
 #account #main-view .main-view-inside .main-view-container {
   justify-content: space-evenly;
   align-items: flex-start;
-  height: 1159px;
-  box-shadow: 0 0 5px 2px #eee;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
 }
 #account #main-view .main-view-inside .main-view-container .user-container-right {
   display: inline-block;
@@ -1230,7 +1345,6 @@ a:hover {
   padding: 0 20px;
   width: 100%;
   margin-top: 50px;
-  min-height: 500px;
   border-radius: 10px;
   padding: 20px;
 }

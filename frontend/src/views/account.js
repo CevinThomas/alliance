@@ -2,18 +2,16 @@ import React from "react";
 
 import Navbar from "../components/nav/nav";
 import checkLoggedIn from "../HOC/checkLoggedIn";
-import AdminSideMenu from "../components/sideMenu/adminSideMenu";
 import MainViewContainer from "../containers/account/mainViewContainer";
 import Layout from "../components/layout";
+import Overlay from "../components/general/overlay";
 
 const Account = () => {
     return (
         <React.Fragment>
-            <Navbar dark/>
+            <Navbar/>
             <div id={"account"}>
-                <div id={"side-menu"}>
-                    <AdminSideMenu/>
-                </div>
+                <Overlay/>
                 <Layout>
                     <div id={"main-view"}>
                         <MainViewContainer/>
