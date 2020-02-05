@@ -113,6 +113,7 @@ const EditOrViewSpace = ( props ) => {
     };
 
     const leaveSpaceHandler = () => {
+        console.log( "YO" );
         Axios( {
             method: "POST",
             url: urlConstants.LEAVE_SPACE,

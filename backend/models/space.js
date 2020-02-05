@@ -257,6 +257,8 @@ class Space {
     static removeSpaceFromTasks = async ( spaceId, userId ) => {
         const db = getDb();
         const userTasksIds = await db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) }, { projection: { tasks: 1 } } );
+        const hasTasks = userTasksIds.hasOwnProperty( "tasks" );
+        if ( hasTasks === false ) return;
         return Promise.all( [
             db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { tasks: { $in: userTasksIds.tasks } } } ),
             db.collection( process.env.CHALLENGECOLLECTION ).deleteOne( { _id: { $in: userTasksIds.tasks } } )
