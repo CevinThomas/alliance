@@ -8,7 +8,7 @@ const mapStateToProps = state => {
 };
 
 const Navbar = ( props ) => {
-    
+
     //TODO: This flickers, will need to be changed the way we check the state. We always get false first render
     let isOnlineElement;
     if ( props.isOnline === true ) {
@@ -40,6 +40,9 @@ const Navbar = ( props ) => {
             </li>
             <li className={"link-item"}>
                 <Link to={"/logout"}>Logout</Link>
+            </li>
+            <li className={"link-item"}>
+                <Link to={"/admin"}>Admin</Link>
             </li>
 
             {isOnlineElement}

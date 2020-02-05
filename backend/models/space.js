@@ -254,6 +254,31 @@ class Space {
         } );
     };
 
+    static removeSpaceFromTasks = async ( spaceId, userId ) => {
+        const db = getDb();
+        const userTasksIds = await db.collection( process.env.USERSCOLLECTION ).findOne( { _id: ObjectId( userId ) }, { projection: { tasks: 1 } } );
+        return Promise.all( [
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { tasks: { $in: userTasksIds.tasks } } } ),
+            db.collection( process.env.CHALLENGECOLLECTION ).deleteOne( { _id: { $in: userTasksIds.tasks } } )
+        ] );
+    };
+
+    static removeSpacesFromTasks = async ( spaceId, userIds ) => {
+        const db = getDb();
+        const userTasksIds = await db.collection( process.env.USERSCOLLECTION ).find( { _id: { $in: userIds } } ).project( { "tasks": 1 } ).toArray();
+        const allTaskIds = [];
+        userTasksIds.forEach( ( userTask ) => {
+            userTask.tasks.forEach( ( tasks ) => {
+                allTaskIds.push( tasks );
+            } );
+        } );
+        return Promise.all( [
+            db.collection( process.env.CHALLENGECOLLECTION ).deleteMany( { _id: { $in: allTaskIds } } ),
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, { $pull: { tasks: { $in: allTaskIds } } } ),
+            db.collection( process.env.USERSCOLLECTION ).updateMany( { _id: { $in: userIds } }, { $pull: { tasks: { $in: allTaskIds } } } )
+        ] );
+    };
+
     static leaveSpace = ( spaceId, userId ) => {
         const db = getDb();
         return Promise.all( [

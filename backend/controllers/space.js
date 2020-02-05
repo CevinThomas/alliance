@@ -78,6 +78,7 @@ exports.updateSpaceCredentials = async ( req, res, next ) => {
     Space.convertIdsToObjectIds( req.body.removeMembers, ( convertedIds ) => {
         Space.removeUsersFromSpace( convertedIds, req.body.spaceId );
         Space.removeSpaceFromUser( convertedIds, req.body.spaceId );
+        const removed = Space.removeSpacesFromTasks( req.body.spaceId, convertedIds );
         res.status( 200 ).send( { updated: true } );
     } );
 };
@@ -96,6 +97,7 @@ exports.deleteSpace = async ( req, res, next ) => {
 };
 
 exports.leaveSpace = async ( req, res, next ) => {
+    await Space.removeSpaceFromTasks( req.body.spaceId, req.user._id );
     const didLeave = await Space.leaveSpace( req.body.spaceId, req.user._id );
     res.status( 200 ).send();
 };
