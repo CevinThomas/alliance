@@ -10,7 +10,8 @@ exports.getFriendInvites = async ( req, res, next ) => {
 
 exports.addFriend = async ( req, res, next ) => {
 
-    User.addFriends( req.user.email, req.body.friend );
+    const friendsResponse = await User.addFriends( req.user.email, req.body.friend );
+    console.log( friendsResponse );
 
     res.status( 200 ).send( "Friends added" );
 };
@@ -23,6 +24,7 @@ exports.searchForFriends = async ( req, res ) => {
     const searchQuery = req.body.search;
     const allUsersInDb = await User.getAllUsers();
     const usersToSuggest = allUsersInDb.filter( ( user ) => {
+        if ( user.email === req.user.email ) return;
         if ( user.email.includes( searchQuery ) ) {
             return user;
         }
@@ -31,7 +33,11 @@ exports.searchForFriends = async ( req, res ) => {
         message: "We found no users",
         success: false
     } );
-    res.status( 200 ).send( usersToSuggest );
+    const user = {
+        id: req.user._id,
+        email: req.user.email
+    };
+    res.status( 200 ).send( { users: usersToSuggest, user: user } );
 };
 
 exports.removeFriend = async ( req, res, next ) => {

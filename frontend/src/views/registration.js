@@ -2,7 +2,6 @@ import React from "react";
 import LeftColumn from "../containers/registration/leftColumn";
 import RightColumn from "../containers/registration/rightColumn";
 import Navbar from "../components/nav/nav";
-import checkLoggedIn from "../HOC/checkLoggedIn";
 
 
 const Registration = () => {
@@ -21,4 +20,4 @@ const Registration = () => {
     );
 };
 
-export default checkLoggedIn( Registration );
+export default Registration;

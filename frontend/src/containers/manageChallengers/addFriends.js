@@ -14,6 +14,8 @@ const AddFriends = ( props ) => {
     const refAddFriend = useRef( null );
     const [ friendsSearchResponse, setFriendsSearchResponse ] = useState( "" );
     const [ addedFriends, setAddedFriends ] = useState( [] );
+    const [ userId, setUserId ] = useState( "" );
+    const [ user, setUser ] = useState( "" );
 
     //TODO: Change URL to constant
     const addFriendRequest = ( friend ) => {
@@ -37,7 +39,10 @@ const AddFriends = ( props ) => {
                 search: refSearchButton.current.value
             }
         } ).then( ( r ) => {
-            setFriendsSearchResponse( r.data );
+            console.log( r );
+            if ( r.data.success === false ) return setFriendsSearchResponse( r.data );
+            setFriendsSearchResponse( r.data.users );
+            setUser( r.data.user );
         } ).catch( e => console.log( e ) );
     };
 
@@ -54,6 +59,26 @@ const AddFriends = ( props ) => {
         );
     } else if ( friendsSearchResponse.length !== 0 ) {
         searchFriendsUI = friendsSearchResponse.map( ( friend ) => {
+            if ( friend.friends.includes( user.id ) ) {
+                return (
+                    <div key={friend._id}>
+                        <h3>{friend.name}</h3>
+                        <h4>Already Friends!</h4>
+                        <p>{friend.email}</p>
+                    </div>
+                );
+            }
+            ;
+            if ( friend.incomingFriendRequest.includes( user.email ) ) {
+                return (
+                    <div key={friend._id}>
+                        <h3>{friend.name}</h3>
+                        <h4>Friend Request Pending!</h4>
+                        <p>{friend.email}</p>
+                    </div>
+                );
+            }
+            ;
             return (
                 <div key={friend._id}>
                     <h3>{friend.name}</h3>

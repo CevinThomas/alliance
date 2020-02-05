@@ -71,7 +71,14 @@ class User {
 
     static getAllUsers = () => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).find( {}, { projection: { name: 1, email: 1 } } ).toArray();
+        return db.collection( process.env.USERSCOLLECTION ).find( {}, {
+            projection: {
+                name: 1,
+                email: 1,
+                friends: 1,
+                incomingFriendRequest: 1
+            }
+        } ).toArray();
     };
 
     static removeFriend = async ( friendId, userId ) => {
@@ -116,11 +123,13 @@ class User {
         } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
-    static addFriends = ( userEmail, friend ) => {
+    static addFriends = async ( userEmail, friend ) => {
         //TODO: Check if the user already has sent an invite to the requested friend.
         const db = getDb();
-
-        //return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
+        //TODO: CHECK IF userEmail is in friends incomingFriendRequests
+        const friendStats = await db.collection( process.env.USERSCOLLECTION ).findOne( { email: friend } );
+        if ( friendStats.incomingFriendRequest.includes( userEmail ) ) return;
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { email: friend }, { $push: { incomingFriendRequest: userEmail } } ).then( r => r ).catch( e => e );
     };
 
     //TODO: Check to see if the execution was completed, return value to conditionally send response to user

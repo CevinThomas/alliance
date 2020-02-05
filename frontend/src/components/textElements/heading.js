@@ -29,7 +29,6 @@ const Heading = ( props ) => {
 };
 
 Heading.propTypes = {
-    title: PropTypes.string.isRequired,
     class: PropTypes.string,
     id: PropTypes.string
 };
