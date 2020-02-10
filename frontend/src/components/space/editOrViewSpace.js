@@ -80,6 +80,7 @@ const EditOrViewSpace = ( props ) => {
             method: "GET",
             url: GET_USER_CHALLENGES
         } ).then( ( r ) => {
+            console.log( r.data );
             setTasksInSpace( r.data );
         } ).catch( e => console.log( e ) );
     }, [] );
@@ -113,7 +114,6 @@ const EditOrViewSpace = ( props ) => {
     };
 
     const leaveSpaceHandler = () => {
-        console.log( "YO" );
         Axios( {
             method: "POST",
             url: urlConstants.LEAVE_SPACE,
@@ -190,6 +190,13 @@ const EditOrViewSpace = ( props ) => {
         } );
     };
 
+    const changeMainCheckedHandler = ( { target } ) => {
+        setSelectedTaskToEdit( {
+            ...selectedTaskToEdit,
+            completed: target.checked
+        } );
+    };
+
     const changeCheckedHandler = ( { target } ) => {
         setSelectedTaskChallengersData( {
             ...selectedTaskChallengersData,
@@ -205,11 +212,10 @@ const EditOrViewSpace = ( props ) => {
             url: UPDATE_TASK,
             data: {
                 selectedTaskToEdit,
-                originalChallengeName
+                idToEdit: selectedTaskChallengersData._id
             }
         } ).then( ( response ) => {
             setShowUpdatedTaskModal( true );
-            console.log( response );
         } ).catch( e => console.log( e ) );
     };
 
@@ -245,7 +251,10 @@ const EditOrViewSpace = ( props ) => {
                         <label htmlFor="name">Goal</label>
                         <Input onchange={handleTaskEditInput} type="text" value={selectedTaskToEdit.goal}
                                name={"goal"}/>
+                        <input type={"checkbox"} value={selectedTaskToEdit.completed}
+                               checked={selectedTaskToEdit.completed} onChange={changeMainCheckedHandler}/>
                         {selectedTaskToEdit.challengeData.length !== 0 ? <div>
+                            <h3>Secondary Tasks</h3>
                             <Input onchange={handleChallengeEditInput} type="text"
                                    value={selectedTaskChallengersData.name}
                                    name={"name"}/>
@@ -263,6 +272,7 @@ const EditOrViewSpace = ( props ) => {
             </div>
         );
     }
+
 
     let taskUI;
     if ( tasksInSpace.length !== 0 ) {

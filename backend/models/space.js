@@ -249,7 +249,8 @@ class Space {
         return db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( spaceId ) }, {
             $set: {
                 name: updatedValues.name,
-                description: updatedValues.description
+                description: updatedValues.description,
+                goal: updatedValues.goal
             }
         } );
     };

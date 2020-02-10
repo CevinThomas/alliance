@@ -92,10 +92,12 @@ const FinalFormStep = ( props ) => {
                     chosenSpace: props.chosenSpace,
                     listItems: props.checkListItems,
                 }
-            } ).then( r => props.dispatch( {
-                type: taskConstants.SHOW_THANK_YOU_MODAL,
-                payload: true
-            } ) ).catch( e => console.log( e ) );
+            } ).then( ( r ) => {
+                /* props.dispatch( {
+                     type: taskConstants.SHOW_THANK_YOU_MODAL,
+                     payload: true
+                 } );*/
+            } ).catch( e => console.log( e ) );
         };
 
         let formUI;

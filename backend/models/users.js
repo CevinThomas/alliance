@@ -9,6 +9,7 @@ class User {
     spaces = [];
     incomingFriendRequest = [];
     incomingSpaceInvites = [];
+    completedTasks = [];
 
     constructor( name, email, password ) {
         this.name = name;

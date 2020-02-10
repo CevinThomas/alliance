@@ -5,22 +5,22 @@ ObjectId = require( "mongodb" ).ObjectID;
 
 class Challenge {
 
-    constructor( name, type, host, description, goal, chosenSpace, challengeData, endDate ) {
+    challengeData = [];
+
+    constructor( name, type, host, description, goal, chosenSpace, endDate ) {
         this.name = name;
         this.type = type;
         this.host = host;
         this.description = description;
         this.goal = goal;
         this.chosenSpace = chosenSpace;
-        this.challengeData = challengeData;
         this.startDate = Date.now();
         this.endDate = endDate;
         this.completed = false;
 
     }
 
-    static updateTask = async ( task, originalChallengeName ) => {
-        console.log( task );
+    static updateTask = async ( task, idToEdit ) => {
         const db = getDb();
         let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
         bulk.find( { _id: ObjectId( task._id ) } ).update( {
@@ -32,7 +32,7 @@ class Challenge {
         } );
         bulk.find( {
             _id: ObjectId( task._id ),
-            "challengeData.name": originalChallengeName
+            "challengeData._id": ObjectId( task.challengeToEdit._id )
         }, ).update( {
             $set: {
                 "challengeData.$.name": task.challengeToEdit.name,
@@ -89,6 +89,14 @@ class Challenge {
     static findTaskById = ( id, callback ) => {
         const db = getDb();
         db.collection( process.env.CHALLENGECOLLECTION ).findOne( { _id: id } ).then( r => callback( r ) ).catch( e => callback( e ) );
+    };
+
+    static insertSecondaryTasks = ( secondaryTasks, createdChallengeId ) => {
+        secondaryTasks.forEach( ( task ) => {
+            task._id = new ObjectId();
+        } );
+        const db = getDb();
+        db.collection( process.env.CHALLENGECOLLECTION ).update( { _id: createdChallengeId }, { $push: { challengeData: { $each: secondaryTasks } } } );
     };
 
     save = ( callback ) => {
