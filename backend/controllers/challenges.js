@@ -22,9 +22,8 @@ exports.getUserChallenges = async ( req, res, next ) => {
 
 exports.updateChallenge = async ( req, res, next ) => {
     const updated = await Challenge.updateTask( req.body.selectedTaskToEdit, req.body.idToEdit );
-    if ( req.body.selectedTaskToEdit.completed === true ) {
-        const added = Challenge.addTaskToCompletedArray( req.body.selectedTaskToEdit, req.user._id );
-    }
+    const secondaryAdded = Challenge.addSecondaryTaskToCompletedArray( req.body.selectedTaskToEdit.challengeToEdit, req.user._id );
+    const added = Challenge.addTaskToCompletedArray( req.body.selectedTaskToEdit, req.user._id );
     //TODO: Check if updated result is OK
     res.status( 200 ).send( req.body.selectedTaskToEdit );
 };

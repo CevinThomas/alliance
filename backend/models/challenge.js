@@ -35,15 +35,50 @@ class Challenge {
             }
         } );
 
-        if ( taskAlreadyInArray[0] === true ) {
-            return;
-        }
+        if ( task.completed === true ) {
+            if ( taskAlreadyInArray[0] === true ) {
+                return;
+            }
 
-        return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { completedTasks: task } } );
+            return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { completedTasks: task } } );
+        } else {
+            console.log( task._id );
+            if ( taskAlreadyInArray[0] === true ) {
+                return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { completedTasks: { _id: task._id } } } );
+            }
+        }
+    };
+
+    static addSecondaryTaskToCompletedArray = async ( task, userId ) => {
+        const db = getDb();
+        const user = await db.collection( process.env.USERSCOLLECTION ).findOne( {
+            _id: ObjectId( userId )
+        } );
+        const taskAlreadyInArray = user.completedSecondaryTasks.map( ( userTask ) => {
+            if ( userTask._id === task._id ) {
+                return true;
+            }
+
+        } );
+
+        if ( task.completed === true ) {
+            if ( taskAlreadyInArray[0] === true ) {
+                return;
+            }
+
+            return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { completedSecondaryTasks: task } } );
+        } else {
+            if ( taskAlreadyInArray[0] === true ) {
+                return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { completedSecondaryTasks: { _id: task._id } } } );
+            }
+        }
     };
 
     static updateTask = async ( task, idToEdit ) => {
         const db = getDb();
+        if ( task.completed === true ) {
+            task.challengeToEdit.completed = true;
+        }
         let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
         bulk.find( { _id: ObjectId( task._id ) } ).update( {
             $set: {
