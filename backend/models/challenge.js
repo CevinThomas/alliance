@@ -74,13 +74,9 @@ class Challenge {
         }
     };
 
-    static updateTask = async ( task, idToEdit ) => {
+    static updateTask = async ( task ) => {
         const db = getDb();
-        if ( task.completed === true ) {
-            task.challengeToEdit.completed = true;
-        }
-        let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
-        bulk.find( { _id: ObjectId( task._id ) } ).update( {
+        return db.collection( process.env.CHALLENGECOLLECTION ).updateOne( { _id: ObjectId( task._id ) } ).update( {
             $set: {
                 name: task.name,
                 description: task.description,
@@ -88,18 +84,6 @@ class Challenge {
                 completed: task.completed
             }
         } );
-        bulk.find( {
-            _id: ObjectId( task._id ),
-            "challengeData._id": ObjectId( task.challengeToEdit._id )
-        }, ).update( {
-            $set: {
-                "challengeData.$.name": task.challengeToEdit.name,
-                "challengeData.$.description": task.challengeToEdit.description,
-                "challengeData.$.completed": task.challengeToEdit.completed
-            }
-        } );
-        const executed = await bulk.execute();
-        return executed;
     };
 
     static getAllTasksFromUser = ( user ) => {
@@ -144,17 +128,18 @@ class Challenge {
         } );
     };
 
+    static deleteTask = async ( task, userId ) => {
+        const db = getDb();
+        return Promise.all( [
+            db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { tasks: ObjectId( task._id ) } } ),
+            db.collection( process.env.CHALLENGECOLLECTION ).deleteOne( { _id: ObjectId( task._id ) } ),
+            db.collection( process.env.SPACECOLLECTION ).updateOne( { _id: ObjectId( task.chosenSpace ) }, { $pull: { tasks: ObjectId( task._id ) } } )
+        ] );
+    };
+
     static findTaskById = ( id, callback ) => {
         const db = getDb();
         db.collection( process.env.CHALLENGECOLLECTION ).findOne( { _id: id } ).then( r => callback( r ) ).catch( e => callback( e ) );
-    };
-
-    static insertSecondaryTasks = ( secondaryTasks, createdChallengeId ) => {
-        secondaryTasks.forEach( ( task ) => {
-            task._id = new ObjectId();
-        } );
-        const db = getDb();
-        db.collection( process.env.CHALLENGECOLLECTION ).update( { _id: createdChallengeId }, { $push: { challengeData: { $each: secondaryTasks } } } );
     };
 
     save = ( callback ) => {

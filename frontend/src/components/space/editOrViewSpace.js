@@ -175,14 +175,6 @@ const EditOrViewSpace = ( props ) => {
         setSelectedTaskToEdit( challengeWithoutArray );
     };
 
-
-    const handleChallengeEditInput = ( { target } ) => {
-        setSelectedTaskChallengersData( {
-            ...selectedTaskChallengersData,
-            [target.name]: target.value
-        } );
-    };
-
     const handleTaskEditInput = ( { target } ) => {
         setSelectedTaskToEdit( {
             ...selectedTaskToEdit,
@@ -197,14 +189,7 @@ const EditOrViewSpace = ( props ) => {
         } );
     };
 
-    const changeCheckedHandler = ( { target } ) => {
-        setSelectedTaskChallengersData( {
-            ...selectedTaskChallengersData,
-            completed: target.checked
-        } );
-    };
-
-    const updateChallengeHandler = () => {
+    const updateChallengeHandler = ( toBeDeleted ) => {
         selectedTaskToEdit.challengeData.splice( 0, 1 );
         selectedTaskToEdit.challengeToEdit = selectedTaskChallengersData;
         Axios( {
@@ -212,7 +197,7 @@ const EditOrViewSpace = ( props ) => {
             url: UPDATE_TASK,
             data: {
                 selectedTaskToEdit,
-                idToEdit: selectedTaskChallengersData._id
+                toBeDeleted
             }
         } ).then( ( response ) => {
             setShowUpdatedTaskModal( true );
@@ -253,20 +238,8 @@ const EditOrViewSpace = ( props ) => {
                                name={"goal"}/>
                         <input type={"checkbox"} value={selectedTaskToEdit.completed}
                                checked={selectedTaskToEdit.completed} onChange={changeMainCheckedHandler}/>
-                        {selectedTaskToEdit.challengeData.length !== 0 ? <div>
-                            <h3>Secondary Tasks</h3>
-                            <Input onchange={handleChallengeEditInput} type="text"
-                                   value={selectedTaskChallengersData.name}
-                                   name={"name"}/>
-                            <Input onchange={handleChallengeEditInput} type="text"
-                                   value={selectedTaskChallengersData.description}
-                                   name={"description"}/>
-                            <input type="checkbox" checked={selectedTaskChallengersData.completed}
-                                   value={selectedTaskChallengersData.completed}
-                                   onChange={changeCheckedHandler}/>
-                        </div> : null}
-
-                        <Button title={"Update Challenge"} type={"h2"} onclick={updateChallengeHandler}/>
+                        <button onClick={() => updateChallengeHandler( true )}>Delete Challenge</button>
+                        <Button title={"Update Challenge"} onclick={updateChallengeHandler}/>
                     </div>
                 </div>
             </div>
@@ -284,15 +257,6 @@ const EditOrViewSpace = ( props ) => {
                     <Paragraph title={"Completed: " + task.completed.toString()}/>
 
                     <div>
-                        {task.challengeData.length !== 0 ? task.challengeData.map( ( task ) => {
-                            return (
-                                <div>
-                                    <h3 className={"challenge-data-heading"}>Challenge Data</h3>
-                                    <Paragraph title={task.name}/>
-                                    <Paragraph title={task.description}/>
-                                </div>
-                            );
-                        } ) : null}
                         <Button title={"Edit task"} onclick={() => handleEditTask( task._id )}/>
                     </div>
                 </div>
@@ -317,6 +281,7 @@ const EditOrViewSpace = ( props ) => {
                         </div>
                         <div className={"main-container"}>
                             <Heading title={"Members"} type={"h2"}/>
+                            <button>Add Members</button>
                             {usersInSpace.length !== 0 ? usersInSpace.map( ( challenger ) => {
                                 return (
                                     <div className={"challenger-container"} key={challenger.email}>

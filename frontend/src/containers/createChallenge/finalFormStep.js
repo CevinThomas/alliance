@@ -90,13 +90,12 @@ const FinalFormStep = ( props ) => {
                     endDate: props.endDateTimeStamp,
                     type: props.chosenTask,
                     chosenSpace: props.chosenSpace,
-                    listItems: props.checkListItems,
                 }
             } ).then( ( r ) => {
-                /* props.dispatch( {
-                     type: taskConstants.SHOW_THANK_YOU_MODAL,
-                     payload: true
-                 } );*/
+                props.dispatch( {
+                    type: taskConstants.SHOW_THANK_YOU_MODAL,
+                    payload: true
+                } );
             } ).catch( e => console.log( e ) );
         };
 
@@ -118,7 +117,6 @@ const FinalFormStep = ( props ) => {
                     </div>
                     <div className={"button-container"}>
                         <Button onclick={handleCreateClick} title={"Create Challenge"}/>
-                        <Button id={"checkbox"} onclick={showSpecificModal} title={"Add Checkbox"}/>
                     </div>
 
                 </div>
