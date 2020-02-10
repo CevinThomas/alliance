@@ -20,6 +20,28 @@ class Challenge {
 
     }
 
+    static addTaskToCompletedArray = async ( task, userId ) => {
+        const db = getDb();
+
+        task.challengeToEdit = "";
+
+        const user = await db.collection( process.env.USERSCOLLECTION ).findOne( {
+            _id: ObjectId( userId )
+        } );
+
+        const taskAlreadyInArray = user.completedTasks.map( ( userTask ) => {
+            if ( userTask._id === task._id ) {
+                return true;
+            }
+        } );
+
+        if ( taskAlreadyInArray[0] === true ) {
+            return;
+        }
+
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $push: { completedTasks: task } } );
+    };
+
     static updateTask = async ( task, idToEdit ) => {
         const db = getDb();
         let bulk = db.collection( process.env.CHALLENGECOLLECTION ).initializeUnorderedBulkOp();
@@ -27,7 +49,8 @@ class Challenge {
             $set: {
                 name: task.name,
                 description: task.description,
-                goal: task.goal
+                goal: task.goal,
+                completed: task.completed
             }
         } );
         bulk.find( {
