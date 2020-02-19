@@ -3,7 +3,7 @@ import queryString from "query-string";
 import Heading from "../../components/textElements/heading";
 import Axios from "axios";
 import * as urlConstants from "../../constants/urls";
-import {GET_USER_CHALLENGES, UPDATE_TASK} from "../../constants/urls";
+import {GET_CURRENT_FRIENDS, GET_USER_CHALLENGES, UPDATE_TASK} from "../../constants/urls";
 import getToken from "../../helperMethods/getToken";
 import Paragraph from "../../components/textElements/paragraph";
 import {withRouter} from "react-router-dom";
@@ -12,9 +12,10 @@ import Button from "../general/button";
 import {connect} from "react-redux";
 import * as taskConstants from "../../constants/tasks";
 import ThankYouModal from "../modals/thankYouModal";
-import {isLoading} from "../../redux/actions";
+import {currentFriends, isLoading} from "../../redux/actions";
 import Loader from "../loader/loader";
 import Overlay from "../general/overlay";
+import InviteFriendsModal from "../modals/inviteFriendsModal";
 
 const mapStateToProps = state => {
     return { showThankYouModal: state.showThankYouModal, loading: state.isLoading };
@@ -38,7 +39,7 @@ const EditOrViewSpace = ( props ) => {
     const [ selectedTaskChallengersData, setSelectedTaskChallengersData ] = useState( "" );
     const [ originalChallengeName, setOriginalChallengeName ] = useState( "" );
     const [ showUpdatedTaskModal, setShowUpdatedTaskModal ] = useState( false );
-    const [ ownerOfSpace, setOwnerOfSpace ] = useState( "" );
+    const [ showInviteFriends, setShowInviteFriends ] = useState( false );
 
 
     useEffect( () => {
@@ -84,6 +85,18 @@ const EditOrViewSpace = ( props ) => {
             setTasksInSpace( r.data );
         } ).catch( e => console.log( e ) );
     }, [] );
+
+    const retrieveFriendsToDisplay = () => {
+        Axios( {
+            method: "GET",
+            url: GET_CURRENT_FRIENDS,
+        } ).then( ( r ) => {
+            if ( r.data.length !== 0 ) {
+                props.dispatch( currentFriends( r.data ) );
+            }
+            setShowInviteFriends( true );
+        } ).catch( e => console.log( e ) );
+    };
 
     const submitUpdatedChanges = () => {
         Axios( {
@@ -281,7 +294,7 @@ const EditOrViewSpace = ( props ) => {
                         </div>
                         <div className={"main-container"}>
                             <Heading title={"Members"} type={"h2"}/>
-                            <button>Add Members</button>
+                            <button onClick={retrieveFriendsToDisplay}>Add Members</button>
                             {usersInSpace.length !== 0 ? usersInSpace.map( ( challenger ) => {
                                 return (
                                     <div className={"challenger-container"} key={challenger.email}>
@@ -325,6 +338,7 @@ const EditOrViewSpace = ( props ) => {
     return (
         <div id={"edit-space-singular"}>
             {props.loading ? <Loader/> : null}
+            {showInviteFriends ? <InviteFriendsModal spaceId={selectedSpaceId}/> : null}
             {viewUI}
             <div className={"full-width-container"} id={"tasks-in-space"}>
                 <div className={"main-container"}>

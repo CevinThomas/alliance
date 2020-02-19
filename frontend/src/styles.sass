@@ -294,6 +294,24 @@ a:hover
   100%
     transform: rotate(359deg)
 
+.invite-friends-modal
+  position: absolute
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  @extend %flexStandard
+
+  .overlay
+    position: fixed
+    z-index: 1
+
+  .friends-modal-inner
+    background: white
+    height: 50%
+    width: 50%
+    z-index: 2
+
 
 .navbar-dark
   background: $whiteColor
@@ -925,6 +943,7 @@ a:hover
         text-align: center
 
 #edit-space-singular
+  position: relative
 
   .task-modal
     .selected-task-modal

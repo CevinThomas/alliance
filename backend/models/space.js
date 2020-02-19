@@ -22,7 +22,11 @@ class Space {
 
     static getSpaceInformationFromInvite = async spaceId => {
         const db = getDb();
-        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: spaceId } } ).project( {
+        let objectIdArray = [];
+        spaceId.map( id => {
+            objectIdArray.push( ObjectId( id ) );
+        } );
+        return await db.collection( process.env.SPACECOLLECTION ).find( { _id: { $in: objectIdArray } } ).project( {
             "name": 1,
             "description": 1
         } ).toArray();
@@ -230,7 +234,9 @@ class Space {
     //TODO: Not optimal, check other solution for $in
     static inviteUsersToSpace = async ( spaceId, friends, callback ) => {
         const db = getDb();
-        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: spaceId } } ).then( r => callback( r ) ).catch( e => callback( e ) );
+        console.log( "SPACEID", spaceId );
+        console.log( "FRIENDS", friends );
+        db.collection( process.env.USERSCOLLECTION ).updateMany( { email: { $in: friends } }, { $push: { incomingSpaceInvites: ObjectId( spaceId ) } } ).then( r => callback( r ) ).catch( e => callback( e ) );
     };
 
     static isUserInSpace = ( spaceId, userId ) => {
@@ -315,7 +321,7 @@ class Space {
 
     static declinedSpaceInvite = ( userId, spaceId ) => {
         const db = getDb();
-        return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: ObjectId( userId ) }, { $pull: { incomingSpaceInvites: spaceId } } );
+        return db.collection( process.env.USERSCOLLECTION ).updateOne( { _id: userId }, { $pull: { incomingSpaceInvites: spaceId } } );
     };
 
     static removeUsersFromSpace = async ( usersId, spaceId ) => {

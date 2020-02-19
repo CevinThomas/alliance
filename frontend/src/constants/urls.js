@@ -20,3 +20,4 @@ export const GET_SPACE_WITH_LOOKUP = address + "/get-space-with-lookup";
 export const GET_USER_WITH_TASK_LOOKUP = address + "/get-user-task-lookup";
 export const GET_USER_CHALLENGES = address + "/get-user-tasks";
 export const UPDATE_TASK = address + "/update-task";
+export const ADD_USERS_TO_SPACE = address + "/add-users-to-space";

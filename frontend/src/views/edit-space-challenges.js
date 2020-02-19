@@ -73,7 +73,7 @@ const EditSpaceChallenges = ( props ) => {
                 </div>
                 <div className={"incoming-space-buttons"}>
                     <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Accept"}/>
-                    <Button onclick={() => handleAcceptOrDecline( invite._id, true )} title={"Decline"}/>
+                    <Button onclick={() => handleAcceptOrDecline( invite._id, false )} title={"Decline"}/>
                 </div>
             </div>
         );

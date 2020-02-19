@@ -130,22 +130,24 @@ exports.acceptSpaceInvite = async ( req, res, next ) => {
         } );
     } else {
         const space = await Space.findSpacePerId( req.body.id );
-        User.findUserInDatabase( "email", req.user.email, ( user ) => {
-            const decline = Space.declinedSpaceInvite( user.id, space.id );
-            res.status( 200 ).send();
-        } );
+        const decline = await Space.declinedSpaceInvite( req.user._id, space._id );
+        res.status( 200 ).send();
     }
 };
 
 
 exports.addUsersToSpace = async ( req, res, next ) => {
     const token = getToken( req );
-    const usersToAdd = Space.validateUsersEmail( req.body.membersToInvite );
-    User.findMultipleUsersInDatabase( "email", usersToAdd, ( users ) => {
-        Space.inviteUsersToSpace( req.body.spaceID, users, ( response ) => {
 
+    const usersToAdd = Space.validateUsersEmail( req.body.membersToInvite );
+
+    User.spaceFindUsers( usersToAdd, ( friends ) => {
+        Space.inviteUsersToSpace( req.body.spaceID, usersToAdd, ( response ) => {
+
+            //TODO: Some type of error checking
         } );
     } );
+
 
     return !token ? res.status( 200 ).send( "Please Login first" ) : res.status( 200 ).send( "Adding Users" );
 
